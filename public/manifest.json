@@ -1,0 +1,9 @@
+{
+  "short_name": "YCR",
+  "name": "Youtube Clone React",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

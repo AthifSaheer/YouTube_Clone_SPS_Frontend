@@ -1,0 +1,32 @@
+.channelSearchDiv {
+    display: flex;
+    padding:30px;
+}
+
+.channelSearchDiv .channelName {
+    margin-left: 130px;
+    margin-top: 40px;
+}
+
+.channelSearchDiv .subscribeButtonDiv {
+    margin-left: 180px;
+    margin-top: 47px
+}
+
+.subscribeButtonDiv .subscribeBtn {
+    color: rgb(255, 255, 255);
+    background-color: red;
+    border:2px solid red;
+    padding:5px;
+    font-size:20px;
+    border-radius:3px 
+}
+
+.subscribeButtonDiv .subscribedBtn {
+    color: rgb(129, 129, 129);
+    background-color: rgb(231, 231, 231);
+    border:2px solid rgb(231, 231, 231);
+    padding:5px;
+    font-size:20px;
+    border-radius:3px 
+}

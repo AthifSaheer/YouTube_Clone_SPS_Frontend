@@ -1,0 +1,29 @@
+.videoSearchDiv {
+    display: flex;
+}
+
+.videoSearchDiv .thumbnail {
+    margin-left: 100px;
+}
+
+.thumbnail img {
+    width: 300px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    height: 169px;
+}
+
+.channelWarpper {
+    display: flex;
+}
+.videoDetails {
+    padding: 13px;
+}
+.videoDetails .channelWarpper {
+    padding:10px 0 10px 0;
+}
+.channelWarpper .channelName{
+    font-size: 13px;
+    margin-top: 8px;
+    margin-left: 10px;
+}

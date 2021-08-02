@@ -1,0 +1,41 @@
+.video_card {
+    width:300px;
+    margin-top: 40px;
+    height: 265px;
+}
+.video_card__image {
+    min-height: 160px;
+    max-height: 160px;
+}
+.video_card__image > img {
+    width: 100%;
+    min-height: 160px;
+    max-height:160px
+}
+.video_card__content {
+    display: flex;
+}
+.video_card__channelpicture  > span{
+    font-size:35px;
+    padding:0px 15px 0px 0px;
+}
+.video_card__title {
+    display: inline-block;
+    display: block;
+    color: #202020;
+    font-weight: 600;
+}
+.video_card__channelname {
+    display: block;
+    color: #838383;
+    font-size:12px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+.video_card__view ,.video_card__date{
+    display: inline-block;
+    color: #838383;
+    font-size:15px;
+    margin-top: 5px;
+    font-weight: 600;
+}
