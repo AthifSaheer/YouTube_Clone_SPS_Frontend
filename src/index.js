@@ -14,12 +14,16 @@ import ChannelView from './components/User/ChannelView/ChannelView';
 import Contents from './components/Studio/Contents/Contents'
 import UploadVideo from './components/Studio/Contents/UploadVideo'
 import CreateChannel from './components/Studio/Contents/CreateChannel'
+import StudioDashboard from './components/Studio/Dashboard/Dashboard'
+import StudioChannels from './components/Studio/Channels/Channels'
 // ADMIN ------
 import UserList from './components/Admin/UserLists/UserList'
 import AdminLogin from './components/Admin/Login/Login'
-import Dashboard from './components/Admin/Dashboard/Dashboard'
 import Videos from './components/Admin/Videos/Videos'
+import AdminDashboard from './components/Admin/Dashboard/Dashboard'
+import AdminChannels from './components/Admin/Channels/Channels'
 // import AdminSignup from './components/Admin/Signup/Signup'
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -31,18 +35,21 @@ ReactDOM.render(
       <Route path='/signup' component={Signup} />
       <Route path='/watch/video/:videoID' exact component={WatchVideo} />
       <Route path='/search/keyword/:searchKeyword' component={Search} />
-      <Route path='/channel/:channelName' component={ChannelView} />
+      <Route path='/channel/:channelID' component={ChannelView} />
 
       {/* STUDIO */}
+      <Route path='/studio/dashboard' component={StudioDashboard} />
       <Route path='/studio/contents' component={Contents} />
+      <Route path='/studio/my/channels' component={StudioChannels} />
       <Route path='/studio/create/channel' component={CreateChannel} />
       <Route path='/studio/upload/video' component={UploadVideo} />
 
       {/* ADMIN */}
       <Route path='/admin/login' component={AdminLogin} />
       {/* <Route path='/admin/signup' component={AdminSignup} /> */}
-      <Route path='/admin/dashboard' component={Dashboard} />
+      <Route path='/admin/dashboard' component={AdminDashboard} />
       <Route path='/admin/users' component={UserList} />
+      <Route path='/admin/channels' component={AdminChannels} />
       <Route path='/admin/videos' component={Videos} />
     </BrowserRouter>
 

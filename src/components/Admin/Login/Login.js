@@ -15,6 +15,8 @@ function Login() {
 
     const [invalidUnamePwrd, setInvalidUnamePwrd] = useState(false)
     
+    const [apiError, setApiError] = useState(false);
+
     const [token, setToken] = useCookies(['admintoken'])
     const history = useHistory()
 
@@ -41,15 +43,16 @@ function Login() {
             console.log('uname  and pwrd is true')
             console.log('username', username)
             console.log('password', password)
-            APIService.AdminLogin({username, password})
+            APIService.AdminLoginAPI({username, password})
             .then(resp => {
                 if (resp.token == undefined) {
+                    console.log(resp.token)
                     setInvalidUnamePwrd(true)
                 } else {
                     setToken('admintoken', resp.token)
                 }
             })
-            .catch(error => alert(error))
+            .catch(error => setApiError(true))
         }
     }
 
@@ -67,9 +70,14 @@ function Login() {
                 <div>
                     <div className="container">
                         <h1 className="login-text">Log In</h1>
+                        
+                        {apiError?
+                            <h5 className="error-text">Error Accrued</h5>
+                        :
+                            null
+                        }
                                             
                         <div className="login-div">
-                            {/* Username */}
 
                             <input type="text" className="form-control username-input" placeholder="Enter your username"
                             value={username} onChange={e => setUsername(e.target.value)}

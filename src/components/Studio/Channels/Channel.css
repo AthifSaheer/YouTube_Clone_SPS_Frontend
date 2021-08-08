@@ -1,0 +1,59 @@
+.sidebar-space-div {
+    width:233px;
+}
+.studio-channel-main-div {
+    color: gray;
+    padding: 18px 0 0 0px;
+    width: 1100px;
+    max-width: 100%;
+    /* overflow: hidden; */
+    display: flex;
+}
+.studio-create-channel-card {
+    /* box-shadow: 2px 2px 2px 2px rgba(221, 221, 221, 0.541); */
+    width: 200px;
+    height: 85px;
+    display: flex;
+    padding: 28px 0 0 9px;
+    margin-right: 20px;
+}
+.create-channel-icon .material-icons, .create-channel-card-text {
+    color: #007bff;
+}
+.studio-channel-card{
+    box-shadow: 2px 2px 2px 2px rgba(221, 221, 221, 0.541);
+    width: 290px;
+    height: 85px;
+    display: flex;
+    padding: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    /* flex-wrap: wrap;  */
+}
+.studio-channel-card:hover {
+    background: rgba(243, 243, 243, 0.753);
+}
+.channel-card-img img {
+    border-radius: 50%;
+    width: 60px;
+}
+.channel-card-text {
+    padding: 9px 0 0 18px;
+}
+.channel-card-text p {
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+    white-space: nowrap;
+    width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.channel-card-text span {
+    color: rgb(129, 129, 129);
+    font-size: 14px;
+}
+.channel-card-tick-icon .material-icons {
+    float: right;
+    margin-left: 60px;
+    color: rgb(29, 127, 255);
+}

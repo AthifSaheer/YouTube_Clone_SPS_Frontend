@@ -3,29 +3,40 @@ import "./CreateChannel.css";
 import Cookies from 'js-cookie';
 import Header from '../../User/Header/Header'
 import APIService from '../../User/API/APIService'
+import { useHistory } from 'react-router-dom'
+import {useCookies} from 'react-cookie';
 
 const CreateChannel = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [apiError, setApiError] = useState(true);
   
-  const token = Cookies.get('mytoken')  
+  const tokenUser = Cookies.get('mytoken')  
   const [channelName, setChannelName] = useState('')
   const [logo, setLogo] = useState()
   const [banner, setBanner] = useState()
   const [about, setAbout] = useState('')
 
+  const [channelCookie, setChannelCookie] = useCookies()
+
+  // SESSION HANDLE 
+  const [token, setToken] = useCookies(['mytoken'])
+  const history = useHistory()
+
   const submit = () => {
-    console.log(logo);
     const uploadData = new FormData();
-    uploadData.append('token', token);
+    uploadData.append('token', tokenUser);
     uploadData.append('channel_name', channelName);
     uploadData.append('logo', logo, logo.name);
     uploadData.append('banner', banner, banner.name);
     uploadData.append('about', about);
 
     APIService.CreateChannel(uploadData)
-    .then(resp => console.log(resp))
-    .catch(error => alert(error))
+    .then(res => {
+      setChannelCookie("channelCookie", res.data.id)
+      history.push('/studio/my/channels')
+    })
+    .catch(error => setApiError(false))
   };
 
   //form submission handler
@@ -64,15 +75,27 @@ const CreateChannel = () => {
     }
   }, [formErrors]);
 
+  // SESSION HANDLE -----
+  useEffect(() => {
+    if(!token['mytoken']) {
+      history.push('/login')
+  }
+  }, [token]);
+
   return (
     <div>
       <Header />
       <div className="container">
         <h1>Create Channel</h1>
-        {Object.keys(formErrors).length === 0 && isSubmitting && (
+        {Object.keys(formErrors).length === 0 && isSubmitting && apiError && (
           <span className="success-msg">Channel Created</span>
-        )}
-        <form onSubmit={handleSubmit} noValidate enctype="multipart/form-data" method="post">
+          )}
+        {apiError?
+          null
+        :
+        <span className="error-msg">Error Accrued</span>
+        }
+        <form onSubmit={handleSubmit} noValidate encType="multipart/form-data" method="post">
           
 
           <div className="form-row">

@@ -6,8 +6,10 @@ import { useHistory } from 'react-router-dom'
 import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import 'reactjs-popup/dist/index.css';
-import '../Popup/Popup.css'
+// import '../Popup/Popup.css'
 import './Header.css'
+
+import YTStudioLogo from '../../../image/youtube-Studio.png'
 
 const Header = () => {
   const [token, setToken, removeToken] = useCookies(['mytoken'])
@@ -43,10 +45,10 @@ const Header = () => {
       <div className={classes.header}>
         <div className={classes.header__head}>
           <span className="material-icons">menu</span>
-          <Link to='/'>
+          <Link to='/studio/dashboard'>
           <img
             className={classes.header__logo}
-            src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+            src={YTStudioLogo}
             alt="Youtube Logo"
           />
         </Link>
@@ -54,17 +56,11 @@ const Header = () => {
 
         <div className={classes.header__mid}>
           <input placeholder="Search" onChange={searchInput} value={searchKeyword} />
-            {searchKeyword == ''?
-              <span className="material-icons">
+            <span className="material-icons">
+              <Link to={`/search/keyword/${searchKeyword}`} style={{ textDecoration: 'none' }}>
                 search
-              </span>
-            :
-              <span className="material-icons">
-                <Link to={`/search/keyword/${searchKeyword}`} style={{ textDecoration: 'none' }}>
-                  search
-                </Link>
-              </span>
-            }
+              </Link>
+            </span>
               
           <span className="material-icons">mic</span>
         </div>
@@ -74,8 +70,8 @@ const Header = () => {
             <Link to="/studio/upload/video" >
               <span className="material-icons" style={{textDecoration: 'none', color: 'gray'}}>video_call</span>
             </Link>
-            <span className="material-icons">grid_view</span>
-            <span className="material-icons">notifications</span>
+            {/* <span className="material-icons">grid_view</span> */}
+            {/* <span className="material-icons">notifications</span> */}
             <span className="material-icons" onClick={popupShow}>person</span>
           </div>
         :
@@ -95,9 +91,9 @@ const Header = () => {
             <div className="popup-main-div" id="dropdown" onClick={popupUnshow} >
 
               <div className="popup-inner-div">
-                <Link to="/studio/dashboard" style={{textDecoration: 'none' }}> 
-                  <span className="material-icons popup-icon">settings</span>
-                  <span className="popup-text">Studio</span>
+                <Link to="/" style={{textDecoration: 'none' }}> 
+                  <span className="material-icons popup-icon">smart_display</span>
+                  <span className="popup-text">YouTube</span>
                 </Link> <br />
 
                 <Link to="" style={{textDecoration: 'none' }}> 
@@ -110,9 +106,9 @@ const Header = () => {
                   <span className="popup-text">Create Channel</span>
                 </Link> <br /> */}
 
-                  <span className="material-icons popup-icon">exit_to_app</span>
+                <span className="material-icons popup-icon">exit_to_app</span>
                 <span onClick={logoutFunc} className="popup-text" >
-                  Logout</span> <br />
+                Logout</span> <br />
               </div>
 
             </div>

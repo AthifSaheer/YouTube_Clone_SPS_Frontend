@@ -1,0 +1,11 @@
+.signin-div-header {
+    background: white;
+    border: 2px solid rgb(0, 132, 255);
+    display: flex;
+    padding: 3px 14px 4px 13px;
+    margin-right: 10px;
+}
+.material-icons {
+    color: rgba(245, 245, 245, 0.904);
+    /* color: rgb(88, 88, 88); */
+}

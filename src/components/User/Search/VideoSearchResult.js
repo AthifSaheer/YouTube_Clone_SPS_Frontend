@@ -17,14 +17,16 @@ function VideoSearchResult(props) {
                     <p className="title">{props.title}</p>
                     <p style={{fontSize: '13px'}}>103K views . 5 days ago</p>
 
-                    <div className="channelWarpper">
-                        <div className="channelLogo">
-                            <img src={props.channelLogo} alt="" width='30px' style={{borderRadius: '50%'}} />
+                    <Link to={`/channel/${props.channelId}`} style={{ textDecoration: 'none' }}>
+                        <div className="channelWarpper">
+                            <div className="channelLogo">
+                                <img src={props.channelLogo} alt="" width='30px' style={{borderRadius: '50%'}} />
+                            </div>
+                            <div className="channelName">
+                                <p style={{fontSize: '13px', color: 'black'}}>{props.channel}</p>
+                            </div>
                         </div>
-                        <div className="channelName">
-                            <p style={{fontSize: '13px'}}>{props.channel}</p>
-                        </div>
-                    </div>
+                    </Link>
 
                     <p style={{fontSize: '13px'}}>Most Freelance Software developers are not aware of how to price their software works. this video will help you learn how to price ...</p>
                 </div>

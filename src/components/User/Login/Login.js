@@ -106,7 +106,7 @@ function Login() {
                             {/* Login/Register Button */}
                             <button onClick={loginBtn} type="submit" className="login-btn">Login</button>
 
-                            <Link to='/signup' ><p>or <span style={{ color: '#1890ff'}} > register now!</span></p></Link>
+                            <Link to='/signup' ><p>or <span style={{ color: '#1890ff' }} > register now!</span></p></Link>
                         </div>
 
                     </div>

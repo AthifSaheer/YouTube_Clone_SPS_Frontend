@@ -14,7 +14,7 @@ function Search() {
     const [noResultFount, setNoResultFount] = useState(false)
     
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/search/video/${searchKeyword}`, {
+        fetch(`/api/v1/user/search/video/${searchKeyword}`, {
             method: 'GET',
         })
         .then(responce => responce.json())
@@ -50,9 +50,17 @@ function Search() {
         {/* ----------------- VIDEO VIEW ----------------- */}
         { videoData && videoData.map((data, index) => {
             return(
-                <div className={classes.app__section} key={index}>
+                <div className={classes.app__section} key={data.id}>
                     <div style={{minWidth:'233px'}}></div>
-                    <VideoSearchResult id={data.id} title={data.title} thumbnail={data.thumbnail} channel={data.channel.channel_name} channelLogo={data.channel.logo} />
+                    <VideoSearchResult
+                    id={data.id} 
+                    title={data.title}
+                    thumbnail={data.thumbnail}
+                    channel={data.channel.channel_name}
+                    channelLogo={data.channel.logo} 
+                    channelLogo={data.channel.logo} 
+                    channelId={data.channel.id}
+                    />
                 </div>
             )
         })}

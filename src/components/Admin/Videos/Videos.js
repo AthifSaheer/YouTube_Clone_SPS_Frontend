@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 
 function UserList() {
     const [videosData, setVideosData] = useState([])
+    const [videoDiv, setVideoDiv] = useState(false)
     
     useEffect(() => {
         fetch('http://127.0.0.1:8000/display/video/', {
@@ -15,6 +16,11 @@ function UserList() {
         .then(responce => responce.json())
         .then(res => setVideosData(res))
     })
+
+    function onClick() {
+        // alert('ll')
+        setVideoDiv(true);
+    }
 
     return (
         <div>
@@ -33,7 +39,7 @@ function UserList() {
                                     <th>NO</th>
                                     <th>User</th>
                                     <th>Channel</th>
-                                    <th>Thumbnail</th>
+                                    <th onClick={onClick}>Thumbnail</th>
                                     <th>Title</th>
                                     <th>Visibility</th> 
                                     <th>Category</th> 
@@ -46,17 +52,15 @@ function UserList() {
                                 {videosData && videosData.map((data, index) => {
                                     return (
                                         <tr>
-                                            <td>{index+1}</td>
-                                            <td>{ data.user }</td>
-                                            <td>{ data.channel }</td>
-                                            <td><img src={data.thumbnail} alt="Thmbnl" style={{width:'100px', height:'50px'}} /></td>
-                                            {/* <td style={{ whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{data.title}</td> */}
+                                            <td>{data.id}</td>
+                                            <td>{ data.user.username }</td>
+                                            <td>{ data.channel.channel_name }</td>
+                                            <td><img src={data.thumbnail} alt="thumbnail" style={{width:'100px', height:'50px'}} /></td>
                                             <td>{data.title}</td>
                                             <td>{data.visibility}</td>
                                             <td>{data.category}</td>
                                             <td>{data.view_count}</td>
                                             <td style={{color:'red'}}><span className="material-icons">block</span></td>
-                                            {/* <td>90k</td> */}
                                         </tr>
                                     )
                                 })}

@@ -1,6 +1,6 @@
 .video_card {
     width:300px;
-    margin-top: 40px;
+    margin: 40px 7px 1px 0;
     height: 265px;
 }
 .video_card__image {

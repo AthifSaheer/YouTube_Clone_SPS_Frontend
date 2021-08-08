@@ -9,10 +9,11 @@ const Sidebar = () => {
     <div className={classes.sidebar}>
       <div className={classes.sidebar__fixed}>
         <ul>
-          <Link to="/admin/dashboard" style={{ textDecoration: 'none' }}><SidebarRow key={1} selected icon="home" title="Home" /></Link>
-          <Link to="/admin/users" style={{ textDecoration: 'none' }}><SidebarRow key={2} icon="person" title="Users" /></Link>
-          <Link to="/admin/channels" style={{ textDecoration: 'none' }}><SidebarRow key={3} icon="subscriptions" title="Channels" /></Link>
-          <SidebarRow key={3}icon="notes" title="Feedback" />
+          <Link to="/studio/dashboard" style={{ textDecoration: 'none' }}><SidebarRow key={1} selected icon="home" title="Dashboard" /></Link>
+          <Link to="/studio/contents" style={{ textDecoration: 'none' }}><SidebarRow key={2} icon="subscriptions" title="Contents" /></Link>
+          <Link to="/studio/my/channels" style={{ textDecoration: 'none' }}><SidebarRow key={3} icon="notes" title="My Channels" /></Link>
+          <SidebarRow key={3} icon="comment" title="Comments" />
+          <SidebarRow key={4} icon="feedback" title="Send feedback" />
           {/* <hr /> */}
           {/* <SidebarRow key={4}icon="video_library" title="Library" />
           <SidebarRow key={5}icon="restore" title="History" />

@@ -1,0 +1,33 @@
+.channel-popup-main-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(231, 231, 231, 0.644);
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+}
+.channel-popup-main-div .channel-popup-inner-div {
+    position: relative;
+    padding: 12px;
+    width: 100%;
+    width: 930px;
+    line-height: 1.6;
+    height: 80vh;
+    background: rgb(255, 255, 255);
+    /* float: right; */
+    margin: 60px 0 0 200px;
+    box-shadow: 2px 1px 2px 1px #aaaaaa;
+    /* display: flex; */
+}
+.channel-popup-inner-div .popup-icon {
+  padding: 5px;
+}
+
+.channel-popup-inner-div .popup-text {
+  padding: 0px 0px 0px 9px;
+  font-size: 23px;
+  color: rgb(88, 88, 88);
+}

@@ -1,23 +1,24 @@
 import {useState, useEffect} from 'react'
-import Header from "../Header/Header";
-
-import classes from "../../../App.module.css";
-import img from "../../../image/youtube2old.jpg"
-import axios from 'axios';
-import ChannelDetailsCommentBox from "./ChannelDetailsCommentBox"
 import { useParams} from 'react-router-dom';
+import moment from "moment";
+
+import Header from "../Header/Header";
+import classes from "../../../App.module.css";
+import VideoDetails from "./VideoDetails"
+import img from "../../../image/youtube2old.jpg"
 
 function WatchVideo() {
     const [videoData, setVideoData] = useState([])
     let { videoID } = useParams();
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/display/video', {
+        fetch(`/api/v1/user/watch/video/${videoID}`, {
             method: 'GET',
         })
         .then(responce => responce.json())
         .then(res => setVideoData(res))
     }, [])
+
 
     return (
         <div className="app">
@@ -40,7 +41,7 @@ function WatchVideo() {
 
                                 <div className="left" style={{ width:'1000px' }}>
                                     <h3>{data.title}</h3>
-                                    <p>{data.view_count} views . {data.upload_date}</p>
+                                    <p>{data.view_count} views .  {moment(data.upload_date).format("LL")} </p>
                                 </div>
 
                                 <div className="right">
@@ -51,7 +52,17 @@ function WatchVideo() {
                                 </div>
 
                             </div>
-                            <ChannelDetailsCommentBox title={data.title} description={data.description} thumbnail={data.thumbnail} />
+                            <hr />
+                            <VideoDetails 
+                            videoID={data.id}
+                            title={data.title}
+                            description={data.description}
+                            channelLogo={data.channel.logo}
+                            channelName={data.channel.channel_name}
+                            subscribers={data.channel.subscribers}
+                            category={data.category}
+                            channelId={data.channel.id}
+                            />
                         </div>
                     )
                 }

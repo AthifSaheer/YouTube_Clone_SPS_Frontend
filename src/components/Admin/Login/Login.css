@@ -13,7 +13,7 @@
     color: rgb(37, 37, 37);
     text-align: center;
     margin-top: 24px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .login-div {
@@ -53,4 +53,10 @@
 .login-btn:hover {
     background: #0f88f8;
     color: white;
+}
+
+.error-text {
+    color: red;
+    text-align: center;
+    margin-bottom: 9px;
 }

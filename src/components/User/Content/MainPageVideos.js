@@ -9,7 +9,7 @@ const MainPageVideos = () => {
     const [videoData, setVideoData] = useState([])
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/display/video/', {
+        fetch('/api/v1/user/display/video/', {
             method: 'GET',
         })
         .then(responce => responce.json())
@@ -22,7 +22,17 @@ const MainPageVideos = () => {
             { videoData && videoData.map((data, index) => {
                 return(
                     <div key={index}>
-                        <VideoCard id={data.id} image={data.thumbnail} title={data.title} channel={data.channel.channel_name} channelLogo={data.channel.logo} view={`${data.view_count} views-`} date={data.upload_date} video={data.video}/>
+                        <VideoCard 
+                        id={data.id}
+                        image={data.thumbnail}
+                        title={data.title} 
+                        channel={data.channel.channel_name}
+                        channelLogo={data.channel.logo}
+                        view={`${data.view_count} views-`}
+                        date={data.upload_date}
+                        video={data.video}
+                        channelId={data.channel.id}
+                        />
                     </div>
                 )
             }) }

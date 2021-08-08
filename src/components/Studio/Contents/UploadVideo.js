@@ -1,13 +1,13 @@
 import Header from '../../User/Header/Header'
 import classes from "../../../App.module.css";
-import './Contents.css';
 
 import React, { useState, useEffect } from 'react';
-import { Formik, Form } from 'formik';
-import { TextField } from './TextField';
-import * as Yup from 'yup';
 import APIService from '../../User/API/APIService'
 import Cookies from 'js-cookie';
+
+import {useCookies} from 'react-cookie';
+import { useHistory } from 'react-router-dom'
+import axios from 'axios';
 
 
 export const UploadVideo = () => {
@@ -15,38 +15,36 @@ export const UploadVideo = () => {
   const [video, setVideo] = useState()
   const [thumbnail, setThumbnail] = useState()
   const [description, setDescription] = useState('')
-  // const [tag, setTag] = useState('')
+  const [channel, setChannel] = useState('')
   const [category, setCategory] = useState('')
   const [visibility, setVisibility] = useState('')
   const [commentVisibility, setCommentVisibility] = useState('')
 
-  const token = Cookies.get('mytoken')
+  const tokenUser = Cookies.get('mytoken')
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [apiError, setApiError] = useState(true);
 
-  // const validate = Yup.object({
-  //   firstName: Yup.string()
-  //     .max(15, 'Must be 15 characters or less')
-  //     .required('Required'),
-  //   lastName: Yup.string()
-  //     .max(20, 'Must be 20 characters or less')
-  //     .required('Required'),
-  //   email: Yup.string()
-  //     .email('Email is invalid')
-  //     .required('Email is required'),
-  //   password: Yup.string()
-  //     .min(6, 'Password must be at least 6 charaters')
-  //     .required('Password is required'),
-  //   confirmPassword: Yup.string()
-  //     .oneOf([Yup.ref('password'), null], 'Password must match')
-  //     .required('Confirm password is required'),
-  // })
+  const [APIChannels, setAPIChannels] = useState([]);
+  const [errorInAPIChannels, setErrorInAPIChannels] = useState(false);
 
+  // SESSION HANDLE 
+  const [token, setToken] = useCookies(['mytoken'])
+  const history = useHistory()
+
+  // if(APIChannels.token.key == tokenUser) {
+
+  // }
+  // const ch = APIChannels.token.key == tokenUser
 
   const submit = () => {
     const uploadData = new FormData();
-    uploadData.append('user', 1);
-    uploadData.append('channel', 10);
+    uploadData.append('token', tokenUser);
+    if(token['channelCookie']){
+      uploadData.append('channel', token['channelCookie']);
+    } else{
+      uploadData.append('channel', channel);
+    }
     uploadData.append('title', title);
     uploadData.append('video', video, video.name);
     uploadData.append('thumbnail', thumbnail, thumbnail.name);
@@ -58,8 +56,21 @@ export const UploadVideo = () => {
 
     APIService.UploadVideo(uploadData)
     .then(resp => console.log(resp))
-    .catch(error => alert(error))
+    .catch(error => setApiError(false))
   };
+
+  // SESSION HANDLE -----
+  useEffect(() => {
+    if(!token['mytoken']) {
+      history.push('/login')
+    }
+  }, [token]);
+
+  useEffect(() => {
+    axios.get('/api/v1/admin/channels/')
+    .then(response => {setAPIChannels(response.data)})
+    .catch(error => setErrorInAPIChannels(true))
+  }, [])
 
   //form submission handler
   const handleSubmit = (e) => {
@@ -75,9 +86,13 @@ export const UploadVideo = () => {
     if (!title) {
       errors.title = "Cannot be blank";
     }
-
     if (!video) {
       errors.video = "Cannot be blank";
+    }
+    if(!token['channelCookie']){
+      if (!channel) {
+        errors.channel = "Cannot be blank";
+      } 
     }
     if (!thumbnail) {
       errors.thumbnail = "Cannot be blank";
@@ -108,10 +123,15 @@ export const UploadVideo = () => {
     <div>
       <Header />
       <div className="container">
-        <h1>Create Channel</h1>
-        {Object.keys(formErrors).length === 0 && isSubmitting && (
+        <h1>Upload Video</h1>
+        {Object.keys(formErrors).length === 0 && isSubmitting && apiError && (
           <span className="success-msg">Video uploaded</span>
         )}
+        {apiError?
+          null
+        :
+          <span className="error-msg">Error Accrued</span>
+        }
         <form onSubmit={handleSubmit} noValidate enctype="multipart/form-data" method="post">
           
 
@@ -173,8 +193,35 @@ export const UploadVideo = () => {
             {formErrors.description && ( <span className="error">{formErrors.description}</span> )}
           </div>
 
-          <label for="cars">Choose Category:</label>
+          {token['channelCookie']?
+            null
+          :
+              <label htmlFor="channel">Choose Channel:
+              <select name="channel" id="channel" onChange={e => setChannel(e.target.value)} className={formErrors.channel && "input-error"}>
+                  <option value="---">---</option>
+                  {APIChannels.map((data, index) => {
+                    // {data.token.key == tokenUser?
+                      if(data.token.key == tokenUser){
+                        return(
+                          <option key={index+1} value={data.id}>{data.channel_name}</option> 
+                        )
+                      }
+                    })
+                  }
+              </select>
+              </label>
+          }
 
+          {errorInAPIChannels?
+            <small style={{color: 'red'}}>Error Accrued</small>
+          :
+            null
+          }
+
+          {formErrors.channel && ( <span className="error">{formErrors.channel}</span> )}
+          <br />
+
+          <label htmlFor="category">Choose Category:</label>
             <select name="category" id="Category" onChange={e => setCategory(e.target.value)} className={formErrors.category && "input-error"}>
               <option value="---">---</option>
               <option value="Tech">Tech</option>
@@ -185,7 +232,7 @@ export const UploadVideo = () => {
           {formErrors.category && ( <span className="error">{formErrors.category}</span> )}
             <br />
 
-            <label for="cars">Choose Video Visibility:</label>
+            <label htmlFor="visibility">Choose Video Visibility:</label>
 
             <select name="visibility" id="Visibility" onChange={e => setVisibility(e.target.value)} className={formErrors.visibility && "input-error"}>
               <option value="---">---</option>
@@ -196,20 +243,17 @@ export const UploadVideo = () => {
           {formErrors.visibility && ( <span className="error">{formErrors.visibility}</span> )}
             <br />
 
-            <label for="cars">Choose Comment Visibility:</label>
+            <label htmlFor="commentVisibility">Choose Comment Visibility:</label>
 
             <select name="commentVisibility" id="commentVisibility" onChange={e => setCommentVisibility(e.target.value)} className={formErrors.commentVisibility && "input-error"}>
               <option value="---">---</option>
               <option value="public">public</option>
-              <option value="unlisted">unlisted</option>
-              <option value="private">private</option>
+              <option value="prevent">prevent</option>
             </select>
           {formErrors.commentVisibility && ( <span className="error">{formErrors.commentVisibility}</span> )}
             <br />
 
-          
-
-          <button type="submit">Create Channel</button>
+          <button type="submit">Upload</button>
         </form>
       </div>
     </div>

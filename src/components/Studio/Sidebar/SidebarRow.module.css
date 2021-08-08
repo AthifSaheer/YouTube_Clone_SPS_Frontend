@@ -1,0 +1,27 @@
+.sidebar__row {
+  display: flex;
+  align-items: center;
+  padding: 9px 0px;
+}
+.sidebar__row h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color:#616161;
+}
+.sidebar__row span {
+  display: inline-block;
+  font-size: 26px;
+  padding: 0px 22px;
+  font-size: 23px;
+  color: #616161;
+}
+
+.sidebar__row.selected {
+    background-color: #e6e6e6;
+}
+.sidebar__row.selected > h2 {
+    color:#202020;
+}
+.sidebar__row.selected > span {
+    color:rgb(243, 28, 28);
+}

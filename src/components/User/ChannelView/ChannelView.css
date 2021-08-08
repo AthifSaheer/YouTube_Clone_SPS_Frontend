@@ -1,3 +1,106 @@
-.channelWrapper {
+.channel-wrapper {
+    display: grid;
+}
+.channel-wrapper .channel-banner img {
+    width: 1285px;
+    height: 220px;
+}
+.channel-details {
     display: flex;
+}
+.channel-wrapper .channel-details img {
+    border-radius: 50%;
+    margin: 10px 0 0 100px;
+}
+.channel-name-div {
+    display: grid;
+    padding: 33px 10px 16px 24px;
+    width: 850px;
+}
+.channel-name-div p {
+    color: black;
+    font-size: 26px;
+}
+.channel-name-div span {
+    color: gray;
+    font-size: 14px;
+}
+.subscribe-btn-div {
+    float: right;
+}
+.subscribe-btn-div .subscribe-btn {
+    color: white;
+    background-color: red;
+    border: 2px solid red;
+    height: 28px;
+    width: 115px;
+    margin: 48px 0 0 0;
+    font-style: unset;
+    font-size: 17px;
+}
+.subscribe-btn-div .subscribed-btn {
+    color: #606060;
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    height: 28px;
+    width: 115px;
+    margin: 48px 0 0 0;
+    font-style: unset;
+    font-size: 17px;
+}
+
+.channel-navbar {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 25px 0 0 0;
+    background: rgb(255, 250, 247);
+    width: 100%;
+    height: 45px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 53px;
+}
+.channel-navbar .home, .channel-navbar .videos, .channel-navbar .about{
+    font-size: 15px;
+    padding: 12px;
+    color: rgb(122, 122, 122);
+    font-weight: bold;
+}
+.channel-navbar .videos {
+    font-weight: bold;
+    color: black;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+.content-body  {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-content: flex-start;
+
+    max-width: 100%;
+    height: 900px;
+    margin: 33px 0 0 10px;
+    word-wrap: break-word;
+}
+.content-body .video-card {
+    width: 240px;
+    color: #fff;
+    height: 180px;
+    margin: 6px;
+}
+.video-card .title {
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    word-wrap:break-word;
+    white-space: nowrap;
+    width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.video-card .view-date {
+    color: rgb(107, 107, 107);
+    font-size: 13px;
 }

@@ -11,7 +11,7 @@ const VideoCard = (props) => {
 
   return (
     <div className={classes.video_card} >
-        <Link to={`watch/video/${props.id}`} style={{ textDecoration: 'none' }}>
+        <Link to={`/watch/video/${props.id}`} style={{ textDecoration: 'none' }}>
           <div className={classes.video_card__image}>
             <img src={props.image} alt="video thumbnail" onMouseOver={autoPlayVideoWhileMouseOver}  />
             {/* <video width="320" height="240" style={{ backgroundColor:'black' }} autoPlay controls>
@@ -26,7 +26,11 @@ const VideoCard = (props) => {
         </div>
         <div className={classes.video_card_info}>
           <span className={classes.video_card__title}>{props.title}</span>
-          <span className={classes.video_card__channelname}>{props.channel}</span>
+          
+          <Link to={`/channel/${props.channelId}`} style={{ textDecoration: 'none' }}>
+            <span className={classes.video_card__channelname}>{props.channel}</span>
+          
+          </Link>
           <span className={classes.video_card__view}>{props.view}</span>
           <span className={classes.video_card__date}>{props.date}</span>
         </div>

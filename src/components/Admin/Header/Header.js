@@ -19,6 +19,7 @@ const Header = () => {
     removeToken(['admintoken'])
     history.push('/admin/login')
   }
+
   return (
     <Fragment>
 
@@ -43,18 +44,17 @@ const Header = () => {
         </div>
 
         <div className={classes.header__end}>
-          <span className="material-icons">videocam</span>
-          <span className="material-icons">grid_view</span>
-          <span className="material-icons">notifications</span>
-          
-          <Popup trigger={<span className="material-icons">person</span>} position="left center">
-            <Link to="/admin/login"> <p style={{ marginTop:"60px" }}>Signin</p> </Link>
-            {/* <Link to="/admin/signup"> <p>Signup</p> </Link> */}
-            <p onClick={logoutFunc} >Logout</p>
-          </Popup>
+
+          {token['admintoken']?
+            <p onClick={logoutFunc} style={{textDecoration: 'none', color: 'gray', paddingRight: '42px'}} >Logout</p>
+          :
+            <Link to="/admin/login" style={{textDecoration: 'none', color: 'gray', paddingRight: '42px'}}> <p>Signin</p> </Link>
+          }
 
         </div>
+
       </div>
+
       <div className={classes.constant}></div>
     </Fragment>
   );

@@ -1,10 +1,23 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'
 import classes from "../../../App.module.css";
 
+import {useCookies} from 'react-cookie';
+import { useHistory } from 'react-router-dom'
 
 function Dashboard() {
+    // SESSION HANDLE -----
+    const [token, setToken] = useCookies(['admintoken'])
+    const history = useHistory()
+
+    // SESSION HANDLE -----
+    useEffect(() => {
+        if(!token['admintoken']) {
+            history.push('/admin/login')
+        }
+    }, [token])
+
     return (
         <div>
             <Header />
@@ -16,7 +29,7 @@ function Dashboard() {
 
                     <div className="table">
 
-                        <table style={{ width: '100%'}}>
+                        {/* <table style={{ width: '100%'}}>
                             <thead>
                                 <tr>
                                     <th>Logo</th>
@@ -25,7 +38,6 @@ function Dashboard() {
                                     <th>Subscribers count</th>
                                     <th>Block</th>
                                     <th>Channel count</th>
-                                    {/* <th>Action</th> */}
                                 </tr>
                             </thead>
                             
@@ -37,7 +49,6 @@ function Dashboard() {
                                     <td>33 303</td>
                                     <td>90k </td>
                                     <td>90k </td>
-                                    {/* <td>90k</td> */}
                                 </tr>
                                 <tr>
                                     <td>Image</td>
@@ -46,10 +57,9 @@ function Dashboard() {
                                     <td>33 303</td>
                                     <td>90k </td>
                                     <td>90k </td>
-                                    {/* <td>90k</td> */}
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
 
                 </div>

@@ -1,89 +1,89 @@
-/* // $error-color: #e63946;
-// $bg-color: #f1faee;
-// #293241: #;
-// #FFF: #fff;
-// $color-green: ; */
-
-/* 4px: 4px; */
-/* 
-.container {
-  margin-top: 0px;
-  padding: 3rem;
+.container .success-msg {
+  color: #1d3557;
+  background: #8fffab;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
   border-radius: 4px;
-} */
-  .success-msg {
-    color: #1d3557;
-    background: #8fffab;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    padding: 0.5rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
 
-  h1 {
-    color: rgb(37, 37, 37);
-    text-align: center;
-    margin-top: 24px;
-    margin-bottom: 30px;
-  }
+.container .error-msg {
+  color: #ffffff;
+  background: #ff2727;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
 
-  label, input {
-    color: #455061;
-  }
+.container h1 {
+  color: rgb(37, 37, 37);
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 30px;
+}
 
-  label {
-    font-size: 1.1rem;
-    margin-bottom: 0.2rem;
-  }
+.container label, .container input {
+  color: #455061;
+}
 
-  input {
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
-    width: 100%;
-    /* height: 32px; */
-    padding: 14px;
-    font-size: 15px;
-  }
+.container label {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
 
-  .form-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.5rem;
-  }
+.container input {
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  width: 100%;
+  /* height: 32px; */
+  padding: 14px;
+  font-size: 15px;
+}
 
-  button {
-    width: 100%;
-    margin-top: 10px;
-    background: #1890ff;
-    border: 2px solid #1890ff;
-    border-radius: 4px;
-    height: 40px;
-    color: white;
-    font-size: 25px;
-    margin-bottom: 1.9rem;
-  }
-  
-  button:hover {
-    background: #0f88f8;
-    color: white;
-  }
+.container .form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
 
-  .input-error {
-    border-color: #e63946;
-  }
+.container button {
+  width: 100%;
+  margin-top: 10px;
+  background: #1890ff;
+  border: 2px solid #1890ff;
+  border-radius: 4px;
+  height: 40px;
+  color: white;
+  font-size: 25px;
+  margin-bottom: 1.9rem;
+}
 
-  .error {
-    color: #e63946;
-    font-size: 1rem;
-    margin-top: 0.3rem;
-  }
+.container button:hover {
+  background: #0f88f8;
+  color: white;
+}
 
-  .disabled-btn {
-    cursor: not-allowed;
-    background: rgba(#1d3557, 0.8);
-  }
+.container .input-error {
+  border-color: #e63946;
+}
+
+.container .error {
+  color: #e63946;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+
+.container .disabled-btn {
+  cursor: not-allowed;
+  background: rgba(#1d3557, 0.8);
+}
 

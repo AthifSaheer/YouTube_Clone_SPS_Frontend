@@ -1,0 +1,46 @@
+.main-content-div h3 {
+    margin-left: 10px;
+}
+
+.main-div-users {
+    display: flex;
+    /* background: #000; */
+}
+
+.user-card {
+    width: 195px;
+    height: 90px;
+    background: white;
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 5px;
+    margin: 11px 10px;
+    display: flex;
+    box-shadow: 1px 1px rgb(223, 223, 223);
+}
+
+.user-card img {
+    border-radius: 50%;
+    width: 60px;
+    margin: 13px;
+}
+
+.user-detials-div {
+    margin: 9px;
+}
+.user-card .username span, .user-card .join-date span{
+    color: rgb(58, 68, 87)
+}
+.user-card .join-date, .user-card .username {
+    color: rgb(158, 164, 187)
+}
+.user-card small {
+    /* float: right;
+    color: #fff;
+    background: red;
+    border-radius: 15px 0px 1px 0px;
+    margin-right: -10px;
+    margin-top: 11px; */
+}
+.main-content-div .error-txt {
+    color: red;
+}
