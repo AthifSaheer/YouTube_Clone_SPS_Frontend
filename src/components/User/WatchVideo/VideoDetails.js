@@ -10,7 +10,7 @@ import Comments from './Comments'
 function VideoDetails(props) {
     const [token, setToken] = useCookies()
     const [APIData, setAPIData] = useState()
-    let x = token? null : alert("kl")
+
     let channelID = props.channelId
     let user_token = token['mytoken']? token['mytoken'] : null
     let user_channel = token['channelCookie']? token['channelCookie'] : 0
@@ -72,17 +72,16 @@ function VideoDetails(props) {
 
                 {APIData == "subscribed" || APIData == "created_subscribed"?
                     <div className="channel-subscribed-btn-div" >
-                        <p onClick={subscribeFunc}>SUBSCRIBED</p>
-                        {/* <span className="material-icons notfc-icon">notifications_active</span> */}
+                        <button onClick={subscribeFunc}>SUBSCRIBED</button>
                     </div>
                 :
                     user_token?
                         <div className="channel-subscribe-btn-div" >
-                            <p onClick={subscribeFunc}>SUBSCRIBE</p>
+                            <button onClick={subscribeFunc}>SUBSCRIBE</button>
                         </div>
                     :
                         <div className="channel-subscribe-btn-div" >
-                            <p onClick={()=>alert("Please Login")}>SUBSCRIBE</p>
+                            <button onClick={()=>alert("Please Login")}>SUBSCRIBE</button>
                         </div>
                 }
                 

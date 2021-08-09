@@ -157,24 +157,21 @@ function ChannelView() {
                                 })} */}
 
 
-                                    {APIData == "subscribed" || APIData == "created_subscribed"?
+                                {APIData == "subscribed" || APIData == "created_subscribed"?
+                                    <div className="subscribe-btn-div" >
+                                        <button className="subscribed-btn" onClick={subscribeFunc}>SUBSCRIBED</button>
+                                        {/* <span className="material-icons notfc-icon">notifications_active</span> */}
+                                    </div>
+                                :
+                                    user_token?
                                         <div className="subscribe-btn-div" >
-                                            <button className="subscribed-btn" onClick={subscribeFunc}>SUBSCRIBED</button>
-                                            {/* <span className="material-icons notfc-icon">notifications_active</span> */}
+                                            <button className="subscribe-btn" onClick={subscribeFunc}>SUBSCRIBE</button>
                                         </div>
                                     :
-                                        user_token?
-                                            <div className="subscribe-btn-div" >
-                                                <button className="subscribe-btn" onClick={subscribeFunc}>SUBSCRIBE</button>
-                                            </div>
-                                        :
-                                            <div className="subscribe-btn-div" >
-                                                <button className="subscribe-btn" onClick={()=>alert("Please Login")}>SUBSCRIBE</button>
-                                            </div>
-                                    }
-
-
-                                
+                                        <div className="subscribe-btn-div" >
+                                            <button className="subscribe-btn" onClick={()=>alert("Please Login")}>SUBSCRIBE</button>
+                                        </div>
+                                }
 
                             </div>
                         </div>

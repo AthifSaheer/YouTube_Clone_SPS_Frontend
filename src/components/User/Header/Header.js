@@ -17,6 +17,7 @@ const Header = () => {
 
   const logoutFunc = () => {
     removeToken(['mytoken'])
+    removeToken(['channelCookie'])
     history.push('/login')
   }
 

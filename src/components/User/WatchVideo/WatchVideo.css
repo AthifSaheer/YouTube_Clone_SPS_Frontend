@@ -1,3 +1,35 @@
+/* ------- CHANNEL LIKE DISLIKE SECION ------- */
+.right {
+  display: flex;
+}
+.like-section {
+  display: flex;
+}
+.like-icon {
+  margin-left: 30px;
+  font-size: 30px;
+}
+.like-count {
+  color: gray;
+  font-size: 22px;
+  padding: 3px 0px 0 5px;
+}
+
+.like-section-active {
+  display: flex;
+  border: none;
+  border-bottom: 1px solid #065fd4;
+  padding: 0 0 0 10px;
+}
+.like-icon-active {
+  margin-left: 30px;
+  font-size: 30px;
+}
+.like-count-active {
+  color: #065fd4;
+  font-size: 22px;
+  padding: 3px 0px 0 5px;
+}
 
 /* =================================== Channel detials css =================================== */
 hr {
@@ -34,28 +66,30 @@ hr {
 .channel-title-div .description{
   font-size: 15px;
 }
-.channel-subscribe-btn-div p {
+.channel-subscribe-btn-div button {
   background-color: red;
   color: rgb(255, 255, 255);
   margin-top: 14px;
-  width: 97px;
-  padding: 7px;
+  width: 111px;
+  padding: 5px;
   font-size: 15px;
   font-weight: bold;
+  border: none;
 }
 .channel-subscribed-btn-div {
   width: 150px;
   display: flex;
 }
-.channel-subscribed-btn-div p {
+.channel-subscribed-btn-div button {
   background-color: rgb(240, 240, 240);
   color: rgb(145, 145, 145);
   margin-top: 14px;
-  width: 106px;
-  padding: 7px;
+  width: 111px;
+  padding: 6px;
   font-size: 15px;
   font-weight: bold;
   height: 30px;
+  border: none;
 }
 .channel-subscribed-btn-div .notfc-icon {
   padding: 17px 0 0 7px;
@@ -193,3 +227,4 @@ hr {
   color: rgb(109, 109, 109);
   margin: 13px 0 0 23px;
 }
+
