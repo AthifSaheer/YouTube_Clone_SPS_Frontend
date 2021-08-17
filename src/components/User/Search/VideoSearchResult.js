@@ -15,7 +15,7 @@ function VideoSearchResult(props) {
                 </div>
                 <div className="videoDetails" >
                     <p className="title">{props.title}</p>
-                    <p style={{fontSize: '13px'}}>103K views . 5 days ago</p>
+                    <p style={{fontSize: '13px'}}>{props.viewCount} views . {props.uploadDate}</p>
 
                     <Link to={`/channel/${props.channelId}`} style={{ textDecoration: 'none' }}>
                         <div className="channelWarpper">
@@ -28,7 +28,7 @@ function VideoSearchResult(props) {
                         </div>
                     </Link>
 
-                    <p style={{fontSize: '13px'}}>Most Freelance Software developers are not aware of how to price their software works. this video will help you learn how to price ...</p>
+                    <p className="search-video-description">{props.description}</p>
                 </div>
             </div>
         </div>

@@ -54,6 +54,48 @@ function VideoDetails(props) {
         .catch(err => alert(err));
     }, [])
     
+    const [comment, setComment] = useState("")
+    const [commentApiData, setCommentApiData] = useState([])
+    const [commentApiError, setCommentApiError] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const videoID = props.videoID
+    const commentDataGet = {"received_video": videoID, "method": "get"}
+    const commentDataPost = {"token": user_token, "received_channel": channelID, "received_video": videoID, "commented_channel": user_channel, "comment": comment, "method": "post"}
+    
+    const commentAddFunc = () => {
+        if (!user_token) {
+            alert("Please login!")
+        } else if (!user_channel) {
+            alert("Please select or create channel.")
+        } else if (comment != "") {
+            // POST COMMENTS ----------------
+            axios.post(`/api/v1/user/add/comment/`, commentDataPost)
+            .then(response => setComment(""))
+            .catch(error => console.log(error))
+
+            // RERENDER COMMENTS ----------------
+            setLoading(true)
+            setTimeout(function() {
+                setLoading(false)
+                axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+                .then(response => {
+                    console.log(response.data);
+                    setCommentApiData(response.data)
+                }).catch(err => {setCommentApiError(true)})
+            }, 1000)
+        } else if (comment == "") {
+            console.log("Comment value empty.");
+        }
+    }
+
+    useEffect(() => {
+        axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+        .then(response => {
+            console.log(response.data);
+            setCommentApiData(response.data)
+        }).catch(err => {setCommentApiError(true)})
+    }, [])
+
     return (
         <div>
             <div className="video-detilas-main-div">
@@ -104,25 +146,54 @@ function VideoDetails(props) {
                 <div className="sid-blank-div">
                 </div>
                 <div className="comments-posting-div">
-                    <p>1,232 Comments</p>
+                    <p>Comments</p>
 
                     <div className="comments-posting-inner-div">
                         <img src={props.channelLogo} alt="" />
-                        <input type="text" placeholder="Add a public comment..." />
+                        <input type="text" placeholder="Add a public comment..." value={comment} onChange={e => setComment(e.target.value)} />
                     </div>
 
                     <div className="comments-posting-inner-div-buttons">
-                        <button className="cancle-btn">CANCLE</button>
-                        <button className="submit-btn">COMMENT</button>
+                        <button className="cancle-btn" value={comment} onClick={e => setComment("")}>CANCLE</button>
+                        <button className="submit-btn" onClick={commentAddFunc}>COMMENT</button>
                     </div>
 
                 </div>
             </div>
 
             {/* ====== COMMENT SHOWING DIV ====== */}
-            <Comments img={props.channelLogo} />
-            <Comments img={props.channelLogo} />
-            <Comments img={props.channelLogo} />
+            
+            {loading?
+                <div className="loader-main-div">
+                    <div class="loader"></div>
+                </div> 
+            :
+              commentApiError == false ?
+                commentApiData && commentApiData.map((data, index) => {
+                    if (data.no_comments) {
+                        return (
+                            <Comments 
+                            noComment={data.no_comments} />
+                        )
+                    } else {
+                        return (
+                            // <div id="x_s_q">
+                                <Comments 
+                                channelID={channelID}
+                                videoID={videoID}
+                                commentID={data.id}
+                                comment={data.comment} 
+                                commentedChannel={data.commented_channel.channel_name} 
+                                commentedChannelLogo={data.commented_channel.logo} 
+                                uploadDate={data.created_at} 
+                                />
+                            // </div>
+                        )
+                    }
+                })
+            :
+                <p style={{color: 'gray', margin: '5px 0px 80px 102px'}}>Error occured!</p>
+            }
 
         </div>
     )

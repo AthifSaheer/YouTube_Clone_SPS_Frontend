@@ -1,13 +1,14 @@
 import React from 'react'
 import {useCookies} from 'react-cookie';
 import { useHistory } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
+import TableUI from '../TableUI/TableUI'
 import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'
 import classes from "../../../App.module.css";
-import { useState, useEffect } from 'react';
 import './UserList.css'
-// import img from '../../../image/crossroads.jpg'
 
 function UserList() {
     const [userData, setUserData] = useState([])
@@ -27,13 +28,39 @@ function UserList() {
     }, [token])
 
     useEffect(() => {
-        fetch('/api/v1/admin/users/', {
-            method: 'GET',
-        })
+        fetch('/api/v1/admin/users/', { method: 'GET'})
         .then(responce => responce.json())
         .then(res => setUserData(res))
         .catch(res => setApiError(true))
     }, [])
+
+    function blockUserFunc(userID) {
+        axios.get(`/api/v1/admin/block/user/${userID}`)
+        .then(res => {
+            fetch('/api/v1/admin/users/', { method: 'GET'})
+            .then(responce => responce.json())
+            .then(res => setUserData(res))
+        })
+        .catch(err => userData.map(data => {
+            if (userID == data.id) {
+                data.is_active = false
+            }
+        }))
+    }
+
+    function unBlockUserFunc(userID) {
+        axios.get(`/api/v1/admin/unblock/user/${userID}`)
+        .then(res => {
+            fetch('/api/v1/admin/users/', { method: 'GET'})
+            .then(responce => responce.json())
+            .then(res => setUserData(res))
+        })
+        .catch(err => userData.map(data => {
+            if (userID == data.id) {
+                data.is_active = false
+            }
+        }))
+    }
 
     return (
         <div>
@@ -42,19 +69,21 @@ function UserList() {
                 <Sidebar />
 
                 <div className="main-content-div">
+                    <h3>All users</h3>
                     {apiError?
                         <h3 className='error-txt'>Error Accrued</h3>
                     :
-                        <div className="table">
+                    
+                    <div className="admin-table">
+                            
 
-                            <table style={{ width: '100%'}}>
+                            <table style={{ width: '99%'}}>
                                 <thead>
                                     <tr>
                                         <th>NO</th>
-                                        <th>ID</th>
-                                        <th>Username</th>
-                                        <th>Is active</th>
-                                        <th>Is staff</th>
+                                        <th style={{textAlign: 'left'}}>Username</th>
+                                        <th>Active</th>
+                                        <th>Staff</th>
                                         <th>Join date</th> 
                                         <th>Last login</th> 
                                         <th>Block</th>
@@ -66,13 +95,18 @@ function UserList() {
                                         return (
                                             <tr key={index}>
                                                 <td>{index+1}</td>
-                                                <td>{data.id}</td>
-                                                <td>{data.username}</td>
+                                                <td style={{textAlign: 'left'}}>{data.username}</td>
                                                 <td>{data.is_active? 'True' : 'False'}</td>
                                                 <td>{data.is_staff? 'True' : 'False'}</td>
                                                 <td>{data.date_joined}</td>
                                                 <td>{data.last_login}</td>
-                                                <td style={{color:'red'}}><span className="material-icons">block</span></td>
+
+                                                {data.is_active?
+                                                    <td id="block-td"><button onClick={() => blockUserFunc(data.id)} id="channel-block-btn">BLOCK</button></td>
+                                                :
+                                                    <td id="block-td"><button onClick={() => unBlockUserFunc(data.id)} id="channel-unblock-btn">UNBLOCK</button></td>
+                                                }
+
                                             </tr>
                                         )
                                     })}
@@ -84,6 +118,7 @@ function UserList() {
                 </div>
 
             </div>
+
         </div>
     )
 }

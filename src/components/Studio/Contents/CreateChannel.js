@@ -30,6 +30,7 @@ const CreateChannel = () => {
     uploadData.append('logo', logo, logo.name);
     uploadData.append('banner', banner, banner.name);
     uploadData.append('about', about);
+    uploadData.append('is_active', true);
 
     APIService.CreateChannel(uploadData)
     .then(res => {

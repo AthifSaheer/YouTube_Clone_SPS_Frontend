@@ -225,9 +225,20 @@ export const UploadVideo = () => {
             <select name="category" id="Category" onChange={e => setCategory(e.target.value)} className={formErrors.category && "input-error"}>
               <option value="---">---</option>
               <option value="Tech">Tech</option>
+              <option value="Python">Python</option>
+              <option value="News">News</option>
               <option value="Electronics">Electronics</option>
-              <option value="Elon musk">Elon musk</option>
-              <option value="Gadgets">Gadgets</option>
+              <option value="Driving">Driving</option>
+              <option value="Kids">Kids</option>
+              <option value="Mahindra thar">Mahindra thar</option>
+              <option value="MKBHD">MKBHD</option>
+              <option value="Apple">Apple</option>
+              <option value="Titan">Titan</option>
+              <option value="Bill gates">Bill gates</option>
+              <option value="America">America</option>
+              <option value="Music">Music</option>
+              <option value="TED">TED</option>
+              <option value="India">India</option>
             </select>
           {formErrors.category && ( <span className="error">{formErrors.category}</span> )}
             <br />

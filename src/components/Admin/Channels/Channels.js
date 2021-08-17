@@ -3,6 +3,7 @@ import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'
 import classes from "../../../App.module.css";
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import {useCookies} from 'react-cookie';
 import { useHistory } from 'react-router-dom'
@@ -11,7 +12,7 @@ import './Channels.css'
 
 function UserList() {
     const [channelApi, setChannelApi] = useState([])
-    const [videoDiv, setVideoDiv] = useState(false)
+    const [videoApi, setVideoApi] = useState([])
     const [videoPopup, setVideoPopup] = useState(false)
     const [apiError, setApiError] = useState(false)
 
@@ -27,20 +28,53 @@ function UserList() {
     }, [token])
     
     useEffect(() => {
-        fetch('/api/v1/admin/channels', {
-            method: 'GET',
-        })
+        fetch('/api/v1/admin/channels', {method: 'GET'})
         .then(responce => responce.json())
         .then(res => setChannelApi(res))
         .catch(res => setApiError(true))
     }, [])
 
-    function onClick() {
-        setVideoDiv(true);
+    function videoPopupFunc(channelID) {
+        setVideoPopup(true);
+        fetch(`/api/v1/admin/popup/video/${channelID}`, {method: 'GET'})
+        .then(responce => responce.json())
+        .then(res => {
+            console.log(res);
+            setVideoApi(res)
+        })
+        .catch(res => setApiError(true))
     }
 
     const videoPopdownFunc = () => {
         setVideoPopup(false)
+    }
+
+    function blockChannelFunc(channelID) {
+        axios.get(`/api/v1/admin/block/channel/${channelID}`)
+        .then(res => {
+            fetch('/api/v1/admin/channels', {method: 'GET'})
+            .then(responce => responce.json())
+            .then(res => setChannelApi(res))
+        })
+        .catch(err => channelApi.map(data => {
+            if (channelID == data.id) {
+                data.is_active = false
+            }
+        }))
+    }
+
+    function unBlockChannelFunc(channelID) {
+        axios.get(`/api/v1/admin/unblock/channel/${channelID}`)
+        .then(res => {
+            fetch('/api/v1/admin/channels', {method: 'GET'})
+            .then(responce => responce.json())
+            .then(res => setChannelApi(res))
+        })
+        .catch(err => channelApi.map(data => {
+            if (channelID == data.id) {
+                data.is_active = false
+            }
+        }))
     }
 
     return (
@@ -55,14 +89,14 @@ function UserList() {
                     <div className="main">
                         <h3>All Channels</h3>
 
-                        <div className="table">
+                        <div className="admin-table">
 
-                            <table style={{ width: '100%'}}>
+                            <table style={{ width: '99%'}}>
                                 <thead>
                                     <tr>
                                         <th>NO</th>
-                                        <th onClick={onClick}>Channel</th>
-                                        <th>User</th>
+                                        <th style={{textAlign: 'left'}}>Channel</th>
+                                        <th>Channel owner</th>
                                         <th>About</th>
                                         <th>Created at</th>
                                         <th>Block</th>
@@ -74,12 +108,15 @@ function UserList() {
                                         return (
                                             <tr>
                                                 <td>{index+1}</td>
-                                                <td>{ data.channel_name }</td>
-                                                <td>{ data.token.user }</td>
-                                                <td>{ data.about }</td>
+                                                <td onClick={() => videoPopupFunc(data.id)} className="admin-channel-name">{ data.channel_name }</td>
+                                                <td style={{textAlign: 'left'}}>{ data.user.username }</td>
+                                                <td className="channel_about">{ data.about }</td>
                                                 <td>{ data.created_at }</td>
-                                                {/* <td><img src={data.thumbnail} alt="Thmbnl" style={{width:'100px', height:'50px'}} /></td> */}
-                                                <td style={{color:'red'}}><span className="material-icons">block</span></td>
+                                                {data.is_active?
+                                                    <td id="block-td"><button onClick={() => blockChannelFunc(data.id)} id="channel-block-btn">BLOCK</button></td>
+                                                :
+                                                    <td id="block-td"><button onClick={() => unBlockChannelFunc(data.id)} id="channel-unblock-btn">UNBLOCK</button></td>
+                                                }
                                             </tr>
                                         )
                                     })}
@@ -92,57 +129,39 @@ function UserList() {
 
                 {/* Video popup */}
                 {videoPopup?
-                    <div className="channel-popup-main-div" id="dropdown" onClick={videoPopdownFunc} >
+                    <div className="channel-popup-main-div" id="dropdown" >
                         <div className="channel-popup-inner-div">
-                            <button onClick={videoPopdownFunc}>x</button>
+                            <button onClick={videoPopdownFunc} className="close-btn">x</button>
             
-                        <div className="tabe">
+                            <div className="tabe">
 
-                            <table style={{ width: '70%'}}>
-                                <thead>
-                                    <tr>
-                                        <th>NO</th>
-                                        <th>User</th>
-                                        <th>Channel</th>
-                                        <th onClick={onClick}>Thumbnail</th>
-                                        <th>Title</th>
-                                        <th>Visibility</th> 
-                                        <td>kjl</td>
-                                        <th>Category</th> 
-                                        <th>View count</th>
-                                        <th>Block</th>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody style={{ textAlign: 'center', marginTop:'100px' } }>
-                                    {/* {videosData && videosData.map((data, index) => {
-                                        return (
-                                            <tr>
-                                                <td>{data.id}</td>
-                                                <td>{ data.user.username }</td>
-                                                <td>{ data.channel.channel_name }</td>
-                                                <td><img src={data.thumbnail} alt="Thmbnl" style={{width:'100px', height:'50px'}} /></td>
-                                                <td>{data.title}</td>
-                                                <td>{data.visibility}</td>
-                                                <td>{data.category}</td>
-                                                <td>{data.view_count}</td>
-                                                <td style={{color:'red'}}><span className="material-icons">block</span></td>
-                                            </tr>
-                                        )
-                                    })} */}
-                                    <tr>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                        <td>kjl</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table style={{ width: '100%'}}>
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>Thumbnail</th>
+                                            <th>Title</th>
+                                            <th>Visibility</th> 
+                                            <th>Category</th> 
+                                            <th>View count</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody style={{ textAlign: 'center', marginTop:'100px' } }>
+                                        {videoApi && videoApi.map((data, index) => {
+                                            return (
+                                                <tr>
+                                                    <td>{index+1}</td>
+                                                    <td><img src={data.thumbnail} alt="Thmbnl" style={{width:'100px', height:'50px'}} /></td>
+                                                    <td>{data.title}</td>
+                                                    <td>{data.visibility}</td>
+                                                    <td>{data.category}</td>
+                                                    <td>{data.view_count}</td>
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div>

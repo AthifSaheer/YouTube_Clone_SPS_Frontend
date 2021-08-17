@@ -1,11 +1,13 @@
 .video_card {
     width:300px;
-    margin: 40px 7px 1px 0;
+    margin: 10px 7px 1px 0;
     height: 265px;
 }
 .video_card__image {
     min-height: 160px;
     max-height: 160px;
+    position: relative;
+    display: inline-block;
 }
 .video_card__image > img {
     width: 100%;

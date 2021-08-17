@@ -9,7 +9,6 @@ const Content = () => {
   return (
     <div className={classes.content}>
       <VideoChategory />
-      <MainPageVideos />
       {/* <Popup trigger={false} /> */}
     </div>
   );

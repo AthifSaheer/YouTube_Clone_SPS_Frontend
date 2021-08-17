@@ -1,46 +1,99 @@
-.main-content-div h3 {
-    margin-left: 10px;
-}
 
-.main-div-users {
-    display: flex;
-    /* background: #000; */
-}
+table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+  }
+  
+  table thead tr {
+    border: none;
+    background: #f8f8f8;
+    border-bottom: 2px solid #d4d4d4;
+  }
 
-.user-card {
-    width: 195px;
-    height: 90px;
-    background: white;
-    border: 1px solid rgb(228, 228, 228);
-    border-radius: 5px;
-    margin: 11px 10px;
-    display: flex;
-    box-shadow: 1px 1px rgb(223, 223, 223);
-}
+  table tr {
+    background-color: #ffffff;
+    /* border-bottom: .5px solid #ddd; */
+    padding: .35em;
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+  tbody tr:hover {
+    padding: .625em;
+    text-align: center;
+    background: rgb(241, 241, 241);
+  }
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  
+  @media screen and (max-width: 600px) {
+    table {
+      border: 0;
+    }
+  
+    table caption {
+      font-size: 1.3em;
+    }
+    
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    
+    table td::before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+    table td:last-child {
+      border-bottom: 0;
+    }
+  }
 
-.user-card img {
-    border-radius: 50%;
-    width: 60px;
-    margin: 13px;
+.admin-channel-name {
+    text-align: left;
+    color: #636262;
 }
-
-.user-detials-div {
-    margin: 9px;
-}
-.user-card .username span, .user-card .join-date span{
-    color: rgb(58, 68, 87)
-}
-.user-card .join-date, .user-card .username {
-    color: rgb(158, 164, 187)
-}
-.user-card small {
-    /* float: right;
-    color: #fff;
-    background: red;
-    border-radius: 15px 0px 1px 0px;
-    margin-right: -10px;
-    margin-top: 11px; */
-}
-.main-content-div .error-txt {
-    color: red;
+.admin-channel-name:hover {
+    color: #4eb8ff;
+    cursor: pointer;
 }

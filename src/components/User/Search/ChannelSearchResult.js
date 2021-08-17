@@ -1,22 +1,82 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
+import {useCookies} from 'react-cookie';
+import {Link} from 'react-router-dom'
+
 import img from '../../../image/crossroads.jpg'
 import './ChannelSearchResult.css'
 
-function ChannelSearchResult() {
+function ChannelSearchResult(props) {
+
+    const [token, setToken] = useCookies()
+    const [APIData, setAPIData] = useState()
+
+    let channelID = props.channelID
+    let user_token = token['mytoken']? token['mytoken'] : null
+    let user_channel = token['channelCookie']? token['channelCookie'] : 0
+    
+    const getData = {"token": user_token, "user_channel": user_channel, "which_channels": channelID, "method":"get"}
+    const postData = {"token": user_token, "user_channel": user_channel, "which_channels": channelID, "method":"post"}
+
+    const subscribeFunc = () => {
+        if (user_channel == 0) {
+            alert("Choose or create your channel.")
+        } else {
+            axios.post(`/api/v1/user/subscribe/channel/`, postData)
+            .then(response => {
+                if (response.data.subscribed) {
+                    setAPIData(response.data.subscribed)
+                } else if (response.data.unsubscribed) {
+                    setAPIData(response.data.unsubscribed)
+                } else if (response.data.same_channel) {
+                    setAPIData(response.data.same_channel)
+                } else if (response.data.created_subscribed) {
+                    setAPIData(response.data.created_subscribed)
+                } else if (response.data.channel_does_not_exists) {
+                    alert(response.data.channel_does_not_exists)
+                } else if (response.data.your_own_channel) {
+                    alert(response.data.your_own_channel)
+                }
+            })
+            .catch(err => alert(err));
+        }
+    }
+
+    useEffect(() => {
+        axios.post(`/api/v1/user/subscribe/channel/`, getData)
+        .then(response => {
+            if (response.data.subscribed) {
+                setAPIData(response.data.subscribed)
+            } else if (response.data.unsubscribed) {
+                setAPIData(response.data.unsubscribed)
+            }
+        })
+        .catch(err => alert(err));
+    }, [])
+
     return (
         <div>
             <div className="channelSearchDiv">
                 <div className="channelLogo" style={{marginLeft: '130px'}}>
-                    <img src={img} width='130px'  alt="" style={{borderRadius:'50%'}}/>
+                <Link to={`/channel/${props.channelID}`} style={{ textDecoration: 'none', color: 'black'}}>
+                    <img src={props.logo} width='130px'  alt="" style={{borderRadius:'50%'}}/>
+                    </Link>
                 </div>
                 <div className="channelName" >
-                    <p>Crossroads</p>
-                    <small style={{fontSize: '13px'}}>103K subscribers . 123 videos</small>
+                    <Link to={`/channel/${props.channelID}`} style={{ textDecoration: 'none', color: 'black'}}>
+                        <p>{props.channelName}</p>
+                    </Link>
+                    <small style={{fontSize: '13px'}}>{props.subscribers} subscribers . {props.videoCount} videos</small>
                 </div>
                 <div className="subscribeButtonDiv" >
-                    <button className='subscribeBtn' >SUBSCRIBE</button>
-                    {/* <button className='subscribedBtn'>SUBSCRIBED</button> */}
-                    {/* <span className="material-icons">notifications_active_icon</span> */}
+                    {APIData == "subscribed" || APIData == "created_subscribed"?
+                        <button className='subscribedBtn' onClick={subscribeFunc}>SUBSCRIBED</button>
+                    :
+                        user_token?
+                            <button className='subscribeBtn' onClick={subscribeFunc} >SUBSCRIBE</button>
+                    :
+                            <button className='subscribeBtn' onClick={()=>alert("Please Login")} >SUBSCRIBE</button>
+                    }
                 </div>
             </div>
         </div>

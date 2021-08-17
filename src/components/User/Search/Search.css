@@ -1,0 +1,48 @@
+.filter-container {
+    padding: 10px;
+    width: 100%;
+}
+.filter-text {
+    color: #0062b3;
+    font-size: 19px;
+}
+.inner-filter {
+    display: none;
+    color: #909090;
+    margin: 2px;
+}
+#filter-row {
+    display: flex;
+}
+.filter-content {
+    width: 30%;
+}
+.filter-content .header {
+    color: #000000;
+    padding: 10px;
+    font-size: 16px;
+}
+.sub-head {
+    color: rgb(136, 135, 135);
+    padding: 5px 0 2px 12px;
+    font-size: 15px;
+}
+#filter-hr {
+    border: .1px solid rgb(218, 216, 216);
+    width: 113px;
+    margin: 0 0 0 11px;
+}
+
+.filter-animation {
+    background: rgb(228, 228, 228);
+    /* transition: width 12s, height 14s; */
+}
+
+/*  */
+.search-video-description {
+    font-size: 13px;
+    white-space: nowrap; 
+    width: 700px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}

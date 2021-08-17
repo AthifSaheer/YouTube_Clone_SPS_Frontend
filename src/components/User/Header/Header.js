@@ -38,6 +38,10 @@ const Header = () => {
     }
   }
 
+  function suggestionFunc() {
+
+  }
+
   return (
     <Fragment>
 
@@ -54,7 +58,7 @@ const Header = () => {
         </div>
 
         <div className={classes.header__mid}>
-          <input placeholder="Search" onChange={searchInput} value={searchKeyword} />
+          <input placeholder="Search" onChange={searchInput} onClick={suggestionFunc} value={searchKeyword} />
             {searchKeyword == ''?
               <span className="material-icons">
                 search
@@ -67,7 +71,8 @@ const Header = () => {
               </span>
             }
               
-          <span className="material-icons">mic</span>
+          {/* <span className="material-icons">mic</span> */}
+
         </div>
 
         {token['mytoken']?
@@ -75,7 +80,7 @@ const Header = () => {
             <Link to="/studio/upload/video" >
               <span className="material-icons" style={{textDecoration: 'none', color: 'gray'}}>video_call</span>
             </Link>
-            <span className="material-icons">grid_view</span>
+            {/* <span className="material-icons">grid_view</span> */}
             <span className="material-icons">notifications</span>
             <span className="material-icons" onClick={popupShow}>person</span>
           </div>

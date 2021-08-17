@@ -21,7 +21,7 @@ function SideVideos(props) {
         <div className="app">
             
             { videoData && videoData.map((data, index) => {
-                if (data.category == props.category && data.id != props.videoID ){
+                if (data.id != props.videoID && index < 5) {
                     return(
                         <div className="side-video-div">
                             <Link to={`/watch/video/${data.id}`} style={{ textDecoration: 'none' }}>

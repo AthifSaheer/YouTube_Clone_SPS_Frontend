@@ -25,7 +25,6 @@ function Contents() {
     }, [token]);
 
     useEffect(() => {
-        // axios.get(`/api/v1/studio/videos/${token['mytoken']}/`)
         axios.get(`/api/v1/studio/videos/${token['channelCookie']}/`)
         .then(res => {setVideosAPI(res.data)})
         .catch(res => setApiError(true))
@@ -46,9 +45,9 @@ function Contents() {
                         <p style={{color: 'gray', fontSize: '12px'}}>*Incase please select a channel</p>
                         </div>
                     :
-                        <div className="table">
+                        <div className="studio-table">
 
-                            <table style={{ width: '100%'}}>
+                            <table style={{ width: '99%'}}>
                                 <thead>
                                     <tr>
                                         <th>Video</th> 
@@ -57,7 +56,7 @@ function Contents() {
                                         {/* <th>Commentcount</th> */}
                                         <th>Category</th>
                                         <th>View count</th>
-                                        <th>Block</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 
@@ -69,16 +68,41 @@ function Contents() {
                                     </div>
                                 :
                                     videosAPI.map((data, index) => {
-                                        let count = 0;
-                                        console.log(data.id)
+                                        let videoDeletePostData = {"user_token": token['mytoken'], "channel_id": token['channelCookie'], "video": data.id}
+
+                                        function deleteVideoFunc() {
+                                            let deleteConfirm = window.confirm("Do you want to delete this video?")
+                                            
+                                            if (deleteConfirm) {
+                                                axios.post(`/api/v1/studio/delete/videos/`, videoDeletePostData)
+                                                .then(res => {
+                                                    if (res.data.video_deleted == "video_deleted") {
+                                                        alert("Video deleted successfully")
+                                                        axios.get(`/api/v1/studio/videos/${token['channelCookie']}/`)
+                                                        .then(res => {setVideosAPI(res.data)})
+                                                        .catch(res => setApiError(true))
+                                                    } else if (res.data.video_deleted_error == "video_deleted_error") {
+                                                        alert("Error occured!")
+                                                    }
+                                                })
+                                                .catch(err => alert(err))
+                                            }
+                                        }
+                                        let style = {
+                                            hoverStyle: {
+                                                color: 'red',
+                                                '&:hover': { color: 'blue !important' },
+                                              }
+                                        }
+
                                         return (
-                                            <tr>
+                                            <tr key={index}>
                                                 <td><img src={data.thumbnail} width='100px' alt="" /></td>
                                                 <td>{data.title}</td> 
                                                 <td>{data.visibility}</td>
                                                 <td>{data.category}</td>
                                                 <td>{data.view_count}</td>
-                                                <td>Block</td>
+                                                <td data-hover="button"> <span className="material-icons video-dlt-icon" onClick={deleteVideoFunc}>delete</span></td>
                                             </tr>
                                         )
                                     })

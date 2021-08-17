@@ -3,6 +3,7 @@ import { useParams} from 'react-router-dom';
 import moment from "moment";
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
+import Moment from 'react-moment';
 
 import Header from "../Header/Header";
 import classes from "../../../App.module.css";
@@ -105,6 +106,9 @@ function WatchVideo() {
         .catch(err => alert(err));
     }, [])
 
+    function shareVideoFunc() {
+        alert(window.location.href)
+    }
 
     return (
         <div className="app">
@@ -127,36 +131,37 @@ function WatchVideo() {
 
                                 <div className="left" style={{ width:'1000px' }}>
                                     <h3>{data.title}</h3>
-                                    <p>{data.view_count} views .  {moment(data.upload_date).format("LL")} </p>
+                                    <p>{data.view_count} views . <Moment fromNow ago>{data.upload_date}</Moment> </p>
+                                    {/* {moment(data.upload_date).format("LL")} */}
                                 </div>
 
                                 <div className="right">
                                     {videoLikeData == "liked" || videoLikeData == "created_liked"?
                                         <div className="like-section-active">
-                                            <span className="material-icons like-icon-active" style={{ color:'#065fd4' }} onClick={videoLikeFunc}>thumb_up_alt </span>
+                                            <span className="material-icons like-icon-active" style={{ color:'#065fd4', cursor: 'pointer' }} onClick={videoLikeFunc}>thumb_up_alt </span>
                                             <span className="like-count-active">{data.like}</span>
                                         </div>
                                     :
                                         <div className="like-section">
-                                            <span className="material-icons like-icon" onClick={videoLikeFunc}>thumb_up_alt</span>
+                                            <span className="material-icons like-icon" onClick={videoLikeFunc} style={{ cursor: 'pointer' }}>thumb_up_alt</span>
                                             <span className="like-count">{data.like}</span>
                                         </div>
                                     } 
                                     
                                     {videoDislikeData == "disliked_true" || videoDislikeData == "created_disliked_true"?
                                         <div className="like-section-active">
-                                            <span className="material-icons like-icon-active" style={{ color:'#065fd4' }} onClick={videoDislikeFunc}>thumb_down_alt </span>
+                                            <span className="material-icons like-icon-active" style={{ color:'#065fd4', cursor: 'pointer' }} onClick={videoDislikeFunc}>thumb_down_alt </span>
                                             <span className="like-count-active">{data.dislike}</span>
                                         </div>
                                     :
                                         <div className="like-section">
-                                            <span className="material-icons like-icon" onClick={videoDislikeFunc}>thumb_down_alt</span>
+                                            <span className="material-icons like-icon" onClick={videoDislikeFunc} style={{ cursor: 'pointer' }}>thumb_down_alt</span>
                                             <span className="like-count">{data.dislike}</span>
                                         </div>
                                     }
 
-                                    <span className="material-icons" style={{ marginLeft:'30px', fontSize:'30px' }}>share</span>
-                                    <span className="material-icons" style={{ marginLeft:'30px', fontSize:'30px' }}>more_vert</span>
+                                    <span className="material-icons" style={{ marginLeft:'30px', fontSize:'30px', cursor: 'pointer' }} onClick={shareVideoFunc}>share</span>
+                                    <span className="material-icons" style={{ marginLeft:'30px', fontSize:'30px', cursor: 'pointer' }}>more_vert</span>
                                 </div>
 
                             </div>
@@ -176,7 +181,6 @@ function WatchVideo() {
                 }
             })}
 
-            
         </div>
       );
 }
