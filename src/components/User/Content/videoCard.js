@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import classes from "./VideoCard.module.css";
-import image from "../../../image/youtube2.jpg";
 import {Link} from 'react-router-dom'
 import {useCookies} from 'react-cookie';
 import axios from 'axios';
+import * as timeago from 'timeago.js';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const VideoCard = (props) => {
   const [token, setToken] = useCookies('')
@@ -30,10 +32,7 @@ const VideoCard = (props) => {
               setAPIWatchLater(response.data.watch_later_disapplied)
           } else if (response.data.created_watch_later_applied) {
               setAPIWatchLater(response.data.created_watch_later_applied)
-          } 
-          // else if (response.data.channel_does_not_exists) {
-          //     alert(response.data.channel_does_not_exists)
-          // } 
+          }
       })
       .catch(err => alert(err));
     }
@@ -50,22 +49,22 @@ const VideoCard = (props) => {
     })
     .catch(err => alert(err));
   }, [])
-
+let node = "2016-06-30 09:20:00"
   return (
     <div className={classes.video_card} >
         <Link to={`/watch/video/${props.id}`} style={{ textDecoration: 'none' }}>
           <div className={classes.video_card__image}>
-            <img src={props.image} alt="video thumbnail" onMouseOver={(e) => document.getElementById('watch-later-icon').style.display = 'block'} onMouseOut={() => document.getElementById('watch-later-icon').style.display = 'none'} />
+            <img src={props.image} alt="video thumbnail" /> {/*  onMouseOver={(e) => document.getElementById('watch-later-icon').style.display = 'block'} onMouseOut={() => document.getElementById('watch-later-icon').style.display = 'none'} */}
           </div>
         </Link>
         
-        <span className="material-icons" onClick={watchLaterFunc} key={props.id} id="watch-later-icon" style={props.style}>watch_later</span>
+        {/* <span className="material-icons" key={props.id} id="watch-later-icon" style={props.style}>watch_later</span> */}
         
       <div className={classes.video_card__content}>
         <div className={classes.video_card__channelpicture}>
           <img src={props.channelLogo} alt="Channel logo" width='20px' style={{borderRadius:'50%'}} />
         </div>
-        <div className={classes.video_card_info}>
+        <div className={classes.video_card_info} style={{ width: '100%' }}>
           <span className={classes.video_card__title}>{props.title}</span>
           
           <Link to={`/channel/${props.channelId}`} style={{ textDecoration: 'none' }}>
@@ -73,13 +72,22 @@ const VideoCard = (props) => {
           
           </Link>
           <span className={classes.video_card__view}>{props.view}</span>
-          <span className={classes.video_card__date}>{props.date}</span>
-          {APIWatchLater == 'watch_later_applied' || APIWatchLater == 'created_watch_later_applied'?
-            <span className="material-icons" onClick={watchLaterFunc} style={{color: 'blue'}}>watch_later</span>
-          :
-            <span className="material-icons" onClick={watchLaterFunc}>watch_later</span>
-          }
+          <span className={classes.video_card__date}>{timeago.format(props.date, 'en_US')}</span>
+          
+          
+
         </div>
+
+        <div className={classes.video_card_info}>
+          <Popup trigger={<span className="material-icons" style={{cursor: 'pointer'}} >more_vert</span>} position="right center">
+            {APIWatchLater == 'watch_later_applied' || APIWatchLater == 'created_watch_later_applied'?
+              <span className="material-icons" onClick={watchLaterFunc} style={{color: 'blue', cursor: 'pointer'}}>watch_later</span>
+            :
+              <span className="material-icons" style={{cursor: 'pointer'}} onClick={watchLaterFunc}>watch_later</span>
+            }
+          </Popup>
+        </div>
+
 
       </div>
     </div>

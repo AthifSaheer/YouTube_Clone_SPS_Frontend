@@ -1,3 +1,6 @@
+.scroll-container {
+  overflow-y: scroll;
+}
 .container .success-msg {
   color: #1d3557;
   background: #8fffab;

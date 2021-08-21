@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
+import * as timeago from 'timeago.js';  
 
 import {Link} from 'react-router-dom'
 import Header from "../Header/Header";
@@ -51,7 +51,7 @@ function WatchLater() {
                                 </div>
                                 <div className="videoDetails" >
                                     <p className="title">{data.watch_later_video.title}</p>
-                                    <p style={{fontSize: '13px'}}>{data.watch_later_video.view_count} views . {data.watch_later_video.upload_date}</p>
+                                    <p style={{fontSize: '13px'}}>{data.watch_later_video.view_count} views . {timeago.format(data.watch_later_video.upload_date)}</p>
 
                                     <Link to={`/channel/${data.applied_channel.id}`} style={{ textDecoration: 'none' }}>
                                         <div className="channelWarpper">

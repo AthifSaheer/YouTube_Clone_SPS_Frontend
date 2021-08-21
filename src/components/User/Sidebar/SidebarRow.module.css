@@ -25,3 +25,11 @@
 .sidebar__row.selected > span {
     color:rgb(243, 28, 28);
 }
+
+/* MEDIA QUERY */
+@media only screen and (max-width: 1000px) {
+  .sidebar__row h2 {
+    color: red;
+    font-size: 0px;
+  }
+}

@@ -30,5 +30,51 @@
 
 .sidebar__fixed::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: #c7c6c6;
+}
+
+.subscription_txt {
+  font-size: 16px;
+  font-weight: bold;
+  color: gray;
+  padding: 6px 0px 5px 19px;
+}
+.subscription_singin_txt {
+  font-size: 18px;
+  padding: 10px 0px 0 2px;
+  color: dodgerblue;
+  margin: 0 0 0 18px;
+}
+.subscriptions_chnl_logo {
+  border-radius: 50%;
+  width: 34px;
+  margin: 4px 7px 5px 14px;
+}
+.subscriptions_chnl_name {
+  font-size: 18px;
+  padding: 10px 0px 0 2px;
+  color: gray;
+}
+
+/* MEDIA QUERY */
+@media only screen and (max-width: 1000px) {
+  .sidebar {
+    min-width: 63px;
+    overflow: hidden;
+  }
+  .subscription_txt {
+    font-size: 0px;
+  }
+  .subscription_singin_txt {
+    font-size: 0px;
+  }
+  .subscriptions_chnl_logo {
+    font-size: 0px;
+    width: 0;
+  }
+  .subscriptions_chnl_name {
+    font-size: 0px;
+  }
+  .sidebar__fixed {
+    overflow-y: hidden;
+  }
 }

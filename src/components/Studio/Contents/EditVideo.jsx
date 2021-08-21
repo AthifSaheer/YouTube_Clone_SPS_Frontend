@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory, Link, useParams } from 'react-router-dom'
 import {useCookies} from 'react-cookie';
 import axios from 'axios';
 
@@ -10,12 +10,13 @@ import classes from "../../../App.module.css";
 import './Contents.css';
 
 
-function Contents() {
+function EditVideo() {
     const [videosAPI, setVideosAPI] = useState([])
     const [ApiError, setApiError] = useState(false)
 
     const [popup, setPopup] = useState(false)
     const [editVideoGET, setEditVideoGET] = useState([])
+    let { videoID } = useParams();
 
     // SESSION HANDLE 
     const [token, setToken] = useCookies() // ['mytoken']
@@ -32,6 +33,13 @@ function Contents() {
         axios.get(`/api/v1/studio/videos/${token['channelCookie']}/`)
         .then(res => {setVideosAPI(res.data)})
         .catch(res => setApiError(true))
+
+        axios.get(`/api/v1/studio/edit/video/${videoID}/`)
+        .then(response => {
+            // console.log(response);
+            setPopup(true)
+            setEditVideoGET(response.data)
+        })
     }, [])
 
     function PopdownFunc(){
@@ -98,12 +106,7 @@ function Contents() {
                                         }
 
                                         function editVideoGETFunc(videoID) {
-                                            axios.get(`/api/v1/studio/edit/video/${videoID}/`)
-                                            .then(response => {
-                                                // console.log(response);
-                                                setPopup(true)
-                                                setEditVideoGET(response.data)
-                                            })
+                                            
                                         }
 
                                         return (
@@ -113,14 +116,9 @@ function Contents() {
                                                 <td>{data.visibility}</td>
                                                 <td>{data.category}</td>
                                                 <td>{data.view_count}</td>
-                                                <td>
-                                                    <Link to={`/studio/edit/video/${data.id}`}>
-                                                        <span className="material-icons video-edit-icon" >edit</span>
-                                                    </Link>
-                                                </td>
+                                                <td> <span className="material-icons video-edit-icon" onClick={() => editVideoGETFunc(data.id)}>edit</span></td>
                                                 <td> <span className="material-icons video-dlt-icon" onClick={deleteVideoFunc}>delete</span></td>
                                             </tr>
-                                            // onClick={() => editVideoGETFunc(data.id)}
                                         )
                                     })
                                     
@@ -132,60 +130,29 @@ function Contents() {
                     }
 
 
-                    {popup?
-                        <div className="channel-popup-main-div" id="dropdown" >
-                            <div className="channel-popup-inner-div">
-                                <button onClick={PopdownFunc} className="close-btn">x</button>
-                                {editVideoGET && editVideoGET.map((data, index) => {
-                                    return (
-                                        <VideoUploadForm 
-                                        videoID={data.id}
-                                        title={data.title}
-                                        video={data.video}
-                                        thumbnail={data.thumbnail}
-                                        description={data.description}
-                                        category={data.category}
-                                        visibility={data.visibility}
-                                        comment_visibility={data.comment_visibility}
-                                        /> 
-                                    )
-                                })}
-                
-                                <div className="tabe">
-                                    {/* <table style={{ width: '100%'}}>
-                                        <thead>
-                                            <tr>
-                                                <th>NO</th>
-                                                <th>Thumbnail</th>
-                                                <th>Title</th>
-                                                <th>Visibility</th> 
-                                                <th>Category</th> 
-                                                <th>View count</th>
-                                            </tr>
-                                        </thead>
-                                        
-                                        <tbody style={{ textAlign: 'center', marginTop:'100px' } }>
-                                            {editVideoGET && editVideoGET.map((data, index) => {
-                                                return (
-                                                    <tr>
-                                                        <td>{index+1}</td>
-                                                        <td><img src={data.thumbnail} alt="Thmbnl" style={{width:'100px', height:'50px'}} /></td>
-                                                        <td>{data.title}</td>
-                                                        <td>{data.visibility}</td>
-                                                        <td>{data.category}</td>
-                                                        <td>{data.view_count}</td>
-                                                    </tr>
-                                                )
-                                            })}
-                                        </tbody>
-                                    </table> */}
-                                </div>
-
-                            </div>
+                    <div className="channel-popup-main-div" id="dropdown" >
+                        <div className="channel-popup-inner-div">
+                            <Link to="/studio/contents">
+                                <button className="close-btn">x</button>
+                            </Link>
+                            {editVideoGET && editVideoGET.map((data, index) => {
+                                return (
+                                    <VideoUploadForm 
+                                    videoID={data.id}
+                                    title={data.title}
+                                    video={data.video}
+                                    thumbnail={data.thumbnail}
+                                    description={data.description}
+                                    category={data.category}
+                                    visibility={data.visibility}
+                                    comment_visibility={data.comment_visibility}
+                                    /> 
+                                )
+                            })}
+            
                         </div>
-                    :
-                        null
-                    }
+                    </div>
+                   
 
                 </div>
 
@@ -194,4 +161,4 @@ function Contents() {
     )
 }
 
-export default Contents
+export default EditVideo

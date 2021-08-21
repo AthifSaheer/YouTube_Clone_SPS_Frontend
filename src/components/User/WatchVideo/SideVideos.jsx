@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import { useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom'
+import { format } from 'timeago.js';
 
 import img from "../../../image/youtube2old.jpg"
 
@@ -34,7 +35,7 @@ function SideVideos(props) {
                                 <Link to={`/channel/${props.channelId}`} style={{ textDecoration: 'none' }}>
                                     <p className="channel">{data.channel.channel_name}</p>
                                 </Link>
-                                <p className="view-and-date">{data.view_count} views . {data.upload_date}</p>
+                                <p className="view-and-date">{data.view_count} views . {format(data.upload_date)}</p>
                             </div>
                         </div>
                     )

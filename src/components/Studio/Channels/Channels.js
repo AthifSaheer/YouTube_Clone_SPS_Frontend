@@ -80,7 +80,7 @@ function Channels() {
                                     </div>
                                     <div className="channel-card-text">
                                         <p>{data.channel_name}</p>
-                                        <span>5M Subscribers</span>
+                                        <span>{data.subscribers} Subscribers</span>
                                     </div>
 
                                     {getChannelCookieID == data.id?

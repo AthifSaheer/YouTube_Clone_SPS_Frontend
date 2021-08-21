@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
+import * as timeago from 'timeago.js';
 
 import {Link} from 'react-router-dom'
 import Header from "../Header/Header";
@@ -48,7 +49,7 @@ function Explore() {
                                 </div>
                                 <div className="videoDetails" >
                                     <p className="title">{data.title}</p>
-                                    <p style={{fontSize: '13px'}}>{data.view_count} views . {data.upload_date}</p>
+                                    <p style={{fontSize: '13px'}}>{data.view_count} views . {timeago.format(data.upload_date)}</p>
 
                                     <Link to={`/channel/${data.channel.id}`} style={{ textDecoration: 'none' }}>
                                         <div className="channelWarpper">

@@ -1,5 +1,8 @@
-
 .video-dlt-icon:hover {
     color: red;
+    cursor: pointer;
+}
+.video-edit-icon:hover {
+    color: rgb(0, 247, 255);
     cursor: pointer;
 }

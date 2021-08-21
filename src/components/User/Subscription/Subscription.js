@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
+import * as timeago from 'timeago.js';
 
 import {Link} from 'react-router-dom'
 import Header from "../Header/Header";
@@ -26,17 +27,9 @@ function Subscription(data) {
                 console.log(response.data[0]);
 
                 if (response.data[0].no_videos == "no_videos") {
-                    alert('no_videos')
                     setApiSubrsVideo(response.data[0].no_videos);
                 } else {
-                    // alert('video found')
                     setApiSubrsVideo(response.data);
-                    // apiSubrsVideo.map((video) => {
-                    //     video.map((data) => {
-                    //         console.log(data.channel.channel_name);
-                    //     })
-                    // })
-
                 }
             })
             .catch((error) => {alert(error)})
@@ -59,41 +52,39 @@ function Subscription(data) {
                             apiSubrsVideo == "no_videos"?
                                 <p className="please-login-text">No Videos!</p>
                             :
-                                // apiSubrsVideo && apiSubrsVideo.map((video, index) => {
-                                    apiSubrsVideo.map((data, index) => {
-                                        return (
-                                            <div style={{display: 'flex'}}>
-                                                <div style={{width: '233px'}}></div>
+                                apiSubrsVideo.map((data, index) => {
+                                    return (
+                                        <div style={{display: 'flex'}}>
+                                            <div style={{width: '233px'}}></div>
 
-                                                <div className="videoSearchDiv">
-                                                    <div className="thumbnail">
-                                                        <Link to={`/watch/video/${data.id}`} style={{ textDecoration: 'none' }}>
-                                                            <img src={data.thumbnail}  alt=""  />
-                                                        </Link>
-                                                    </div>
-                                                    <div className="videoDetails" >
-                                                        <p className="title">{data.title}</p>
-                                                        <p style={{fontSize: '13px'}}>{data.view_count} views . {data.upload_date}</p>
-
-                                                        <Link to={`/channel/${data.channel.id}`} style={{ textDecoration: 'none' }}>
-                                                            <div className="channelWarpper">
-                                                                <div className="channelLogo">
-                                                                    <img src={data.channel.logo} alt="" width='30px' style={{borderRadius: '50%'}} />
-                                                                </div>
-                                                                <div className="channelName">
-                                                                    <p style={{fontSize: '13px', color: 'black'}}>{data.channel.channel_name}</p>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                        <p className="search-video-description">{data.description}</p>
-
-                                                    </div>
+                                            <div className="videoSearchDiv">
+                                                <div className="thumbnail">
+                                                    <Link to={`/watch/video/${data.id}`} style={{ textDecoration: 'none' }}>
+                                                        <img src={data.thumbnail}  alt=""  />
+                                                    </Link>
                                                 </div>
+                                                <div className="videoDetails" >
+                                                    <p className="title">{data.title}</p>
+                                                    <p style={{fontSize: '13px'}}>{data.view_count} views . {timeago.format(data.upload_date)}</p>
 
+                                                    <Link to={`/channel/${data.channel.id}`} style={{ textDecoration: 'none' }}>
+                                                        <div className="channelWarpper">
+                                                            <div className="channelLogo">
+                                                                <img src={data.channel.logo} alt="" width='30px' style={{borderRadius: '50%'}} />
+                                                            </div>
+                                                            <div className="channelName">
+                                                                <p style={{fontSize: '13px', color: 'black'}}>{data.channel.channel_name}</p>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <p className="search-video-description">{data.description}</p>
+
+                                                </div>
                                             </div>
-                                        )
-                                    })
-                                // })
+
+                                        </div>
+                                    )
+                                })
             }
 
         </div>

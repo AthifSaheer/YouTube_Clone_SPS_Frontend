@@ -65,3 +65,19 @@ padding:0px 15px;
     padding:0px 15px;
     font-size: 24px;
 }
+
+
+/* MEDIA QUERY */
+@media only screen and (max-width: 1000px) {
+    .header__mid input {
+        width: 345px;
+    }
+    .header__end {
+        min-width: 145px;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .header__mid input {
+        width: 200px;
+    }
+}

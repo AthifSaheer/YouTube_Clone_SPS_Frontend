@@ -4,6 +4,8 @@ import moment from "moment";
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
 import Moment from 'react-moment';
+import { format } from 'timeago.js';
+import ReactPlayer from 'react-player'
 
 import Header from "../Header/Header";
 import classes from "../../../App.module.css";
@@ -119,9 +121,11 @@ function WatchVideo() {
                     return(
                         <div key={index}>
                             <div className={classes.app__section}>
-                                <video width="320" height="240" style={{ width:'1600px', height:'600px', backgroundColor:'black' }} autoPlay controls>
+                                <video width="320" height="240" style={{ width:'1600px', height:'600px', backgroundColor:'black' }} autoPlay controls >
                                     <source src={data.video} type="video/mp4" />
                                 </video>
+                                {/* <ReactPlayer url={data.video} playing controls width="1600px" height="600px" progressInterval='1000'  /> */}
+
                             </div>
 
                             <div className="main__" style={{ display:'flex', marginTop:'15px', marginBottom:'20px', padding:'4px' }}>
@@ -131,8 +135,7 @@ function WatchVideo() {
 
                                 <div className="left" style={{ width:'1000px' }}>
                                     <h3>{data.title}</h3>
-                                    <p>{data.view_count} views . <Moment fromNow ago>{data.upload_date}</Moment> </p>
-                                    {/* {moment(data.upload_date).format("LL")} */}
+                                    <p>{data.view_count} views . {format(data.upload_date)} </p>
                                 </div>
 
                                 <div className="right">
@@ -175,6 +178,7 @@ function WatchVideo() {
                             subscribers={data.channel.subscribers}
                             category={data.category}
                             channelId={data.channel.id}
+                            commentVisibility={data.comment_visibility}
                             />
                         </div>
                     )

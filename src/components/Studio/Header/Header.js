@@ -16,6 +16,7 @@ const Header = () => {
   const history = useHistory()
   const [searchKeyword, setSearchKeyword] = useState('')
   const [popupTrigger, setPopupTrigger] = useState(false)
+  let channelToken = token['channelCookie'] ? token['channelCookie'] : 0
 
   const logoutFunc = () => {
     removeToken(['mytoken'])
@@ -62,7 +63,6 @@ const Header = () => {
               </Link>
             </span>
               
-          <span className="material-icons">mic</span>
         </div>
 
         {token['mytoken']?
@@ -96,10 +96,17 @@ const Header = () => {
                   <span className="popup-text">YouTube</span>
                 </Link> <br />
 
-                <Link to="" style={{textDecoration: 'none' }}> 
-                  <span className="material-icons popup-icon">account_box</span>
-                  <span className="popup-text">Your channel</span>
-                </Link> <br />
+                {!channelToken == 0?
+                  <Link to={`/channel/${channelToken}`} style={{textDecoration: 'none' }}> 
+                    <span className="material-icons popup-icon">account_box</span>
+                    <span className="popup-text">Your channel</span>
+                  </Link>
+                :
+                  <Link to="" style={{textDecoration: 'none' }}> 
+                    <span className="material-icons popup-icon">account_box</span>
+                    <span className="popup-text">Your channel</span>
+                  </Link>
+                }
 
                 {/* <Link to="/studio/create/channel" style={{textDecoration: 'none' }}>
                   <span className="material-icons popup-icon">add_box</span>

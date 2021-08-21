@@ -15,6 +15,8 @@ const Header = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [popupTrigger, setPopupTrigger] = useState(false)
 
+  let channelToken = token['channelCookie']? token['channelCookie'] : 0
+
   const logoutFunc = () => {
     removeToken(['mytoken'])
     removeToken(['channelCookie'])
@@ -47,7 +49,7 @@ const Header = () => {
 
       <div className={classes.header}>
         <div className={classes.header__head}>
-          <span className="material-icons">menu</span>
+          <span className="material-icons"></span>
           <Link to='/'>
           <img
             className={classes.header__logo}
@@ -106,10 +108,19 @@ const Header = () => {
                   <span className="popup-text">Studio</span>
                 </Link> <br />
 
-                <Link to="" style={{textDecoration: 'none' }}> 
-                  <span className="material-icons popup-icon">account_box</span>
-                  <span className="popup-text">Your channel</span>
-                </Link> <br />
+                {!channelToken == 0?
+                  <Link to={`/channel/${channelToken}`} style={{textDecoration: 'none' }}> 
+                    <span className="material-icons popup-icon">account_box</span>
+                    <span className="popup-text">Your channel</span>
+                  </Link>
+                :
+                  <Link to="" style={{textDecoration: 'none' }}> 
+                    <span className="material-icons popup-icon">account_box</span>
+                    <span className="popup-text">Your channel</span>
+                  </Link>
+                }
+
+                <br />
 
                 {/* <Link to="/studio/create/channel" style={{textDecoration: 'none' }}>
                   <span className="material-icons popup-icon">add_box</span>

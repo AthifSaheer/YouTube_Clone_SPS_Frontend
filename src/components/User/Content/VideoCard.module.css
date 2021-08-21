@@ -6,8 +6,8 @@
 .video_card__image {
     min-height: 160px;
     max-height: 160px;
-    position: relative;
-    display: inline-block;
+    /* position: relative;
+    display: inline-block; */
 }
 .video_card__image > img {
     width: 100%;
@@ -16,6 +16,7 @@
 }
 .video_card__content {
     display: flex;
+    padding: 7px 0 0 0;
 }
 .video_card__channelpicture  > span{
     font-size:35px;
@@ -23,9 +24,14 @@
 }
 .video_card__title {
     display: inline-block;
+    padding: 0 0 0 4px;
     display: block;
+    font-size: 17px;
     color: #202020;
     font-weight: 600;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .video_card__channelname {
     display: block;

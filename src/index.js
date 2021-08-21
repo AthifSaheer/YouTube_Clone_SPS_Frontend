@@ -14,6 +14,7 @@ import Subscription from './components/User/Subscription/Subscription';
 import Explore from './components/User/Explore/Explore';
 import LikedVideos from './components/User/LikedVideos/LikedVideos';
 import WatchLater from './components/User/WatchLater/WatchLater';
+import MyComments from './components/User/MyComments/MyComments';
 
 // STUDIO ------
 import Contents from './components/Studio/Contents/Contents'
@@ -21,6 +22,7 @@ import UploadVideo from './components/Studio/Contents/UploadVideo'
 import CreateChannel from './components/Studio/Contents/CreateChannel'
 import StudioDashboard from './components/Studio/Dashboard/Dashboard'
 import StudioChannels from './components/Studio/Channels/Channels'
+import EditVideo from './components/Studio/Contents/EditVideo'
 
 // ADMIN ------
 import UserList from './components/Admin/UserLists/UserList'
@@ -46,6 +48,7 @@ ReactDOM.render(
       <Route path='/feed/explore' component={Explore} />
       <Route path='/feed/liked/videos' component={LikedVideos} />
       <Route path='/feed/watch/later' component={WatchLater} />
+      <Route path='/feed/comments' component={MyComments} />
 
       {/* STUDIO */}
       <Route path='/studio/dashboard' component={StudioDashboard} />
@@ -53,6 +56,7 @@ ReactDOM.render(
       <Route path='/studio/my/channels' component={StudioChannels} />
       <Route path='/studio/create/channel' component={CreateChannel} />
       <Route path='/studio/upload/video' component={UploadVideo} />
+      <Route path='/studio/edit/video/:videoID' component={EditVideo} />
 
       {/* ADMIN */}
       <Route path='/admin/login' component={AdminLogin} />

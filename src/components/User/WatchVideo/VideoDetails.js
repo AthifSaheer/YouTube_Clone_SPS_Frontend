@@ -91,7 +91,6 @@ function VideoDetails(props) {
     useEffect(() => {
         axios.post(`/api/v1/user/add/comment/`, commentDataGet)
         .then(response => {
-            console.log(response.data);
             setCommentApiData(response.data)
         }).catch(err => {setCommentApiError(true)})
     }, [])
@@ -148,15 +147,21 @@ function VideoDetails(props) {
                 <div className="comments-posting-div">
                     <p>Comments</p>
 
-                    <div className="comments-posting-inner-div">
-                        <img src={props.channelLogo} alt="" />
-                        <input type="text" placeholder="Add a public comment..." value={comment} onChange={e => setComment(e.target.value)} />
-                    </div>
+                    {props.commentVisibility == "public"?
+                        <div>
+                            <div className="comments-posting-inner-div">
+                                <img src={props.channelLogo} alt="" />
+                                <input type="text" placeholder="Add a public comment..." value={comment} onChange={e => setComment(e.target.value)} />
+                            </div>
 
-                    <div className="comments-posting-inner-div-buttons">
-                        <button className="cancle-btn" value={comment} onClick={e => setComment("")}>CANCLE</button>
-                        <button className="submit-btn" onClick={commentAddFunc}>COMMENT</button>
-                    </div>
+                            <div className="comments-posting-inner-div-buttons">
+                                <button className="cancle-btn" value={comment} onClick={e => setComment("")}>CANCLE</button>
+                                <button className="submit-btn" onClick={commentAddFunc}>COMMENT</button>
+                            </div>
+                        </div>
+                    :
+                        null
+                    }
 
                 </div>
             </div>
@@ -168,31 +173,33 @@ function VideoDetails(props) {
                     <div class="loader"></div>
                 </div> 
             :
-              commentApiError == false ?
-                commentApiData && commentApiData.map((data, index) => {
-                    if (data.no_comments) {
-                        return (
-                            <Comments 
-                            noComment={data.no_comments} />
-                        )
-                    } else {
-                        return (
-                            // <div id="x_s_q">
-                                <Comments 
-                                channelID={channelID}
-                                videoID={videoID}
-                                commentID={data.id}
-                                comment={data.comment} 
-                                commentedChannel={data.commented_channel.channel_name} 
-                                commentedChannelLogo={data.commented_channel.logo} 
-                                uploadDate={data.created_at} 
-                                />
-                            // </div>
-                        )
-                    }
-                })
-            :
-                <p style={{color: 'gray', margin: '5px 0px 80px 102px'}}>Error occured!</p>
+                props.commentVisibility == "public"?
+                    commentApiError == false ?
+                        commentApiData && commentApiData.map((data, index) => {
+                            if (data.no_comments) {
+                                return (
+                                    <Comments 
+                                    noComment={data.no_comments} />
+                                )
+                            } else {
+                                return (
+                                    <Comments 
+                                    channelID={channelID}
+                                    videoID={videoID}
+                                    commentID={data.id}
+                                    comment={data.comment} 
+                                    commentedChannel={data.commented_channel.channel_name} 
+                                    commentedChannelLogo={data.commented_channel.logo} 
+                                    uploadDate={data.created_at} 
+                                    like={data.like}
+                                    />
+                                )
+                            }
+                        })
+                    :
+                        <p style={{color: 'gray', margin: '5px 0px 80px 102px'}}>Error occured!</p>
+                :    
+                    <p style={{color: 'gray', margin: '5px 0px 80px 102px'}}>Comment prevented!</p>
             }
 
         </div>

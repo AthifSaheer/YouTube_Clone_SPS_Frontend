@@ -1,0 +1,46 @@
+.my-comments-main-div {
+    width: 1260px;
+    margin: 15px 0 0 0;
+    padding: 7px;
+    display: flex;
+    border: none;
+    border-bottom: 1px solid rgb(194, 194, 194);
+}
+.my-comments-main-div:hover {
+    background: rgb(248, 248, 248);
+}
+.channel-logo {
+    width: 4%;
+}
+.channel-logo img {
+    width: 50px;
+    border-radius: 50%;  
+}
+.channel-and-comment-details {
+    width: 66%;
+    padding: 5px 0 0 14px;
+}
+.channel-and-comment-details .channel_name {
+    font-size: 15px;
+    color: #0092ac;
+    font-weight: bold;
+}
+.channel-and-comment-details .comment {
+    color: rgb(26, 26, 26);
+    font-size: 18px;
+}
+.video-thumbnail {
+    width: 10%;
+    padding: 10px 0 0 10px;
+}
+.video-thumbnail img {
+    width: 100px;
+}
+.video-title {
+    width: 20%;
+}
+.video-title p {
+    padding: 10px 0 0 0;
+    font-size: 17px;
+    color: slategray;
+}

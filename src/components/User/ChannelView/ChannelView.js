@@ -3,13 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import {useCookies} from 'react-cookie'
+import * as timeago from 'timeago.js'
 
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import classes from "../../../App.module.css";
-import crBanner from "../../../image/crBanner.png";
-import crLogo from "../../../image/crossroads.jpg";
-import thmbnl from "../../../image/youtube2old.jpg";
 import './ChannelView.css'
 
 function ChannelView() {
@@ -196,7 +194,7 @@ function ChannelView() {
                                         <img src={data.thumbnail} width="240px" alt="" />
                                     </Link>
                                     <p className="title">{data.title}</p>
-                                    <p className="view-date">{data.view_count} views . {data.upload_date}</p>
+                                    <p className="view-date">{data.view_count} views . {timeago.format(data.upload_date)}</p>
                                 </div>
                             )
                         } ) 

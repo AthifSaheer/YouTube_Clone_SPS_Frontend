@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
+import * as timeago from 'timeago.js';
 
 import {Link} from 'react-router-dom'
 import Header from "../Header/Header";
@@ -12,7 +13,7 @@ import '../Subscription/Subscription.css'
 function LikedVideos() {
     const [apiLikedVideos, setApiLikedVideos] = useState([])
     const [token, setToken] = useCookies('')
-    let loginedChannel = token['channelCookie']
+    let loginedChannel = token['channelCookie']? token['channelCookie'] : 0
 
     useEffect(() => {
         axios.get(`/api/v1/user/feed/liked/videos/${loginedChannel}`)
@@ -50,7 +51,7 @@ function LikedVideos() {
                                 </div>
                                 <div className="videoDetails" >
                                     <p className="title">{data.liked_video.title}</p>
-                                    <p style={{fontSize: '13px'}}>{data.liked_video.view_count} views . {data.liked_video.upload_date}</p>
+                                    <p style={{fontSize: '13px'}}>{data.liked_video.view_count} views . {timeago.format(data.liked_video.upload_date)}</p>
 
                                     <Link to={`/channel/${data.liked_video.id}`} style={{ textDecoration: 'none' }}>
                                         <div className="channelWarpper">

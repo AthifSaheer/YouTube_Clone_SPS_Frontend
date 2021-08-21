@@ -234,21 +234,32 @@ hr {
   margin: 10px 0 0 0;
   width: 100%;
 }
-.commented-user-comment .like {
-  font-size: 19px;
+
+.cmnt-dis_like-main-div {
+  display: flex;
+}
+.commented-user-comment .comment-like {
+  font-size: 18px;
   color: rgb(168, 168, 168);
   margin: 13px 7px 0 0;
 }
-.commented-user-comment .like-count {
-  font-size: 19px;
+.commented-user-comment .comment-like-count {
+  font-size: 13px;
   color: rgb(168, 168, 168);
-  padding: 10px 7px 0px 0;
+  padding: 14px 7px 0px 0;
 }
-.commented-user-comment .dislike {
+.commented-user-comment .comment-dislike {
   font-size: 18px;
   color: rgb(168, 168, 168);
-  margin: 13px 0 0 0;
+  margin: 13px 7px 0 0;
 }
+.commented-user-comment .comment-like-active, 
+.commented-user-comment .comment-dislike-active {
+  color: #065fd4;
+  font-size: 18px;
+  margin: 13px 7px 0 0;
+}
+
 
 .commented-user-comment .replay {
   font-size: 14px;

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {useCookies} from 'react-cookie';
 import { useHistory } from 'react-router-dom'
@@ -6,13 +7,9 @@ import Cookies from 'js-cookie';
 
 import APIService from '../../User/API/APIService'
 import LinearWithValueLabel from '../ProgressBar/ProgressBar'
-import Header from '../../User/Header/Header'
-import classes from "../../../App.module.css";
 
-export const UploadVideo = () => {
+function VideoUploadForm(props) {
   const [title, setTitle] = useState('')
-  const [video, setVideo] = useState()
-  const [thumbnail, setThumbnail] = useState()
   const [description, setDescription] = useState('')
   const [channel, setChannel] = useState('')
   const [category, setCategory] = useState('')
@@ -33,28 +30,23 @@ export const UploadVideo = () => {
   const [token, setToken] = useCookies(['mytoken'])
   const history = useHistory()
 
-  // if(APIChannels.token.key == tokenUser) {
-
-  // }
-  // const ch = APIChannels.token.key == tokenUser
-
   const submit = () => {
     const uploadData = new FormData();
-    uploadData.append('token', tokenUser);
+    // uploadData.append('token', tokenUser);
     if(token['channelCookie']){
       uploadData.append('channel', token['channelCookie']);
     } else{
       uploadData.append('channel', channel);
     }
-    uploadData.append('title', title);
-    uploadData.append('video', video, video.name);
-    uploadData.append('thumbnail', thumbnail, thumbnail.name);
-    uploadData.append('description', description);
-    uploadData.append('category', category);
-    uploadData.append('visibility', visibility);
-    uploadData.append('comment_visibility', commentVisibility);
+    uploadData.append('title', title? title : props.title);
+    // uploadData.append('video', video, video.name);
+    // uploadData.append('thumbnail', thumbnail, thumbnail.name);
+    uploadData.append('description', description? description : props.description);
+    uploadData.append('category', category? category : props.category);
+    uploadData.append('visibility', visibility? visibility : props.visibility);
+    uploadData.append('comment_visibility', commentVisibility? commentVisibility : props.visibility);
 
-    APIService.UploadVideo(uploadData)
+    axios.post(`/api/v1/studio/edit/video/${props.videoID}/`,uploadData)
     .then(resp => {
       setSuccessMessage(false)
       
@@ -69,19 +61,9 @@ export const UploadVideo = () => {
 
        }, 2450)
 
-       
-
     })
     .catch(error => { setApiError(false); setSuccessMessage(false) })
   };
-  
-
-  // SESSION HANDLE -----
-  useEffect(() => {
-    if(!token['mytoken']) {
-      history.push('/login')
-    }
-  }, [token]);
 
   useEffect(() => {
     axios.get('/api/v1/admin/channels/')
@@ -101,32 +83,26 @@ export const UploadVideo = () => {
   const validate = () => {
     let errors = {};
 
-    if (!title) {
-      errors.title = "Cannot be blank";
-    }
-    if (!video) {
-      errors.video = "Cannot be blank";
-    }
-    if(!token['channelCookie']){
-      if (!channel) {
-        errors.channel = "Cannot be blank";
-      } 
-    }
-    if (!thumbnail) {
-      errors.thumbnail = "Cannot be blank";
-    }
-    if (!description) {
-      errors.description = "Cannot be blank";
-    }
-    if (!category) {
-      errors.category = "Cannot be blank";
-    }
-    if (!visibility) {
-      errors.visibility = "Cannot be blank";
-    }
-    if (!commentVisibility) {
-      errors.commentVisibility = "Cannot be blank";
-    }
+    // if (!title || !props.title) {
+    //   errors.title = "Cannot be blank";
+    // }
+    // if(!token['channelCookie']){
+    //   if (!channel || !props.channel) {
+    //     errors.channel = "Cannot be blank";
+    //   } 
+    // }
+    // if (!description || !props.description) {
+    //   errors.description = "Cannot be blank";
+    // }
+    // if (!category || !props.category) {
+    //   errors.category = "Cannot be blank";
+    // }
+    // if (!visibility || !props.visibility) {
+    //   errors.visibility = "Cannot be blank";
+    // }
+    // if (!commentVisibility || !props.comment_visibility) {
+    //   errors.commentVisibility = "Cannot be blank";
+    // }
 
     return errors;
   };
@@ -139,23 +115,8 @@ export const UploadVideo = () => {
 
   return (
     <div>
-      <Header />
-      <div className="container">
-        <h1>Upload Video</h1>
-        {Object.keys(formErrors).length === 0 && isSubmitting && apiError && (
-          <LinearWithValueLabel />  
-        )}
-        {apiError?
-          null
-        :
-          <span className="error-msg">Error occured</span>
-        }
-        
-        {successMessage?
-          <span className="success-msg">Video uploaded</span>
-        :
-          null
-        }
+      <div className="container scroll-container">
+        <h1>Edit Video</h1>
         
         <form onSubmit={handleSubmit} noValidate enctype="multipart/form-data" method="post">
           <div className="form-row">
@@ -164,7 +125,7 @@ export const UploadVideo = () => {
               type="text"
               name="title"
               id="title"
-              value={title}
+              value={title? title : props.title }
               onChange={e => setTitle(e.target.value)}
               className={formErrors.title && "input-error"}
               placeholder="Title"
@@ -175,51 +136,12 @@ export const UploadVideo = () => {
           </div>
 
           <div className="form-row">
-            <label htmlFor="video">Video</label>
-            <input
-              type="file"
-              name="video"
-              id="video"
-              onChange={e => setVideo(e.target.files[0])}
-              className={formErrors.video && "input-error"}
-              accept="video/mp4,video/x-m4v,video/*"
-            />
-            {/* onChange={e => {
-                let videoSize = e.target.files[0]
-                let video = document.getElementById("video").value
-                console.log(video);
-                console.log(videoSize);
-                if (videoSize['size'] > 1000 ) {
-                  alert('mx')
-                }
-              }} */}
-            {formErrors.video && (
-              <span className="error">{formErrors.video}</span>
-            )}
-          </div>
-
-          <div className="form-row">
-            <label htmlFor="thumbnail">Thumbnail</label>
-            <input
-              type="file"
-              name="thumbnail"
-              id="thumbnail"
-              onChange={e => setThumbnail(e.target.files[0])}
-              className={formErrors.thumbnail && "input-error"}
-              accept="image/*"
-            />
-            {formErrors.thumbnail && (
-              <span className="error">{formErrors.thumbnail}</span>
-            )}
-          </div>
-
-          <div className="form-row">
             <label htmlFor="description">Description</label>
             <input
               type="text"
               name="description"
               id="description"
-              value={description}
+              value={description? description : props.description}
               onChange={e => setDescription(e.target.value)}
               className={formErrors.description && "input-error"}
               placeholder="Description"
@@ -256,7 +178,7 @@ export const UploadVideo = () => {
           <br />
 
           <label htmlFor="category">Choose Category:</label>
-            <select name="category" id="Category" onChange={e => setCategory(e.target.value)} className={formErrors.category && "input-error"}>
+            <select name="category" id="Category" onChange={e => setCategory(e.target.value)} className={formErrors.category && "input-error"} value={category? category : props.category}>
               <option value="---">---</option>
               <option value="Tech">Tech</option>
               <option value="Python">Python</option>
@@ -279,7 +201,7 @@ export const UploadVideo = () => {
 
             <label htmlFor="visibility">Choose Video Visibility:</label>
 
-            <select name="visibility" id="Visibility" onChange={e => setVisibility(e.target.value)} className={formErrors.visibility && "input-error"}>
+            <select name="visibility" id="Visibility" value={visibility? visibility : props.visibility} onChange={e => setVisibility(e.target.value)} className={formErrors.visibility && "input-error"}>
               <option value="---">---</option>
               <option value="public">public</option>
               <option value="unlisted">unlisted</option>
@@ -290,19 +212,34 @@ export const UploadVideo = () => {
 
             <label htmlFor="commentVisibility">Choose Comment Visibility:</label>
 
-            <select name="commentVisibility" id="commentVisibility" onChange={e => setCommentVisibility(e.target.value)} className={formErrors.commentVisibility && "input-error"}>
+            <select name="commentVisibility" id="commentVisibility" value={commentVisibility? commentVisibility : props.comment_visibility} onChange={e => setCommentVisibility(e.target.value)} className={formErrors.commentVisibility && "input-error"}>
               <option value="---">---</option>
               <option value="public">public</option>
               <option value="prevent">prevent</option>
             </select>
           {formErrors.commentVisibility && ( <span className="error">{formErrors.commentVisibility}</span> )}
             <br />
+            
+            {Object.keys(formErrors).length === 0 && isSubmitting && apiError && (
+                <LinearWithValueLabel />  
+            )}
+            {apiError?
+                null
+            :
+                <span className="error-msg">Error occured</span>
+            }
+            
+            {successMessage?
+                <span className="success-msg">Video Edited</span>
+            :
+                null
+            }
 
-          <button type="submit">Upload</button>
+            <button type="submit">Upload</button>
         </form>
       </div>
     </div>
   );
 }
 
-export default UploadVideo
+export default VideoUploadForm
