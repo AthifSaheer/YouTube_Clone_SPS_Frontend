@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useParams} from 'react-router-dom';
 import moment from "moment";
 import axios from 'axios';
@@ -113,7 +113,7 @@ function WatchVideo() {
     }
 
     return (
-        <div className="app">
+        <div className="">
             <Header />
             
             { videoData && videoData.map((data, index) => {
@@ -121,7 +121,7 @@ function WatchVideo() {
                     return(
                         <div key={index}>
                             <div className={classes.app__section}>
-                                <video width="320" height="240" style={{ width:'1600px', height:'600px', backgroundColor:'black' }} autoPlay controls >
+                                <video style={{ width:'1600px', height:'600px', backgroundColor:'black' }} autoPlay controls >
                                     <source src={data.video} type="video/mp4" />
                                 </video>
                                 {/* <ReactPlayer url={data.video} playing controls width="1600px" height="600px" progressInterval='1000'  /> */}

@@ -179,7 +179,7 @@ function Search() {
 
         {/* ----------------- FILTER SECTION ----------------- */}
         <div className={classes.app__section}>
-            <div style={{minWidth:'233px'}}></div>
+            <div className="empty-div"></div>
             <div className="filter-container">
 
                 <div className="filter-text"><p onClick={filterOpen}>FILTER</p></div>
@@ -267,7 +267,7 @@ function Search() {
             channelData && channelData.map((data, index) => {
                 return(
                     <div className={classes.app__section}>
-                        <div style={{minWidth:'233px'}}></div>
+                        <div className="empty-div"></div>
                         <ChannelSearchResult 
                         channelID={data.id}
                         logo={data.logo}
@@ -284,7 +284,7 @@ function Search() {
 
         {/* //----------------- HR -----------------  */}
         <div className={classes.app__section}>
-            <div style={{minWidth:'233px'}}></div>
+            <div className="empty-div"></div>
             <hr style={{width: '1270px'}} />
         </div>
 
@@ -293,7 +293,7 @@ function Search() {
                 videoData && videoData.map((data, index) => {
                     return(
                         <div className={classes.app__section} key={data.id}>
-                            <div style={{minWidth:'233px'}}></div>
+                            <div className="empty-div"></div>
                             <VideoSearchResult
                             id={data.id} 
                             title={data.title}

@@ -8,7 +8,7 @@ function VideoSearchResult(props) {
     return (
         <div>
             <div className="videoSearchDiv">
-                <div className="thumbnail">
+                <div className="search-thumbnail">
                     <Link to={`/watch/video/${props.id}`} style={{ textDecoration: 'none' }}>
                         <img src={props.thumbnail}  alt=""  />
                     </Link>

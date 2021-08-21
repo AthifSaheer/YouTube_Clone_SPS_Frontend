@@ -56,8 +56,9 @@
 }
 
 /* MEDIA QUERY */
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1258px) {
   .sidebar {
+    width: 63px;
     min-width: 63px;
     overflow: hidden;
   }

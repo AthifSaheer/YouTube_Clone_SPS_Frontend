@@ -69,9 +69,9 @@ function Login() {
                         <h1 className="login-text">Log In</h1>
                                             
                         <div className="login-div">
-                            {/* Username */}
 
-                            <input type="text" className="form-control username-input" placeholder="Enter your username"
+                            {/* Username */}
+                            <input type="text" className="form-control username-input" placeholder="Username"
                             value={username} onChange={e => setUsername(e.target.value)}
                             />
                             {usernameRequired?
@@ -84,7 +84,7 @@ function Login() {
                             <br />
 
                             {/* Password */}
-                            <input type="password" className="form-control password-input" id="exampleInputPassword1" placeholder="Enter your password" 
+                            <input type="password" className="form-control password-input" id="exampleInputPassword1" placeholder="Password" 
                             value={password} onChange={e => setPassword(e.target.value)}
                             
                             />

@@ -28,28 +28,28 @@ const Sidebar = () => {
         }
     }, [])
 
-    let subscriptionTxt = {
-      fontSize: '16px',
-      fontWeight: 'bold',
-      color: 'gray',
-      padding: '6px 0px 5px 19px'
-    }
-    let subscriptionsChnlLogo = {
-      borderRadius: '50%',
-      width: '34px',
-      margin: '4px 7px 5px 14px'
-    }
-    let subscriptionsChnlName = {
-      fontSize: '18px',
-      padding: '10px 0px 0 2px',
-      color: 'gray'
-    }
-    let subscriptionsSigninTxt = {
-      fontSize: '18px',
-      padding: '10px 0px 0 2px',
-      color: 'dodgerblue',
-      margin: '0 0 0 18px'
-    }
+    // let subscriptionTxt = {
+    //   fontSize: '16px',
+    //   fontWeight: 'bold',
+    //   color: 'gray',
+    //   padding: '6px 0px 5px 19px'
+    // }
+    // let subscriptionsChnlLogo = {
+    //   borderRadius: '50%',
+    //   width: '34px',
+    //   margin: '4px 7px 5px 14px'
+    // }
+    // let subscriptionsChnlName = {
+    //   fontSize: '18px',
+    //   padding: '10px 0px 0 2px',
+    //   color: 'gray'
+    // }
+    // let subscriptionsSigninTxt = {
+    //   fontSize: '18px',
+    //   padding: '10px 0px 0 2px',
+    //   color: 'dodgerblue',
+    //   margin: '0 0 0 18px'
+    // }
 
   return (
     <div className={classes.sidebar}>

@@ -40,7 +40,7 @@ function MyComments() {
 
                 <div className="main">
                     
-                    <h3>My comments</h3>
+                    <h3 className="my-cmnt-txt">My comments</h3>
 
                     {!loginedUser?
                         <p style={{color: 'gray', fontSize: '19px', padding: '14px 0 0 0'}}>Please login!</p>

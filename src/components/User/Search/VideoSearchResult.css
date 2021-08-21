@@ -2,11 +2,15 @@
     display: flex;
 }
 
+.videoSearchDiv .search-thumbnail {
+    margin-left: 0px;
+    margin-top: 3px;
+}
 .videoSearchDiv .thumbnail {
-    margin-left: 100px;
+    margin-left: 0px;
 }
 
-.thumbnail img {
+.search-thumbnail img {
     width: 300px;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -26,4 +30,10 @@
     font-size: 13px;
     margin-top: 8px;
     margin-left: 10px;
+}
+
+@media screen and (max-width: 1249px) {
+    .videoSearchDiv .thumbnail {
+        margin-left: 100px;
+    }
 }

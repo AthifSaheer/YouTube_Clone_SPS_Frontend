@@ -1,3 +1,6 @@
+.empty-div {
+    min-width: 233px;
+}
 .channel-wrapper {
     display: grid;
 }
@@ -81,7 +84,7 @@
     flex-direction: row;
     align-content: flex-start;
 
-    max-width: 100%;
+    max-width: 90%;
     height: 900px;
     margin: 33px 0 0 10px;
     word-wrap: break-word;
@@ -104,4 +107,10 @@
 .video-card .view-date {
     color: rgb(107, 107, 107);
     font-size: 13px;
+}
+
+@media screen and (max-width: 1258px) {
+    .empty-div {
+        min-width: 80px;
+    }
 }

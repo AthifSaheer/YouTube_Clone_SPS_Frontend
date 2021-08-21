@@ -1,3 +1,7 @@
+.empty-div {
+    min-width: 233px;
+}
+
 .filter-container {
     padding: 10px;
     width: 100%;
@@ -45,4 +49,10 @@
     width: 700px; 
     overflow: hidden;
     text-overflow: ellipsis; 
+}
+
+@media screen and (max-width: 1258px) {
+    .empty-div {
+        min-width: 80px;
+    }
 }

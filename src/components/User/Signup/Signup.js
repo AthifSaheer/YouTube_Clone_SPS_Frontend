@@ -121,7 +121,7 @@ function Login() {
                         <div className="login-div">
                             {/* Username */}
 
-                            <input type="text" name="usrename" className="form-control username-input" placeholder="Enter your username"
+                            <input type="text" name="usrename" className="form-control username-input" placeholder="Username"
                             value={username} onChange={e => setUsername(e.target.value)}
                             />
                             {usernameRequired?
@@ -134,7 +134,7 @@ function Login() {
                             <br />
 
                             {/* Password */}
-                            <input type="password" name="password" className="form-control password-input" id="exampleInputPassword1" placeholder="Enter your password" 
+                            <input type="password" name="password" className="form-control password-input" id="exampleInputPassword1" placeholder="Password" 
                             value={password} onChange={e => setPassword(e.target.value)}
                             
                             />
@@ -149,7 +149,7 @@ function Login() {
 
                             {/* Confirm Password */}
                             
-                            <input type="password" name="confirmPassword" className="form-control password-input" id="exampleInputPassword2" placeholder="Enter your confirm password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                            <input type="password" name="confirmPassword" className="form-control password-input" id="exampleInputPassword2" placeholder="Confirm password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
 
                             {confirmPasswordRequired?
                                 <span className="text-danger">This field is required</span>

@@ -39,7 +39,7 @@ const MainPageVideos = (props) => {
                                 </div>
                             )
                         } else if (props.category == "All") {
-                            var style={
+                            var style = {
                                 position: 'absolute',
                                 margin: '0px 0px 0px -26px',
                                 color: 'white',

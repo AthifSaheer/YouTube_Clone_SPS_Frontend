@@ -112,7 +112,7 @@ function ChannelView() {
         </div>
 
         <div className={classes.app__section}>
-            <div style={{minWidth:'233px'}}></div>
+            <div className="empty-div"></div>
 
             <div className="channel-wrapper">
 

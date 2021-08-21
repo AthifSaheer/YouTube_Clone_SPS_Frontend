@@ -1,10 +1,18 @@
-.my-comments-main-div {
+.main {
     width: 1260px;
+}
+.my-cmnt-txt {
+    padding: 0px 0 0 16px;
+    color: black;
+}
+.my-comments-main-div {
+    width: 100%;
     margin: 15px 0 0 0;
     padding: 7px;
     display: flex;
     border: none;
-    border-bottom: 1px solid rgb(194, 194, 194);
+    border-bottom: 1px solid #c2c2c2;
+    padding: 0px 0 0 16px;
 }
 .my-comments-main-div:hover {
     background: rgb(248, 248, 248);
@@ -43,4 +51,51 @@
     padding: 10px 0 0 0;
     font-size: 17px;
     color: slategray;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 150px;
+}
+
+@media screen and (max-width: 1390px) {
+    .channel-and-comment-details {
+        width: 60%;
+        padding: 5px 0 0 14px;
+    }  
+}
+@media screen and (max-width: 1355px) {
+    .channel-and-comment-details {
+        width: 56%;
+        padding: 5px 0 0 14px;
+    }
+    .video-title {
+        width: 10%;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .video-title p {
+        padding: 10px 0 0 20px;
+    } 
+}
+@media screen and (max-width: 985px) {
+    .video-title p {
+        padding: 10px 0 0 50px;
+    } 
+    .channel-and-comment-details .channel_name {
+        margin: 0 0 0 15px;
+    }
+    .channel-and-comment-details .comment {
+        margin: 0 0 0 15px;
+    }
+}
+@media screen and (max-width: 670px) {
+    .video-title p {
+        padding: 10px 0 0 80px;
+    }
+    .channel-and-comment-details .channel_name {
+        margin: 0 0 0 25px;
+    }
+    .channel-and-comment-details .comment {
+        margin: 0 0 0 25px;
+    }
 }
