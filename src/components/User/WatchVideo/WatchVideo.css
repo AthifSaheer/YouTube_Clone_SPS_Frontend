@@ -55,6 +55,33 @@
   font-size: 22px;
   padding: 3px 0px 0 5px;
 }
+.popup-content  {
+  position: absolute;
+  z-index: 999;
+  pointer-events: auto;
+  top: 708.2px;
+  left: 663px;
+}
+[role=tooltip].popup-content {
+  width: 326px;
+  box-shadow: 0 0 3px rgb(0 0 0 / 16%);
+  border-radius: 5px;
+}
+
+.share_link {
+  border: none;
+  width: 278px;
+  font-size: 16px;
+}
+.share_link:focus {
+  outline: none;
+}
+.copy_btn {
+  color: rgb(0, 129, 204);
+  background: rgb(255, 255, 255);
+  font-weight: bold;
+  border: none;
+}
 
 /* =================================== Channel detials css =================================== */
 hr {

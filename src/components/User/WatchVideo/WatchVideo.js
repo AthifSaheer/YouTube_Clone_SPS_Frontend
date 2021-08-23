@@ -3,7 +3,7 @@ import { useParams} from 'react-router-dom';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
 import { format } from 'timeago.js';
-import ReactPlayer from 'react-player'
+import Popup from 'reactjs-popup';
 
 import Header from "../Header/Header";
 import classes from "../../../App.module.css";
@@ -23,12 +23,16 @@ function WatchVideo() {
     const getData = {"token": user_token, "liked_channel": liked_channel, "liked_video": videoID, "method":"get"}
     const postData = {"token": user_token, "liked_channel": liked_channel, "liked_video": videoID, "method":"post"}
 
-    useEffect(() => {
+    function watchVideoFunc() {
         fetch(`/api/v1/user/watch/video/${videoID}`, {
             method: 'GET',
         })
         .then(responce => responce.json())
         .then(res => setVideoData(res))
+    }
+
+    useEffect(() => {
+        watchVideoFunc()
     }, [videoLikeData, videoDislikeData])
 
     function videoLikeFunc() {
@@ -105,10 +109,25 @@ function WatchVideo() {
         .catch(err => alert(err));
     }, [])
 
-    function shareVideoFunc() {
-        alert(window.location.href)
+    
+    function videoViewCountFunc(e) {
+        console.log(e.target.currentTime)
+        var currentTime = e.target.currentTime;
+        if (currentTime > 5 && currentTime < 5.5) {
+            axios.get(`/api/v1/user/update/video/count/${videoID}`)
+            watchVideoFunc()
+        }
     }
 
+    function videoShareLinkCopy() {
+        var copyText = document.getElementById("shareLink");
+        var copyBtn = document.getElementsByClassName("copy_btn")[0];
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        copyBtn.innerText = "COPIED"
+    }
+    
     return (
         <div className="">
             <Header />
@@ -118,11 +137,9 @@ function WatchVideo() {
                     return(
                         <div key={index}>
                             <div className={classes.app__section}>
-                                <video className="video" autoPlay controls >
+                                <video className="video" autoPlay controls onTimeUpdate={(e) => videoViewCountFunc(e)} >
                                     <source src={data.video} type="video/mp4" />
                                 </video>
-                                {/* <ReactPlayer url={data.video} playing controls width="1600px" height="600px" progressInterval='1000'  /> */}
-
                             </div>
 
                             <div className="main__">
@@ -159,7 +176,11 @@ function WatchVideo() {
                                         </div>
                                     }
 
-                                    <span className="material-icons" style={{ marginLeft:'30px', fontSize:'30px', cursor: 'pointer' }} onClick={shareVideoFunc}>share</span>
+                                    <Popup trigger={<span className="material-icons" style={{ marginLeft:'30px', fontSize:'30px', cursor: 'pointer' }}>share</span>} position="left" >
+                                        <input  type="text" value={(window.location.href)} id="shareLink" className="share_link"></input>
+                                        <button class="copy_btn" onClick={videoShareLinkCopy}>COPY</button>
+                                    </Popup>
+                                    
                                 </div>
 
                             </div>
@@ -175,6 +196,7 @@ function WatchVideo() {
                             channelId={data.channel.id}
                             commentVisibility={data.comment_visibility}
                             />
+                            
                         </div>
                     )
                 }
