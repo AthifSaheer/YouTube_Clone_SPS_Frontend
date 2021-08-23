@@ -191,7 +191,7 @@ function ChannelView() {
                             return (
                                 <div className="video-card" key={data.id}>
                                     <Link to={`/watch/video/${data.id}`}>
-                                        <img src={data.thumbnail} width="240px" alt="" />
+                                        <img src={data.thumbnail} width="240px" height="125px" alt="" />
                                     </Link>
                                     <p className="title">{data.title}</p>
                                     <p className="view-date">{data.view_count} views . {timeago.format(data.upload_date)}</p>

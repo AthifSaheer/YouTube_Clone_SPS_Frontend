@@ -1,3 +1,26 @@
+.video {
+  width: 1600px;
+  height: 600px;
+  background: #000;
+}
+.main__ {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 4px;
+}
+.main__ .first {
+  width: 100px;
+}
+.main__ .left {
+  width: 1000px;
+}
+@media screen and (max-width:960px){
+  .main__ .left {
+    min-width: 800px;
+  }
+}
+
 /* ------- CHANNEL LIKE DISLIKE SECION ------- */
 .right {
   display: flex;
@@ -59,9 +82,15 @@ hr {
   border-radius: 100%;
 }
 .channel-title-div{
-  width:600px;
+  width: 600px;
   margin-top:9px;
 }
+@media screen and (max-width:960px){
+  .channel-title-div{
+    min-width: 400px;
+  }
+}
+
 .channel-title-div .sub-count{
   font-size: 13px;
 }
@@ -132,8 +161,16 @@ hr {
   margin-top: 10px;
 }
 .comments-posting-div {
-  width: 750px;
+  min-width: 750px;
   padding: 2px 0px 10px 2px;
+}
+@media screen and (max-width: 780px) {
+  .comments-posting-div {
+    margin: 0px 0 0 34px;
+  }
+  .comments-showing-div {
+    margin: 0px 0 0 34px;
+  }
 }
 .comments-posting-div p {
   font-size: 17px;
@@ -201,7 +238,7 @@ hr {
 /* ====== COMMENT SHOWING DIV CSS ====== */
 .comments-showing-div {
   display: flex;
-  width: 750px;
+  min-width: 750px;
 }
 .comments-showing-inner-div {
   display: flex;

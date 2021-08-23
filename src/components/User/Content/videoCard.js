@@ -81,12 +81,15 @@ let node = "2016-06-30 09:20:00"
         <div className={classes.video_card_info}>
           <Popup trigger={<span className="material-icons" style={{cursor: 'pointer'}} >more_vert</span>} position="right center">
             {APIWatchLater == 'watch_later_applied' || APIWatchLater == 'created_watch_later_applied'?
-              <span className="material-icons" onClick={watchLaterFunc} style={{color: 'blue', cursor: 'pointer'}}>watch_later</span>
-            :
-            <div>
-              <span className="material-icons" style={{cursor: 'pointer', padding: '1px'}} onClick={watchLaterFunc}>watch_later</span>
-              <span>watch later</span> 
+              <div className={classes.watch_later_div_active} onClick={watchLaterFunc}>
+                <span className="material-icons">done</span>
+                <p>ADDED</p> 
             </div>
+            :
+              <div className={classes.watch_later_div} onClick={watchLaterFunc}>
+                <span className="material-icons">watch_later</span>
+                <p>WATCH LATER</p> 
+              </div>
             }
           </Popup>
         </div>

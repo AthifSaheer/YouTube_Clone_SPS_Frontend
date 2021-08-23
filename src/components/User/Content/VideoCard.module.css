@@ -29,7 +29,8 @@
     font-size: 17px;
     color: #202020;
     font-weight: 600;
-    white-space: wrap;
+    white-space: nowrap;
+    max-width: 265px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -40,10 +41,32 @@
     margin-top: 5px;
     font-weight: 600;
 }
-.video_card__view ,.video_card__date{
+.video_card__view, .video_card__date{
     display: inline-block;
     color: #838383;
     font-size:15px;
     margin-top: 5px;
     font-weight: 600;
+}
+.watch_later_div, .watch_later_div_active {
+    display: flex;
+    cursor: pointer;
+}
+.watch_later_div p {
+    font-size: 14px;
+    padding: 3px;
+    color: #202020;
+}
+.watch_later_div span {
+    color: #202020;
+    padding: 0 3px 0 0;
+}
+.watch_later_div_active p {
+    padding: 3px;
+    font-size: 14px;
+    color: #0e79d1;
+}
+.watch_later_div_active span {
+    color: #0e79d1;
+    padding: 0 3px 0 0;
 }

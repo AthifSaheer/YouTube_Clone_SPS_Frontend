@@ -71,18 +71,21 @@ const Sidebar = () => {
             <p className={classes.subscription_singin_txt}>SIGN IN</p>
             :
               !loginedChannel?
-                <p className={classes.subscription_singin_txt}>Channel not found!</p>
-              :
-                apiSubrsChannel && apiSubrsChannel.map((data, index) => {
-                  return (
-                      <Link to={`/channel/${data.which_channels.id}`} style={{textDecoration: 'none'}}>
-                        <div className="subscriptions" style={{display: 'flex'}} key={data.id}>
-                          <img src={data.which_channels.logo} alt="logo" className={classes.subscriptions_chnl_logo} />
-                          <p  className={classes.subscriptions_chnl_name}>{data.which_channels.channel_name}</p>
-                        </div>
-                      </Link>
-                  )
-                })
+                <p className={classes.subscription_singin_txt}>Channels not found!</p>
+                :
+                  apiSubrsChannel == "no_channels"?
+                    <p className={classes.subscription_singin_txt}>Channels not found!</p>
+                  :
+                    apiSubrsChannel && apiSubrsChannel.map((data, index) => {
+                      return (
+                          <Link to={`/channel/${data.which_channels.id}`} style={{textDecoration: 'none'}}>
+                            <div className="subscriptions" style={{display: 'flex'}} key={data.id}>
+                              <img src={data.which_channels.logo} alt="logo" className={classes.subscriptions_chnl_logo} />
+                              <p  className={classes.subscriptions_chnl_name}>{data.which_channels.channel_name}</p>
+                            </div>
+                          </Link>
+                      )
+                    })
           }
 
         </ul>

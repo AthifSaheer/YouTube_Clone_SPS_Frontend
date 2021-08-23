@@ -49,7 +49,7 @@ function Contents() {
                     <h3>Channel contents</h3>
                     {ApiError?
                         <div>
-                            <p style={{color: 'red', marginTop: '10px'}}>Error Accrued*</p>
+                            <p style={{color: 'red', marginTop: '10px'}}>Error occurred*</p>
                             <p style={{color: 'gray', fontSize: '12px'}}>*Incase please select a channel</p>
                         </div>
                     :
