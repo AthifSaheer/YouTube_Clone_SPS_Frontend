@@ -140,6 +140,7 @@ function WatchVideo() {
                                 <video className="video" autoPlay controls onTimeUpdate={(e) => videoViewCountFunc(e)} >
                                     <source src={data.video} type="video/mp4" />
                                 </video>
+                                {/* .split('?')[0] */}
                             </div>
 
                             <div className="main__">
