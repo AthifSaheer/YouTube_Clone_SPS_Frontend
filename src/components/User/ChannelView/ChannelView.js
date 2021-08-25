@@ -35,7 +35,7 @@ function ChannelView() {
     
     useEffect(() => {
         // CHANNEL --------
-        axios.get(`/api/v1/user/channel/${channelID}`) // 
+        axios.get(`/api/v1/user/channel/${channelID}/`) // 
         // .then(res => res.json())
         .then(res => {
             console.log(res);
@@ -49,7 +49,7 @@ function ChannelView() {
         })
 
         // VIDEOS ------
-        axios.get(`/api/v1/user/channel/video/${channelID}`)
+        axios.get(`/api/v1/user/channel/video/${channelID}/`)
         .then(res => {
             console.log(res.data.videos_not_found);
             if (res.data.videos_not_found != undefined) {

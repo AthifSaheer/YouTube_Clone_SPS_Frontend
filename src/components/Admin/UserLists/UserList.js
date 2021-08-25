@@ -35,7 +35,7 @@ function UserList() {
     }, [])
 
     function blockUserFunc(userID) {
-        axios.get(`/api/v1/admin/block/user/${userID}`)
+        axios.get(`/api/v1/admin/block/user/${userID}/`)
         .then(res => {
             fetch('/api/v1/admin/users/', { method: 'GET'})
             .then(responce => responce.json())
@@ -49,7 +49,7 @@ function UserList() {
     }
 
     function unBlockUserFunc(userID) {
-        axios.get(`/api/v1/admin/unblock/user/${userID}`)
+        axios.get(`/api/v1/admin/unblock/user/${userID}/`)
         .then(res => {
             fetch('/api/v1/admin/users/', { method: 'GET'})
             .then(responce => responce.json())

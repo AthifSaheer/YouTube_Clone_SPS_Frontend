@@ -24,7 +24,7 @@ function WatchVideo() {
     const postData = {"token": user_token, "liked_channel": liked_channel, "liked_video": videoID, "method":"post"}
 
     function watchVideoFunc() {
-        fetch(`/api/v1/user/watch/video/${videoID}`, {
+        fetch(`/api/v1/user/watch/video/${videoID}/`, {
             method: 'GET',
         })
         .then(responce => responce.json())

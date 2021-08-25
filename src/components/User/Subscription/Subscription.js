@@ -22,7 +22,7 @@ function Subscription(data) {
 
     useEffect(() => {
         if(loginedUser && loginedChannel)  {
-            axios.get(`/api/v1/user/feed/subscribers/video/${loginedChannel}`)
+            axios.get(`/api/v1/user/feed/subscribers/video/${loginedChannel}/`)
             .then((response) => {
                 console.log(response.data[0]);
 
@@ -32,7 +32,7 @@ function Subscription(data) {
                     setApiSubrsVideo(response.data);
                 }
             })
-            .catch((error) => {alert(error)})
+            .catch((error) => {setApiSubrsVideo("no_videos")})
         }
     }, [])
 

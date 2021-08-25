@@ -14,7 +14,7 @@ const Sidebar = () => {
 
     useEffect(() => {
         if(loginedUser && loginedChannel)  {
-            axios.get(`/api/v1/user/feed/subscribers/channel/${loginedChannel}`)
+            axios.get(`/api/v1/user/feed/subscribers/channel/${loginedChannel}/`)
             .then((response) => {
                 console.log(response.data[0]);
 
@@ -24,32 +24,9 @@ const Sidebar = () => {
                     setApiSubrsChannel(response.data);
                 }
             })
-            .catch((error) => {alert(error)})
+            .catch((error) => setApiSubrsChannel("no_channels"))
         }
     }, [])
-
-    // let subscriptionTxt = {
-    //   fontSize: '16px',
-    //   fontWeight: 'bold',
-    //   color: 'gray',
-    //   padding: '6px 0px 5px 19px'
-    // }
-    // let subscriptionsChnlLogo = {
-    //   borderRadius: '50%',
-    //   width: '34px',
-    //   margin: '4px 7px 5px 14px'
-    // }
-    // let subscriptionsChnlName = {
-    //   fontSize: '18px',
-    //   padding: '10px 0px 0 2px',
-    //   color: 'gray'
-    // }
-    // let subscriptionsSigninTxt = {
-    //   fontSize: '18px',
-    //   padding: '10px 0px 0 2px',
-    //   color: 'dodgerblue',
-    //   margin: '0 0 0 18px'
-    // }
 
   return (
     <div className={classes.sidebar}>
@@ -57,7 +34,7 @@ const Sidebar = () => {
         <ul>
           <Link to="/" style={{textDecoration: 'none'}}><SidebarRow key={1} selected icon="home" title="Home" /></Link>
           <Link to="/feed/explore" style={{textDecoration: 'none'}}> <SidebarRow key={2} icon="explore" title="Explore" /> </Link>
-          <Link to="/feed/subscriptions" style={{textDecoration: 'none'}}> <SidebarRow key={3}icon="subscriptions" title="Subscriptions" /></Link>
+          {/* <Link to="/feed/subscriptions" style={{textDecoration: 'none'}}> <SidebarRow key={3}icon="subscriptions" title="Subscriptions" /></Link> */}
           <Link to="/feed/comments" style={{textDecoration: 'none'}}> <SidebarRow key={3} icon="comment" title="Comments" /> </Link>
           <hr />
           {/* <SidebarRow key={4} icon="video_library" title="Library" /> */}

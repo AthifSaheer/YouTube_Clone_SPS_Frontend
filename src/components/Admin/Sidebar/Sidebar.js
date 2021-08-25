@@ -12,13 +12,7 @@ const Sidebar = () => {
           <Link to="/admin/dashboard" style={{ textDecoration: 'none' }}><SidebarRow key={1} selected icon="home" title="Home" /></Link>
           <Link to="/admin/users" style={{ textDecoration: 'none' }}><SidebarRow key={2} icon="person" title="Users" /></Link>
           <Link to="/admin/channels" style={{ textDecoration: 'none' }}><SidebarRow key={3} icon="subscriptions" title="Channels" /></Link>
-          <SidebarRow key={3}icon="notes" title="Feedback" />
-          {/* <hr /> */}
-          {/* <SidebarRow key={4}icon="video_library" title="Library" />
-          <SidebarRow key={5}icon="restore" title="History" />
-          <SidebarRow key={6} icon="smart_display" title="My videos" />
-          <SidebarRow key={7} icon="watch_later" title="Watch laater" />
-          <SidebarRow key={8} icon="thumb_up_alt" title="Liked videos" /> */}
+          {/* <SidebarRow key={3}icon="notes" title="Feedback" /> */}
         </ul>
       </div>
     </div>

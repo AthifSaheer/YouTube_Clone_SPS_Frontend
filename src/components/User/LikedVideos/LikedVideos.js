@@ -16,7 +16,7 @@ function LikedVideos() {
     let loginedChannel = token['channelCookie']? token['channelCookie'] : 0
 
     useEffect(() => {
-        axios.get(`/api/v1/user/feed/liked/videos/${loginedChannel}`)
+        axios.get(`/api/v1/user/feed/liked/videos/${loginedChannel}/`)
         .then((response) => {
             console.log(response.data[0].no_videos);
             console.log(response.data);
@@ -27,7 +27,7 @@ function LikedVideos() {
                 setApiLikedVideos(response.data);
             }
         })
-        .catch((error) => {alert(error)})
+        .catch((error) => setApiLikedVideos("no_videos"))
     }, [])
     return (
         <div className="app">

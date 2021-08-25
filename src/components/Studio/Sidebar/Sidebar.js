@@ -12,14 +12,8 @@ const Sidebar = () => {
           <Link to="/studio/dashboard" style={{ textDecoration: 'none' }}><SidebarRow key={1} selected icon="home" title="Dashboard" /></Link>
           <Link to="/studio/contents" style={{ textDecoration: 'none' }}><SidebarRow key={2} icon="subscriptions" title="Contents" /></Link>
           <Link to="/studio/my/channels" style={{ textDecoration: 'none' }}><SidebarRow key={3} icon="notes" title="My Channels" /></Link>
-          <SidebarRow key={3} icon="comment" title="Comments" />
-          <SidebarRow key={4} icon="feedback" title="Send feedback" />
-          {/* <hr /> */}
-          {/* <SidebarRow key={4}icon="video_library" title="Library" />
-          <SidebarRow key={5}icon="restore" title="History" />
-          <SidebarRow key={6} icon="smart_display" title="My videos" />
-          <SidebarRow key={7} icon="watch_later" title="Watch laater" />
-          <SidebarRow key={8} icon="thumb_up_alt" title="Liked videos" /> */}
+          {/* <SidebarRow key={3} icon="comment" title="Comments" /> */}
+          {/* <SidebarRow key={4} icon="feedback" title="Send feedback" /> */}
         </ul>
       </div>
     </div>
