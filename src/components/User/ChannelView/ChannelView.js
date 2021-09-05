@@ -11,10 +11,9 @@ import classes from "../../../App.module.css";
 import './ChannelView.css'
 
 function ChannelView() {
-
-
     const [token, setToken] = useCookies()
     const [APIData, setAPIData] = useState()
+    const [channelBody, setChannelBody] = useState("home")
     let { channelID } = useParams();
 
     // let x = token? null : alert("kl")
@@ -29,6 +28,9 @@ function ChannelView() {
 
     const [videoData, setVideoData] = useState([])
     const [videosNotFound, setVideosNotFound] = useState(false)
+
+    const [channelHomevideoData, setChannelHomeVideoData] = useState([])
+    const [channelHomevideoNotFount, setChannelHomeVideoNotFount] = useState([])
 
     const [channelData, setChannelData] = useState([])
     const [channelNotFound, setChannelNotFound] = useState(false)
@@ -45,7 +47,6 @@ function ChannelView() {
         .catch(error => {
             setChannelNotFound(true);
             setChannelData([])
-            alert(error.message)
         })
 
         // VIDEOS ------
@@ -62,6 +63,23 @@ function ChannelView() {
         .catch(error => {
             setVideosNotFound(true);
             setVideoData([])
+            alert(error.message)
+        })
+
+        // CHANNEL HOME VIDEOS ------
+        axios.get(`/api/v1/user/channel/home/${channelID}/`)
+        .then(res => {
+            console.log(res.data.videos_not_found);
+            if (res.data.videos_not_found != undefined) {
+                setChannelHomeVideoNotFount(true)
+            } else {
+                setChannelHomeVideoNotFount(false)
+                setChannelHomeVideoData(res.data)
+            }
+        })
+        .catch(error => {
+            setChannelHomeVideoNotFount(true);
+            setChannelHomeVideoData([])
             alert(error.message)
         })
 
@@ -116,7 +134,10 @@ function ChannelView() {
 
             <div className="channel-wrapper">
 
-                { Object.values(channelData).map((data, index) => {
+            {channelNotFound?
+                <p style={{color: 'red'}}>Channel not found...!</p>
+            :
+                Object.values(channelData).map((data, index) => {
                     if (index === 0) {
                     return (
                         <div key={data.id}>
@@ -177,30 +198,98 @@ function ChannelView() {
                     }
                 })}
 
-                <div className="channel-navbar">
-                    <p className="home">HOME</p>
-                    <p className="videos">VIDEOS</p>
-                    <p className="about">ABOUT</p>
-                </div>
-
-                <div className="content-body">
-                    {videosNotFound?
-                        <p style={{color: 'red'}}>Video not found...!</p>
+                {channelBody == "home"?
+                    <div className="channel-navbar">
+                        <p className="active" onClick={() => setChannelBody("home")}>HOME</p>
+                        <p className="videos" onClick={() => setChannelBody("video")}>VIDEOS</p>
+                        <p className="about" onClick={() => setChannelBody("about")}>ABOUT</p>
+                    </div>
+                :
+                    channelBody == "video"?
+                        <div className="channel-navbar">
+                            <p className="home" onClick={() => setChannelBody("home")}>HOME</p>
+                            <p className="active" onClick={() => setChannelBody("video")}>VIDEOS</p>
+                            <p className="about" onClick={() => setChannelBody("about")}>ABOUT</p>
+                        </div>
                     :
-                        videoData && videoData.map((data, index) => {
-                            return (
-                                <div className="video-card" key={data.id}>
-                                    <Link to={`/watch/video/${data.id}`}>
-                                        <img src={data.thumbnail} width="240px" height="125px" alt="" />
-                                    </Link>
-                                    <p className="title">{data.title}</p>
-                                    <p className="view-date">{data.view_count} views . {timeago.format(data.upload_date)}</p>
-                                </div>
-                            )
-                        } ) 
-                    }
-                </div>
-                
+                        channelBody == "about"?
+                            <div className="channel-navbar">
+                                <p className="home" onClick={() => setChannelBody("home")}>HOME</p>
+                                <p className="videos" onClick={() => setChannelBody("video")}>VIDEOS</p>
+                                <p className="active" onClick={() => setChannelBody("about")}>ABOUT</p>
+                            </div>
+                    :
+                        null
+                }
+
+                {channelBody == "home"?
+                    <div className="content-body">
+                        {channelHomevideoNotFount?
+                            <p style={{color: 'red'}}>Video not found...!</p>
+                        :
+                            channelHomevideoData && channelHomevideoData.map((data, index) => {
+                                return (
+                                    <div className="video-card" key={data.id}>
+                                        <Link to={`/watch/video/${data.id}`}>
+                                            <img src={data.thumbnail} width="240px" height="125px" alt="" />
+                                        </Link>
+                                        <p className="title">{data.title}</p>
+                                        <p className="view-date">{data.view_count} views . {timeago.format(data.upload_date)}</p>
+                                    </div>
+                                )
+                            } ) 
+                        }
+                    </div>
+                :
+                    channelBody == "video"?
+                        <div className="content-body">
+                            {videosNotFound?
+                                <p style={{color: 'red'}}>Video not found...!</p>
+                            :
+                                videoData && videoData.map((data, index) => {
+                                    return (
+                                        <div className="video-card" key={data.id}>
+                                            <Link to={`/watch/video/${data.id}`}>
+                                                <img src={data.thumbnail} width="240px" height="125px" alt="" />
+                                            </Link>
+                                            <p className="title">{data.title}</p>
+                                            <p className="view-date">{data.view_count} views . {timeago.format(data.upload_date)}</p>
+                                        </div>
+                                    )
+                                } ) 
+                            }
+                        </div>
+                    :
+                        channelBody == "about"?
+                            <div className="content-body">
+                                {videosNotFound?
+                                    <p style={{color: 'red'}}>About not found...!</p>
+                                :
+                                    // videoData && videoData.map((data, index) => {
+                                    Object.values(channelData).map((data, index) => {
+                                        if (index == 0) {
+                                            return (
+                                                <div className="about_main_div" key={data.id}>
+                                                    
+                                                    <div className="left_div">
+                                                        <h5>About channel: {data.about}</h5>
+                                                        <br />
+                                                        <h6>Stats</h6>
+                                                        <p>{data.video_view_count? data.video_view_count : 0} views</p>
+                                                        <p>{data.subscribers} subscribers</p>
+                                                        <p>{data.video_count? data.video_count : 0} videos</p>
+                                                        <p>Joined {data.created_at}</p>
+                                                    </div>
+                                                    
+                                                </div>
+                                            )
+                                        }
+                                    } ) 
+                                }
+                            </div>
+                    :
+                        null
+                }
 
             </div>
 

@@ -90,3 +90,38 @@
   background: rgba(#1d3557, 0.8);
 }
 
+.image_crop_main_div {
+  margin: 10px;
+}
+.cropped_img_download_btn {
+  color: #00aeff;
+  background-color: rgb(255, 255, 255);
+  padding: 2px;
+  border: 1px solid #00aeff;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+  margin: 10px;
+  height: 33px;
+}
+.cropped_img_download_btn:hover {
+  background-color: rgb(219, 248, 255);
+  border: 1px solid #00aac0;
+}
+
+.cropped_img_upload_btn {
+  color: #00af6c;
+  background-color: rgb(255, 255, 255);
+  padding: 2px;
+  border: 1px solid #00af6c;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+  margin: 10px;
+  height: 33px;
+}
+.cropped_img_upload_btn:hover {
+  background-color: rgb(219, 248, 255) !important;
+  border: 1px solid #00af6c !important;
+}
+

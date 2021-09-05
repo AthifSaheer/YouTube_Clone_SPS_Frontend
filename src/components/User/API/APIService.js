@@ -31,28 +31,11 @@ class APIService {
     }
 
     static CreateChannel(body) {
-
-        console.log("body",body)
         return axios.post('/api/v1/studio/create/channel/', body, {
-        // return fetch('/api/v1/studio/create/channel/', {
-        // 'method':'POST',
-        headers: {
-            'Content-Type': 'multipart/form-data'
-            // 'Content-Type': 'undefined'
-            // 'Content-Type' : 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
-            // 'Content-Type':'application/json',
+          headers: {
+              'Content-Type': 'multipart/form-data'
           }, 
-          // body:JSON.stringify(body)
-        // body : body
-
       })
-      // .then(resp => resp.json())
-
-      // .then(res => {
-      //   console.log(res.data);
-      // })
-      // .catch(err => alert('BAD REQ'))
-
     }
 
     static UploadVideo(body) {

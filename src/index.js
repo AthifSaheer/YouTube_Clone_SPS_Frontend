@@ -23,6 +23,7 @@ import CreateChannel from './components/Studio/Contents/CreateChannel'
 import StudioDashboard from './components/Studio/Dashboard/Dashboard'
 import StudioChannels from './components/Studio/Channels/Channels'
 import EditVideo from './components/Studio/Contents/EditVideo'
+import SendFeedback from './components/Studio/SendFeedback/SendFeedback'
 
 // ADMIN ------
 import UserList from './components/Admin/UserLists/UserList'
@@ -30,6 +31,7 @@ import AdminLogin from './components/Admin/Login/Login'
 import Videos from './components/Admin/Videos/Videos'
 import AdminDashboard from './components/Admin/Dashboard/Dashboard'
 import AdminChannels from './components/Admin/Channels/Channels'
+import Feedback from './components/Admin/Feedback/Feedback'
 // import AdminSignup from './components/Admin/Signup/Signup'
 
 
@@ -57,6 +59,7 @@ ReactDOM.render(
       <Route path='/studio/create/channel' component={CreateChannel} />
       <Route path='/studio/upload/video' component={UploadVideo} />
       <Route path='/studio/edit/video/:videoID' component={EditVideo} />
+      <Route path='/studio/send/feedback' component={SendFeedback} />
 
       {/* ADMIN */}
       <Route path='/admin/login' component={AdminLogin} />
@@ -65,6 +68,7 @@ ReactDOM.render(
       <Route path='/admin/users' component={UserList} />
       <Route path='/admin/channels' component={AdminChannels} />
       <Route path='/admin/videos' component={Videos} />
+      <Route path='/admin/feedback' component={Feedback} />
     </BrowserRouter>
 
   </React.StrictMode>,

@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
-import "./CreateChannel.css";
-import Cookies from 'js-cookie';
-import Header from '../../User/Header/Header'
-import APIService from '../../User/API/APIService'
 import { useHistory } from 'react-router-dom'
 import {useCookies} from 'react-cookie';
+import Cookies from 'js-cookie';
+
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+
+import Cropper from 'react-easy-crop'
+
+import getCroppedImg, {generateDownload} from './ImageCrop'
+
+import "./CreateChannel.css";
+import Header from '../../User/Header/Header'
+import APIService from '../../User/API/APIService'
+import img from '../../../image/youtube.jpg';
 
 const CreateChannel = () => {
   const [formErrors, setFormErrors] = useState({});
@@ -13,7 +22,8 @@ const CreateChannel = () => {
   
   const tokenUser = Cookies.get('mytoken')  
   const [channelName, setChannelName] = useState('')
-  const [logo, setLogo] = useState()
+  const [logo, setLogo] = useState("")
+  const [croppedLogoBase64, setCroppedLogoBase64] = useState("")
   const [banner, setBanner] = useState()
   const [about, setAbout] = useState('')
 
@@ -27,7 +37,8 @@ const CreateChannel = () => {
     const uploadData = new FormData();
     uploadData.append('token', tokenUser);
     uploadData.append('channel_name', channelName);
-    uploadData.append('logo', logo, logo.name);
+    // uploadData.append('logo', logo, logo.name);
+    uploadData.append('logo', croppedLogoBase64);
     uploadData.append('banner', banner, banner.name);
     uploadData.append('about', about);
     uploadData.append('is_active', true);
@@ -83,6 +94,59 @@ const CreateChannel = () => {
   }
   }, [token]);
 
+  // IMAGE CROPPING  -----
+  const [crop, setCrop] = useState({ aspect: 1, x: 0, y: 0 });
+  const [image, setImage] = useState(null)
+  const [showCropSection, setShowCropSection] = useState(false)
+
+  if (logo) {
+    const reader = new FileReader();
+    reader.readAsDataURL(logo);
+    reader.addEventListener("load", () => {
+      setImage(reader.result);
+    })
+  }
+
+  function downloadImageFunc() {
+    generateDownload(image, crop)
+  }
+
+  const dataURLtoFile = (dataurl, filename) => {
+    const arr = dataurl.split(",");
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+  
+    while (n--) u8arr[n] = bstr.charCodeAt(n);
+  
+    return new File([u8arr], filename, { type: mime });
+  };
+
+  
+  const onUpload = async () => {
+    if (!image)
+        return(
+            "Please select an image!"
+        );
+      
+    let forwhat = "base64"
+
+    const canvas = await getCroppedImg(image, crop, forwhat);
+    console.log("canvas", canvas);
+    const canvasDataUrl = canvas.toDataURL("image/jpeg");
+    
+    console.log("canvasDataUrl", canvasDataUrl);
+    setCroppedLogoBase64(canvasDataUrl)
+
+    const setLogo = dataURLtoFile(
+        canvasDataUrl,
+        "cropped-image.jpeg"
+    );
+    console.log(setLogo);
+    setShowCropSection(false)
+};
+
   return (
     <div>
       <Header />
@@ -98,7 +162,6 @@ const CreateChannel = () => {
         }
         <form onSubmit={handleSubmit} noValidate encType="multipart/form-data" method="post">
           
-
           <div className="form-row">
             <label htmlFor="channelName">Channel Name</label>
             <input
@@ -121,9 +184,33 @@ const CreateChannel = () => {
               type="file"
               name="logo"
               id="logo"
-              onChange={e => setLogo(e.target.files[0])}
+              onChange={e => {setLogo(e.target.files[0]); setShowCropSection(true)}}
+              // onChange={e => setLogo(e.target.value)}
               className={formErrors.logo && "input-error"}
             />
+
+            {showCropSection?
+              <div className="image_crop_main_div">
+                <ReactCrop src={image} crop={crop} aspect={1} onChange={newCrop => {
+                  console.log(crop);
+                  setCrop(newCrop)
+                }} />
+
+                {crop.x != 0?
+                  <div>
+                    <p className="cropped_img_upload_btn" onClick={onUpload}>Upload</p>
+                    <p className="cropped_img_download_btn" onClick={downloadImageFunc}>Download</p>
+                  </div>
+                :
+                  null
+                }
+
+              </div>
+            :
+              null
+            }
+
+          
             {formErrors.logo && (
               <span className="error">{formErrors.logo}</span>
             )}

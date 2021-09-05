@@ -102,7 +102,7 @@ const Header = () => {
                     <span className="popup-text">Your channel</span>
                   </Link>
                 :
-                  <Link to="" style={{textDecoration: 'none' }}> 
+                  <Link style={{textDecoration: 'none' }}> 
                     <span className="material-icons popup-icon">account_box</span>
                     <span className="popup-text">Your channel</span>
                   </Link>

@@ -17,8 +17,10 @@ function Comments(props) {
     // const [commentLike, setCommentLike] = useState(false)
     const [commentLikeData, setCommentLikeData] = useState(false)
     const [commentDislikeData, setCommentDislikeData] = useState(false)
+    
+    const [tog, settog] = useState(false)
 
-    let videoID = props.videoID
+    let videoID = props.videoID? props.videoID : 0
     let user_token = token['mytoken']? token['mytoken'] : null
     let user_channel = token['channelCookie']? token['channelCookie'] : 0
     let commentID = props.commentID? props.commentID : 0
@@ -31,6 +33,9 @@ function Comments(props) {
     
     const commentDislikeDataPost = {"token": user_token, "comment_disliked_channel": user_channel, "which_comment_dislike": commentID, "method": "post"}
     const commentDislikeDataGet = {"token": user_token, "comment_disliked_channel": user_channel, "which_comment_dislike": commentID, "method": "get"}
+    
+    const commentDataGet = {"received_video": props.videoID_, "method": "get"}
+    const [commentCountGettingData, setCommentCountGettingData] = useState([])
     
     function replyInpuOpenFunc() {
         setReplyInput(true)
@@ -80,16 +85,21 @@ function Comments(props) {
             axios.post(`/api/v1/user/like/comment/`, commentLikeDataPost)
             .then(response => {
                 console.log(response.data.comment_liked);
+
                 if (response.data.comment_liked && response.data.disliked_false) {
                     setCommentLikeData(response.data.comment_liked)
                     setCommentDislikeData(response.data.disliked_false)
-                } else if (response.data.comment_liked) {
+                } 
+                else if (response.data.comment_liked) {
                     setCommentLikeData(response.data.comment_liked)
-                } else if (response.data.comment_disliked) {
+                } 
+                else if (response.data.comment_disliked) {
                     setCommentLikeData(response.data.comment_disliked)
-                } else if (response.data.comment_created_liked) {
+                } 
+                else if (response.data.comment_created_liked) {
                     setCommentLikeData(response.data.comment_created_liked)
-                } else if (response.data.invalid_request) {
+                } 
+                else if (response.data.invalid_request) {
                     alert(response.data.invalid_request)
                 }
             })
@@ -108,13 +118,17 @@ function Comments(props) {
                 if (response.data.disliked_true && response.data.disliked) {
                     setCommentLikeData(response.data.comment_disliked)
                     setCommentDislikeData(response.data.disliked_true)
-                } else if (response.data.disliked_true) {
+                }
+                else if (response.data.disliked_true) {
                     setCommentDislikeData(response.data.disliked_true)
-                } else if (response.data.disliked_false) {
+                }
+                else if (response.data.disliked_false) {
                     setCommentDislikeData(response.data.disliked_false)
-                } else if (response.data.created_disliked_true) {
+                }
+                else if (response.data.created_disliked_true) {
                     setCommentDislikeData(response.data.created_disliked_true)
-                } else if (response.data.invalid_request) {
+                }
+                else if (response.data.invalid_request) {
                     alert(response.data.invalid_request)
                 }
             })
@@ -153,6 +167,23 @@ function Comments(props) {
             }
         })
         .catch(err => alert(err));
+
+    }, [])
+
+
+    // COMMENT LIKE & DISLIKE COUNT FETCHING DATA (only this purpose) -----------
+    function commentLikeManageFunc() {
+        axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+        .then(response => {
+            setCommentCountGettingData(response.data)
+        }).catch(err => console.log("error from - user/comment.jsx line:172", err))
+    }
+    // COMMENT LIKE & DISLIKE COUNT FETCHING DATA (only this purpose) -----------
+    useEffect(() => {
+        axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+        .then(response => {
+            setCommentCountGettingData(response.data)
+        }).catch(err => console.log("error from - user/comment.jsx line:172", err))
     }, [])
 
     return (
@@ -168,46 +199,50 @@ function Comments(props) {
                         props.noComment?
                             <p className="comment" style={{color: 'gray'}}>{props.noComment}</p>
                         :
-                            <div id="">
-                                <div className="comments-showing-inner-div">
-                                    <div className="commented-user-image">
-                                        <img src={props.commentedChannelLogo} alt="" />
-                                    </div>
-                                    <div className="commented-user-comment">
-                                    
-                                        <p className="user"> {props.commentedChannel} <span className="date">{timeago.format(props.uploadDate)}</span> </p>
-                                        <p className="comment">{props.comment}</p>
+                            <div>
+                                {commentCountGettingData && commentCountGettingData.map((data, index) => {
+                                    if (data.id == commentID) {
+                                    return (
+                                    <div className="comments-showing-inner-div">
+                                        <div className="commented-user-image">
+                                            <img src={props.commentedChannelLogo} alt="" />
+                                        </div>
+                                        <div className="commented-user-comment">
                                         
-                                        <div className="cmnt-dis_like-main-div">
-                                            {commentLikeData == "comment_liked" || commentLikeData == "comment_created_liked"?
-                                                <div>
-                                                    <span className="material-icons comment-like-active" style={{ color:'#065fd4', cursor: 'pointer' }} onClick={commentLikeFunc}>thumb_up_alt </span>
-                                                    <span className="comment-like-count">{props.like}</span>
-                                                </div>
-                                            :
-                                                <div>
-                                                    <span className="material-icons comment-like" onClick={commentLikeFunc} style={{ cursor: 'pointer' }}>thumb_up_alt</span>
-                                                    <span className="comment-like-count">{props.like}</span>
-                                                </div>
-                                            }
+                                            <p className="user"> {props.commentedChannel} <span className="date">{timeago.format(props.uploadDate)}</span> </p>
+                                            <p className="comment">{props.comment}</p>
                                             
-                                            {commentDislikeData == "disliked_true" || commentDislikeData == "created_disliked_true"?
-                                                <div>
-                                                    <span className="material-icons comment-dislike-active" onClick={commentDislikeFunc}  style={{ cursor: 'pointer' }}>thumb_down_alt</span>
-                                                </div>
-                                            :
-                                                <div>
-                                                    <span className="material-icons comment-dislike" onClick={commentDislikeFunc}  style={{ cursor: 'pointer' }}>thumb_down_alt</span>
-                                                </div>
-                                            }
+                                            <div className="cmnt-dis_like-main-div">
+                                                {commentLikeData == "comment_liked" || commentLikeData == "comment_created_liked"?
+                                                    <div>
+                                                        <span className="material-icons comment-like-active" onClick={commentLikeManageFunc} style={{ color:'#065fd4', cursor: 'pointer' }} onClick={commentLikeFunc}>thumb_up_alt </span>
+                                                        <span className="comment-like-count">{data.like}</span>
+                                                    </div>
+                                                :
+                                                    <div>
+                                                        <span className="material-icons comment-like" onClick={commentLikeFunc} style={{ cursor: 'pointer' }}>thumb_up_alt</span>
+                                                        <span className="comment-like-count">{data.like}</span>
+                                                    </div>
+                                                }
+                                                
+                                                {commentDislikeData == "disliked_true" || commentDislikeData == "created_disliked_true"?
+                                                    <div>
+                                                        <span className="material-icons comment-dislike-active" onClick={commentDislikeFunc}  style={{ cursor: 'pointer' }}>thumb_down_alt</span>
+                                                    </div>
+                                                :
+                                                    <div>
+                                                        <span className="material-icons comment-dislike" onClick={commentDislikeFunc}  style={{ cursor: 'pointer' }}>thumb_down_alt</span>
+                                                    </div>
+                                                }
 
-                                        <span className="replay" onClick={replyInpuOpenFunc} style={{ cursor: 'pointer' }}>REPLY</span>
+                                            <span className="replay" onClick={replyInpuOpenFunc} style={{ cursor: 'pointer' }}>REPLY</span>
+
+                                            </div>
 
                                         </div>
-
-                                        
                                     </div>
-                                </div>
+                                    )}
+                                })}
 
                                 {replyInput?
                                     <div className="comments-posting-div reply-main-div" >
@@ -240,7 +275,7 @@ function Comments(props) {
                                                     }
                                                     <div className="comments-showing-inner-div reply-showing-inner-div">
                                                         <div className="commented-user-image">
-                                                            <img src={val.replied_channel.logo} alt="" />
+                                                            <img src={val.replied_channel.logo? val.replied_channel.logo : 0} alt="" />
                                                         </div>
                                                         <div className="commented-user-comment">
                                                             <p className="user"> {val.replied_channel.channel_name} <span className="date">{val.created_at}</span> </p>

@@ -62,7 +62,7 @@ const Header = () => {
   function suggestionFunc() {}
 
   function notificationFunc() {
-    axios.get(`/api/v1/user/notifications/${channelToken}`)
+    axios.get(`/api/v1/user/notifications/${channelToken}/`)
     .then(response => {
       setNotificationAPI(response.data)
       var count = 0

@@ -1,0 +1,42 @@
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+.send_feedback_main_div {
+    display: flex;
+    /* width: 100%; */
+}
+.empty_div {
+    min-width: 233px;
+}
+.send_feedback_inner_div {
+    background: rgb(240, 254, 255);
+    height: 85vh;
+    width: 76%;
+    margin: 20px 0 0 40px;
+    box-shadow: 3px 5px #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    /* border: 2px solid rgb(211, 211, 211); */
+}
+.send_feedback_inner_div #subject, .send_feedback_inner_div #message {
+    border: none;
+    border-bottom: 2px solid #b2d9fd;
+    padding: 10px;
+    width: 100%;
+    margin: 10px;
+    font-size: 18px;
+}
+.send_feedback_inner_div #message {
+    min-height: 200px;
+}
+.send_feedback_inner_div #submit {
+    width: 100%;
+    margin-top: 10px;
+    background: #1890ff;
+    border: 2px solid #1890ff;
+    border-radius: 4px;
+    height: 40px;
+    color: white;
+    font-size: 25px;
+    margin-bottom: 1.9rem;
+}

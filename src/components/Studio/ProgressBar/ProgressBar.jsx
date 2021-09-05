@@ -6,18 +6,32 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 function LinearProgressWithLabel(props) {
-  return (
-    <Box display="flex" alignItems="center">
-      <Box width="100%" mr={1}>
-        <LinearProgress variant="determinate" {...props} />
+  if (Math.round(props.value) == 100){
+    return (
+      <Box display="flex" alignItems="center">
+        <Box width="100%" mr={1}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box minWidth={35}>
+          <Typography variant="body2" color="textSecondary">100</Typography>
+        </Box>
       </Box>
-      <Box minWidth={35}>
-        <Typography variant="body2" color="textSecondary">{`${Math.round(
-          props.value,
-        )}%`}</Typography>
+    );
+  }
+  else {
+    return (
+      <Box display="flex" alignItems="center">
+        <Box width="100%" mr={1}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box minWidth={35}>
+          <Typography variant="body2" color="textSecondary">{`${Math.round(
+            props.value,
+          )}%`}</Typography>
+        </Box>
       </Box>
-    </Box>
-  );
+    );
+  }
 }
 
 LinearProgressWithLabel.propTypes = {

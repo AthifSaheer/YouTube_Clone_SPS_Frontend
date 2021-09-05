@@ -3,14 +3,12 @@ import { useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom'
 import { format } from 'timeago.js';
 
-import img from "../../../image/youtube2old.jpg"
-
 function SideVideos(props) {
     const [videoData, setVideoData] = useState([])
     let { videoID } = useParams();
 
     useEffect(() => {
-        fetch(`/api/v1/user/watch/video/${videoID}`, {
+        fetch(`/api/v1/user/watch/video/${videoID}/`, {
             method: 'GET',
         })
         .then(responce => responce.json())

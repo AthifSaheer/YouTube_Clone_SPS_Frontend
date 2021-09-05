@@ -26,12 +26,15 @@ function VideoDetails(props) {
             .then(response => {
                 if (response.data.subscribed) {
                     setAPIData(response.data.subscribed)
+                    setSubCount(subCount + 1)
                 } else if (response.data.unsubscribed) {
                     setAPIData(response.data.unsubscribed)
+                    setSubCount(subCount - 1)
                 } else if (response.data.same_channel) {
                     setAPIData(response.data.same_channel)
                 } else if (response.data.created_subscribed) {
                     setAPIData(response.data.created_subscribed)
+                    setSubCount(subCount + 1)
                 } else if (response.data.channel_does_not_exists) {
                     alert(response.data.channel_does_not_exists)
                 } else if (response.data.your_own_channel) {
@@ -59,6 +62,8 @@ function VideoDetails(props) {
     const [commentApiError, setCommentApiError] = useState(false)
     const [loading, setLoading] = useState(false)
     const videoID = props.videoID
+    const [subCount, setSubCount] = useState(props.subscribers)
+    
     const commentDataGet = {"received_video": videoID, "method": "get"}
     const commentDataPost = {"token": user_token, "received_channel": channelID, "received_video": videoID, "commented_channel": user_channel, "comment": comment, "method": "post"}
     
@@ -79,7 +84,6 @@ function VideoDetails(props) {
                 setLoading(false)
                 axios.post(`/api/v1/user/add/comment/`, commentDataGet)
                 .then(response => {
-                    console.log(response.data);
                     setCommentApiData(response.data)
                 }).catch(err => {setCommentApiError(true)})
             }, 1000)
@@ -91,11 +95,12 @@ function VideoDetails(props) {
     useEffect(() => {
         axios.post(`/api/v1/user/add/comment/`, commentDataGet)
         .then(response => {
+            console.log(response.data);
             setCommentApiData(response.data)
         }).catch(err => {setCommentApiError(true)})
     }, [])
 
-    return (
+    return ( 
         <div>
             <div className="video-detilas-main-div">
                 <div className="sid-blank-div">
@@ -107,11 +112,12 @@ function VideoDetails(props) {
                     <Link to={`/channel/${props.channelId}`} style={{ textDecoration: 'none', color: 'black'}}>
                         <p>{props.channelName}</p>
                     </Link>
-                    <p className="sub-count">{props.subscribers} Subscribers</p> <br />
+                    <p className="sub-count">{subCount} Subscribers</p> <br />
                     <p className="description">{props.description}</p>
                 </div>
 
                 {APIData == "subscribed" || APIData == "created_subscribed"?
+                    
                     <div className="channel-subscribed-btn-div" >
                         <button onClick={subscribeFunc}>SUBSCRIBED</button>
                     </div>
@@ -185,7 +191,7 @@ function VideoDetails(props) {
                                 return (
                                     <Comments 
                                     channelID={channelID}
-                                    videoID={videoID}
+                                    videoID_={props.videoID}
                                     commentID={data.id}
                                     comment={data.comment} 
                                     commentedChannel={data.commented_channel.channel_name} 

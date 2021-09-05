@@ -3,6 +3,7 @@ import {useCookies} from 'react-cookie';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+// import AWS from 'aws-sdk';
 
 import APIService from '../../User/API/APIService'
 import LinearWithValueLabel from '../ProgressBar/ProgressBar'
@@ -29,6 +30,8 @@ export const UploadVideo = () => {
   const [APIChannels, setAPIChannels] = useState([]);
   const [errorInAPIChannels, setErrorInAPIChannels] = useState(false);
 
+  const [uploadPercentage, setUploadPercentage] = useState(0)
+
   // SESSION HANDLE 
   const [token, setToken] = useCookies(['mytoken'])
   const history = useHistory()
@@ -54,22 +57,37 @@ export const UploadVideo = () => {
     uploadData.append('visibility', visibility);
     uploadData.append('comment_visibility', commentVisibility);
 
+    // PROGRESS BAR URL: https://github.com/codegeous/react-demo/blob/master/src/components/UserCard/UserCard.jsx --------------------------------
+    // const options = {
+    //   onUploadProgress: (progressEvent) => {
+    //     const {loaded, total} = progressEvent;
+    //     let percent = Math.floor( (loaded * 100) / total )
+    //     console.log( `${loaded}kb of ${total}kb | ${percent}%` );
+  
+    //     if( percent < 100 ){
+    //       setUploadPercentage(percent)
+    //     }
+        
+    //   }
+    // }
+
     APIService.UploadVideo(uploadData)
     .then(resp => {
+      setUploadPercentage(100)
+
+      setTimeout(() => {
+        setUploadPercentage(0)
+      }, 1000);
+
       setSuccessMessage(false)
       
+      setApiError(true);
+      setIsSubmitting(false);
+      setSuccessMessage(true);
+
       setTimeout(function(){ 
-        setApiError(true);
-        setIsSubmitting(false);
-        setSuccessMessage(true);
-
-        setTimeout(function(){ 
-          history.push('/studio/contents')
-        }, 2000)
-
-       }, 2450)
-
-       
+        history.push('/studio/contents')
+      }, 2000)
 
     })
     .catch(error => { setApiError(false); setSuccessMessage(false) })
@@ -136,15 +154,21 @@ export const UploadVideo = () => {
       submit();
     }
   }, [formErrors]);
-
+  
   return (
     <div>
       <Header />
       <div className="container">
         <h1>Upload Video</h1>
+
         {Object.keys(formErrors).length === 0 && isSubmitting && apiError && (
-          <LinearWithValueLabel />  
+          <LinearWithValueLabel value={uploadPercentage} /> 
         )}
+
+        <div id="myProgress" style={{display: 'none'}}>      
+            <div id="myBar"></div>    
+        </div>  
+
         {apiError?
           null
         :

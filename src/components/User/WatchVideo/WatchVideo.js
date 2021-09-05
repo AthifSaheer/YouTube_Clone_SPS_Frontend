@@ -4,10 +4,12 @@ import axios from 'axios';
 import {useCookies} from 'react-cookie';
 import { format } from 'timeago.js';
 import Popup from 'reactjs-popup';
+import ReactPlayer from 'react-player'
 
 import Header from "../Header/Header";
 import classes from "../../../App.module.css";
 import VideoDetails from "./VideoDetails"
+
 
 function WatchVideo() {
     const [token, setToken] = useCookies()
@@ -16,6 +18,7 @@ function WatchVideo() {
 
     const [videoData, setVideoData] = useState([])
     let { videoID } = useParams();
+    
 
     let user_token = token['mytoken']? token['mytoken'] : null
     let liked_channel = token['channelCookie']? token['channelCookie'] : 0
@@ -114,7 +117,7 @@ function WatchVideo() {
         console.log(e.target.currentTime)
         var currentTime = e.target.currentTime;
         if (currentTime > 5 && currentTime < 5.5) {
-            axios.get(`/api/v1/user/update/video/count/${videoID}`)
+            axios.get(`/api/v1/user/update/video/count/${videoID}/`)
             watchVideoFunc()
         }
     }
@@ -128,6 +131,12 @@ function WatchVideo() {
         copyBtn.innerText = "COPIED"
     }
     
+    // export const countPlusFunc = () => {
+    //     setSubCountRerender(subCountRerender + 1)
+    // }
+
+    
+    
     return (
         <div className="">
             <Header />
@@ -140,6 +149,7 @@ function WatchVideo() {
                                 <video className="video" autoPlay controls onTimeUpdate={(e) => videoViewCountFunc(e)} >
                                     <source src={data.video} type="video/mp4" />
                                 </video>
+                                {/* <ReactPlayer url={data.video} playing controls onTimeUpdate={(e) => videoViewCountFunc(e)} /> */}
                                 {/* .split('?')[0] */}
                             </div>
 
@@ -186,18 +196,17 @@ function WatchVideo() {
 
                             </div>
                             <hr />
-                            <VideoDetails 
-                            videoID={data.id}
-                            title={data.title}
-                            description={data.description}
-                            channelLogo={data.channel.logo}
-                            channelName={data.channel.channel_name}
-                            subscribers={data.channel.subscribers}
-                            category={data.category}
-                            channelId={data.channel.id}
-                            commentVisibility={data.comment_visibility}
-                            />
-                            
+                                <VideoDetails 
+                                videoID={data.id}
+                                title={data.title}
+                                description={data.description}
+                                channelLogo={data.channel.logo}
+                                channelName={data.channel.channel_name}
+                                subscribers={data.channel.subscribers}
+                                category={data.category}
+                                channelId={data.channel.id}
+                                commentVisibility={data.comment_visibility}
+                                />
                         </div>
                     )
                 }
@@ -207,4 +216,4 @@ function WatchVideo() {
       );
 }
 
-export default WatchVideo
+export default WatchVideo;

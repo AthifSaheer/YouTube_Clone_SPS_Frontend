@@ -13,7 +13,7 @@ const Sidebar = () => {
           <Link to="/studio/contents" style={{ textDecoration: 'none' }}><SidebarRow key={2} icon="subscriptions" title="Contents" /></Link>
           <Link to="/studio/my/channels" style={{ textDecoration: 'none' }}><SidebarRow key={3} icon="notes" title="My Channels" /></Link>
           {/* <SidebarRow key={3} icon="comment" title="Comments" /> */}
-          {/* <SidebarRow key={4} icon="feedback" title="Send feedback" /> */}
+          <Link to="/studio/send/feedback" style={{ textDecoration: 'none' }}><SidebarRow key={4} icon="feedback" title="Send feedback" /></Link>
         </ul>
       </div>
     </div>

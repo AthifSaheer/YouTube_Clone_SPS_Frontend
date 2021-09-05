@@ -62,7 +62,7 @@ let node = "2016-06-30 09:20:00"
         
       <div className={classes.video_card__content}>
         <div className={classes.video_card__channelpicture}>
-          <img src={props.channelLogo} alt="Channel logo" width='20px' style={{borderRadius:'50%'}} />
+          <img src={props.channelLogo} alt="Channel logo" width='21px' height="21px" style={{borderRadius:'50%'}} />
         </div>
         <div className={classes.video_card_info} style={{ width: '100%' }}>
           <span className={classes.video_card__title}>{props.title}</span>
@@ -80,11 +80,11 @@ let node = "2016-06-30 09:20:00"
 
         <div className={classes.video_card_info}>
           <Popup trigger={<span className="material-icons" style={{cursor: 'pointer'}} >more_vert</span>} position="right center">
-            {APIWatchLater == 'watch_later_applied' || APIWatchLater == 'created_watch_later_applied'?
-              <div className={classes.watch_later_div_active} onClick={watchLaterFunc}>
-                <span className="material-icons">done</span>
-                <p>ADDED</p> 
-            </div>
+              {APIWatchLater == 'watch_later_applied' || APIWatchLater == 'created_watch_later_applied'?
+                <div className={classes.watch_later_div_active} onClick={watchLaterFunc}>
+                  <span className="material-icons">done</span>
+                  <p>ADDED</p> 
+              </div>
             :
               <div className={classes.watch_later_div} onClick={watchLaterFunc}>
                 <span className="material-icons">watch_later</span>

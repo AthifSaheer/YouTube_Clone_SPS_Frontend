@@ -1,0 +1,16 @@
+.send_feedback_main_div {
+    display: flex;
+    /* width: 100%; */
+}
+.empty_div {
+    min-width: 233px;
+}
+.send_feedback_inner_div {
+    background: rgb(230, 249, 255);
+    height: 85vh;
+    width: 76%;
+    margin: 20px 0 0 40px;
+    box-shadow: 3px 9px #979797;
+    border-radius: 10px;
+    padding: 20px;
+}
