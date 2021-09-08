@@ -9,7 +9,7 @@ const MainPageVideos = (props) => {
     const [videoData, setVideoData] = useState([])
 
     useEffect(() => {
-        fetch('/api/v1/user/display/video/', {
+        fetch('http://13.127.223.251/api/v1/user/display/video/', {
             method: 'GET',
         })
         .then(responce => responce.json())
