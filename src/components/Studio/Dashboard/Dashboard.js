@@ -44,22 +44,22 @@ function Dashboard() {
         let vlArr = []
         let kyArr = []
 
-        // axios.get(`/api/v1/studio/analytics/${token['channelCookie']}/`)
-        axios.get(`/api/v1/studio/analytics/13/`)
+        axios.get(`/api/v1/studio/analytics/${token['channelCookie']}/`)
+        // axios.get(`/api/v1/studio/analytics/13/`)
         .then(response => {
             setAnalyticsData(response.data)
             
             for (const data of response.data) {
                 console.log(data.view_count);
                 kyArr.push(parseInt(data.view_count))
-                vlArr.push(data.title)
+                vlArr.push(data.title.slice(0, 9)+'...')
             }
 
             setChartData({
                 labels: vlArr,
                 datasets: [
                     {
-                        label: "Video analytics",
+                        label: "Video Analytics",
                         data: kyArr,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',

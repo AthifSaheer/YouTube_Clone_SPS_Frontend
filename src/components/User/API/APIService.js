@@ -3,7 +3,7 @@ import axios from 'axios';
 class APIService {
     static LoginUser(body) {
 
-        return fetch('http://127.0.0.1:8000/api/v1/user/login/', {
+        return fetch('/api/v1/user/login/', {
         'method':'POST',
         headers: {
             'Content-Type':'application/json',

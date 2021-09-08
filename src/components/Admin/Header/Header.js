@@ -37,11 +37,7 @@ const Header = () => {
         </Link>
         </div>
 
-        <div className={classes.header__mid}>
-          <input placeholder="Search" />
-          <span className="material-icons">search</span>
-          <span className="material-icons">mic</span>
-        </div>
+        <div className={classes.header__mid}></div>
 
         <div className={classes.header__end}>
 
