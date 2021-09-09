@@ -1,6 +1,5 @@
 {
   "name": "react-youtube-clone",
-  "proxy": "http://13.127.223.251",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
