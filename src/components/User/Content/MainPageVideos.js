@@ -11,10 +11,6 @@ const MainPageVideos = (props) => {
     useEffect(() => {
         fetch('http://13.127.223.251/api/v1/user/display/video/', {
             method: 'GET',
-            headers : { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-               }
         })
         .then(responce => responce.json())
         .then(res => setVideoData(res)) // console.log(res)
