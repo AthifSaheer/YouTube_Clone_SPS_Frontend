@@ -1,6 +1,6 @@
 {
   "name": "react-youtube-clone",
-  "proxy": "http://13.127.223.251:8000",
+  "proxy": "http://ytdj.athifsaheer.online",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
