@@ -44,7 +44,7 @@ function Explore() {
                             <div className="videoSearchDiv">
                                 <div className="thumbnail">
                                     <Link to={`/watch/video/${data.id}`} style={{ textDecoration: 'none' }}>
-                                        <img src={data.thumbnail}  alt=""  />
+                                        <img src={data.thumbnail} alt="" />
                                     </Link>
                                 </div>
                                 <div className="videoDetails" >
@@ -54,7 +54,7 @@ function Explore() {
                                     <Link to={`/channel/${data.channel.id}`} style={{ textDecoration: 'none' }}>
                                         <div className="channelWarpper">
                                             <div className="channelLogo">
-                                                <img src={data.channel.logo} alt="" width='30px' style={{borderRadius: '50%'}} />
+                                                <img src={data.channel.logo} alt="" width='30px' height='30px' style={{borderRadius: '50%'}} />
                                             </div>
                                             <div className="channelName">
                                                 <p style={{fontSize: '13px', color: 'black'}}>{data.channel.channel_name}</p>

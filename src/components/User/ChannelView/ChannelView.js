@@ -25,6 +25,7 @@ function ChannelView() {
 
     
     let currentUserChannel = token['channelCookie']
+    const [subCount, setSubCount] = useState(0)
 
     const [videoData, setVideoData] = useState([])
     const [videosNotFound, setVideosNotFound] = useState(false)
@@ -40,9 +41,10 @@ function ChannelView() {
         axios.get(`/api/v1/user/channel/${channelID}/`) // 
         // .then(res => res.json())
         .then(res => {
-            console.log(res);
+            console.log(res.data.subscribers);
             setChannelData(res)
             setChannelNotFound(false)
+            setSubCount(res.data.subscribers)
         })
         .catch(error => {
             setChannelNotFound(true);
@@ -105,11 +107,14 @@ function ChannelView() {
             .then(response => {
                 if (response.data.subscribed) {
                     setAPIData(response.data.subscribed)
+                    setSubCount(subCount + 1)
                 } else if (response.data.unsubscribed) {
+                    setSubCount(subCount - 1)
                     setAPIData(response.data.unsubscribed)
                 } else if (response.data.same_channel) {
                     setAPIData(response.data.same_channel)
                 } else if (response.data.created_subscribed) {
+                    setSubCount(subCount + 1)
                     setAPIData(response.data.created_subscribed)
                 } else if (response.data.channel_does_not_exists) {
                     alert(response.data.channel_does_not_exists)
@@ -139,62 +144,62 @@ function ChannelView() {
             :
                 Object.values(channelData).map((data, index) => {
                     if (index === 0) {
-                    return (
-                        <div key={data.id}>
-                            <div className="channel-banner">
-                                <img src={data.banner} alt="channel banner" />
-                            </div>
-
-                            <div className="channel-details">
-                                <img src={data.logo} alt="channel logo" />
-
-                                <div className="channel-name-div">
-                                    <p>{data.channel_name}</p>
-                                    <span>{data.subscribers} subscribers</span>
+                        return (
+                            <div key={data.id}>
+                                <div className="channel-banner">
+                                    <img src={data.banner} alt="channel banner" />
                                 </div>
 
-                                {/* {subscribersData.map((data, index) => {
-                                    if(data.which_channels == channelID && data.user_channel == currentUserChannel && data.subscribe == false) {
-                                        return (
-                                            <div className="subscribe-btn-div">
-                                                <button className="subscribe-btn">SUBSCRIBE</button>
-                                            </div>
-                                        )
-                                    } else if (data.which_channels == channelID && data.user_channel == currentUserChannel && data.subscribe == true) {
-                                        return (
-                                            <div className="subscribe-btn-div">
-                                                <button className="subscribed-btn">SUBSCRIBED</button>
-                                            </div>
-                                        )
-                                    } else if(index == 0) {
-                                        return (
-                                            <div className="subscribe-btn-div">
-                                                <button className="subscribe-btn">SUBSCRIBE</button>
-                                            </div>
-                                        )
-                                    }
-                                })} */}
+                                <div className="channel-details">
+                                    <img src={data.logo} alt="channel logo" />
 
-
-                                {APIData == "subscribed" || APIData == "created_subscribed"?
-                                    <div className="subscribe-btn-div" >
-                                        <button className="subscribed-btn" onClick={subscribeFunc}>SUBSCRIBED</button>
-                                        {/* <span className="material-icons notfc-icon">notifications_active</span> */}
+                                    <div className="channel-name-div">
+                                        <p>{data.channel_name}</p>
+                                        <span>{subCount} subscribers</span>
                                     </div>
-                                :
-                                    user_token?
+
+                                    {/* {subscribersData.map((data, index) => {
+                                        if(data.which_channels == channelID && data.user_channel == currentUserChannel && data.subscribe == false) {
+                                            return (
+                                                <div className="subscribe-btn-div">
+                                                    <button className="subscribe-btn">SUBSCRIBE</button>
+                                                </div>
+                                            )
+                                        } else if (data.which_channels == channelID && data.user_channel == currentUserChannel && data.subscribe == true) {
+                                            return (
+                                                <div className="subscribe-btn-div">
+                                                    <button className="subscribed-btn">SUBSCRIBED</button>
+                                                </div>
+                                            )
+                                        } else if(index == 0) {
+                                            return (
+                                                <div className="subscribe-btn-div">
+                                                    <button className="subscribe-btn">SUBSCRIBE</button>
+                                                </div>
+                                            )
+                                        }
+                                    })} */}
+
+
+                                    {APIData == "subscribed" || APIData == "created_subscribed"?
                                         <div className="subscribe-btn-div" >
-                                            <button className="subscribe-btn" onClick={subscribeFunc}>SUBSCRIBE</button>
+                                            <button className="subscribed-btn" onClick={subscribeFunc}>SUBSCRIBED</button>
+                                            {/* <span className="material-icons notfc-icon">notifications_active</span> */}
                                         </div>
                                     :
-                                        <div className="subscribe-btn-div" >
-                                            <button className="subscribe-btn" onClick={()=>alert("Please Login")}>SUBSCRIBE</button>
-                                        </div>
-                                }
+                                        user_token?
+                                            <div className="subscribe-btn-div" >
+                                                <button className="subscribe-btn" onClick={subscribeFunc}>SUBSCRIBE</button>
+                                            </div>
+                                        :
+                                            <div className="subscribe-btn-div" >
+                                                <button className="subscribe-btn" onClick={()=>alert("Please Login")}>SUBSCRIBE</button>
+                                            </div>
+                                    }
 
+                                </div>
                             </div>
-                        </div>
-                    )
+                        )
                     }
                 })}
 

@@ -7,9 +7,9 @@ import img from '../../../image/crossroads.jpg'
 import './ChannelSearchResult.css'
 
 function ChannelSearchResult(props) {
-
     const [token, setToken] = useCookies()
     const [APIData, setAPIData] = useState()
+    const [subCount, setSubCount] = useState(props.subscribers)
 
     let channelID = props.channelID
     let user_token = token['mytoken']? token['mytoken'] : null
@@ -26,12 +26,15 @@ function ChannelSearchResult(props) {
             .then(response => {
                 if (response.data.subscribed) {
                     setAPIData(response.data.subscribed)
+                    setSubCount(subCount + 1)
                 } else if (response.data.unsubscribed) {
                     setAPIData(response.data.unsubscribed)
+                    setSubCount(subCount - 1)
                 } else if (response.data.same_channel) {
                     setAPIData(response.data.same_channel)
                 } else if (response.data.created_subscribed) {
                     setAPIData(response.data.created_subscribed)
+                    setSubCount(subCount + 1)
                 } else if (response.data.channel_does_not_exists) {
                     alert(response.data.channel_does_not_exists)
                 } else if (response.data.your_own_channel) {
@@ -59,14 +62,14 @@ function ChannelSearchResult(props) {
             <div className="channelSearchDiv">
                 <div className="channelLogo" style={{marginLeft: '130px'}}>
                 <Link to={`/channel/${props.channelID}`} style={{ textDecoration: 'none', color: 'black'}}>
-                    <img src={props.logo} width='130px'  alt="" style={{borderRadius:'50%'}}/>
+                    <img src={props.logo} width='130px' height="130px" alt="" style={{borderRadius:'50%'}}/>
                     </Link>
                 </div>
                 <div className="channelName" >
                     <Link to={`/channel/${props.channelID}`} style={{ textDecoration: 'none', color: 'black'}}>
                         <p>{props.channelName}</p>
                     </Link>
-                    <small style={{fontSize: '13px'}}>{props.subscribers} subscribers . {props.videoCount} videos</small>
+                    <small style={{fontSize: '13px'}}>{subCount} subscribers . {props.videoCount} videos</small>
                 </div>
                 <div className="subscribeButtonDiv" >
                     {APIData == "subscribed" || APIData == "created_subscribed"?

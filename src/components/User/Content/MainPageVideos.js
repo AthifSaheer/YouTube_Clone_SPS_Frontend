@@ -9,11 +9,11 @@ const MainPageVideos = (props) => {
     const [videoData, setVideoData] = useState([])
 
     useEffect(() => {
-        fetch('http://13.127.223.251/api/v1/user/display/video/', {
-            method: 'GET',
-        })
-        .then(responce => responce.json())  
-        .then(res => setVideoData(res)) // console.log(res)
+        axios.get('/api/v1/user/display/video/')
+        .then(res => {
+            console.log(res)
+            setVideoData(res.data)
+        }) 
     }, [])
 
     return(
