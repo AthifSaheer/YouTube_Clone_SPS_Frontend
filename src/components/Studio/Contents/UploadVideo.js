@@ -102,7 +102,7 @@ export const UploadVideo = () => {
   }, [token]);
 
   useEffect(() => {
-    axios.get('/api/v1/admin/channels/')
+    axios.get('https://ytdj.athifsaheer.online/api/v1/admin/channels/')
     .then(response => {setAPIChannels(response.data)})
     .catch(error => setErrorInAPIChannels(true))
   }, [])

@@ -56,7 +56,7 @@ function WatchVideo() {
                 } else if (response.data.created_liked) {
                     setVideoLikeData(response.data.created_liked)
                 } else if (response.data.invalid_request) {
-                    alert(response.data.invalid_request)
+                    console.log(response.data.invalid_request)
                 }
             })
             .catch(err => console.log(err));
@@ -81,7 +81,7 @@ function WatchVideo() {
                 } else if (response.data.created_disliked_true) {
                     setVideoDislikeData(response.data.created_disliked_true)
                 } else if (response.data.invalid_request) {
-                    alert(response.data.invalid_request)
+                    console.log(response.data.invalid_request)
                 }
             })
             .catch(err => console.log(err));

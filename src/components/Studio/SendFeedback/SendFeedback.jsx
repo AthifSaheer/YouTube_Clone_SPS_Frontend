@@ -32,7 +32,7 @@ function SendFeedback() {
     }, [token]);
 
     function submitFeedbackFunc() {
-        axios.post(`/api/v1/studio/send/feedback/`, formData)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/studio/send/feedback/`, formData)
         .then(response => {
             if (response.data.success == "success") {
                 alert("Successfully sended")

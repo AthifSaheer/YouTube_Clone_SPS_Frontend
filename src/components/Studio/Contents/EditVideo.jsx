@@ -30,11 +30,11 @@ function EditVideo() {
     }, [token]);
 
     useEffect(() => {
-        axios.get(`/api/v1/studio/videos/${token['channelCookie']}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/studio/videos/${token['channelCookie']}/`)
         .then(res => {setVideosAPI(res.data)})
         .catch(res => setApiError(true))
 
-        axios.get(`/api/v1/studio/edit/video/${videoID}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/studio/edit/video/${videoID}/`)
         .then(response => {
             // console.log(response);
             setPopup(true)

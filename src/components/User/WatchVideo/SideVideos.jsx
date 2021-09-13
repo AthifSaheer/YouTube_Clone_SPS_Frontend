@@ -8,7 +8,7 @@ function SideVideos(props) {
     let { videoID } = useParams();
 
     useEffect(() => {
-        fetch(`/api/v1/user/watch/video/${videoID}/`, {
+        fetch(`https://ytdj.athifsaheer.online/api/v1/user/watch/video/${videoID}/`, {
             method: 'GET',
         })
         .then(responce => responce.json())

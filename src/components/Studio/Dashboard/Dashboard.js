@@ -44,7 +44,7 @@ function Dashboard() {
         let vlArr = []
         let kyArr = []
 
-        axios.get(`/api/v1/studio/analytics/${token['channelCookie']}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/studio/analytics/${token['channelCookie']}/`)
         // axios.get(`/api/v1/studio/analytics/13/`)
         .then(response => {
             setAnalyticsData(response.data)

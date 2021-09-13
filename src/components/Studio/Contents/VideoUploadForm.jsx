@@ -46,7 +46,7 @@ function VideoUploadForm(props) {
     uploadData.append('visibility', visibility? visibility : props.visibility);
     uploadData.append('comment_visibility', commentVisibility? commentVisibility : props.visibility);
 
-    axios.post(`/api/v1/studio/edit/video/${props.videoID}/`,uploadData)
+    axios.post(`https://ytdj.athifsaheer.online/api/v1/studio/edit/video/${props.videoID}/`,uploadData)
     .then(resp => {
       setSuccessMessage(false)
       
@@ -66,7 +66,7 @@ function VideoUploadForm(props) {
   };
 
   useEffect(() => {
-    axios.get('/api/v1/admin/channels/')
+    axios.get('https://ytdj.athifsaheer.online/api/v1/admin/channels/')
     .then(response => {setAPIChannels(response.data)})
     .catch(error => setErrorInAPIChannels(true))
   }, [])

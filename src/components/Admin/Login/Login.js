@@ -58,7 +58,7 @@ function Login() {
 
     useEffect(() => {
         if(token['admintoken']) {
-            history.push('/admin/dashboard')
+            history.push('/admin/users')
         }
     }, [token])
 

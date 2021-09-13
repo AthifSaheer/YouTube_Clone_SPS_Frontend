@@ -29,7 +29,7 @@ function Channels() {
     }, [token]);
 
     useEffect(() => {
-        axios.get(`/api/v1/studio/channels/${token['mytoken']}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/studio/channels/${token['mytoken']}/`)
         .then(res => {setChannelsAPI(res.data)})
         .catch(res => setApiError(true))
     }, [])

@@ -56,7 +56,7 @@ function Comments(props) {
             alert("Please select or create channel.")
         } else if (reply != "") {
             // POST REPLY COMMENTS ----------------
-            axios.post(`/api/v1/user/add/replay/`, replyDataPost)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/replay/`, replyDataPost)
             .then(response => {
                 setReply("")
                 setReplyInput(false)
@@ -65,7 +65,7 @@ function Comments(props) {
 
             // RERENDER REPLY COMMENTS ----------------
             setTimeout(function() {
-                axios.post(`/api/v1/user/add/replay/`, replyDataGet)
+                axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/replay/`, replyDataGet)
                 .then(response => {
                     console.log(response.data);
                     setReplyApiData(response.data)
@@ -82,7 +82,7 @@ function Comments(props) {
         } else if (user_channel == 0) {
             alert("Please select or create channel...?")
         } else {
-            axios.post(`/api/v1/user/like/comment/`, commentLikeDataPost)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/like/comment/`, commentLikeDataPost)
             .then(response => {
                 console.log(response.data.comment_liked);
 
@@ -103,7 +103,7 @@ function Comments(props) {
                     alert(response.data.invalid_request)
                 }
             })
-            .catch(err => alert(err));
+            .catch(err => console.log(err));
         }        
     }
 
@@ -113,7 +113,7 @@ function Comments(props) {
         } else if (user_channel == 0) {
             alert("Please select or create channel...?")
         } else {
-            axios.post(`/api/v1/user/dislike/comment/`, commentDislikeDataPost)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/dislike/comment/`, commentDislikeDataPost)
             .then(response => {
                 if (response.data.disliked_true && response.data.disliked) {
                     setCommentLikeData(response.data.comment_disliked)
@@ -132,12 +132,12 @@ function Comments(props) {
                     alert(response.data.invalid_request)
                 }
             })
-            .catch(err => alert(err));
+            .catch(err => console.log(err));
         }        
     }
 
     useEffect(() => {
-        axios.post(`/api/v1/user/add/replay/`, replyDataGet)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/replay/`, replyDataGet)
         .then(response => {
             if (response.data[0].no_comments == "no_comments") {
                 setReplayHidden(true)
@@ -147,7 +147,7 @@ function Comments(props) {
         }).catch(err => {setReplyApiError(true)})
 
         // COMMENT LIKE -----------
-        axios.post(`/api/v1/user/like/comment/`, commentLikeDataGet)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/like/comment/`, commentLikeDataGet)
         .then(response => {
             if (response.data.comment_liked) {
                 setCommentLikeData(response.data.comment_liked)
@@ -155,10 +155,10 @@ function Comments(props) {
                 setCommentLikeData(response.data.comment_disliked)
             }
         })
-        .catch(err => alert(err));
+        .catch(err => console.log(err));
 
         // COMMENT DISLIKE -----------
-        axios.post(`/api/v1/user/dislike/comment/`, commentDislikeDataGet)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/dislike/comment/`, commentDislikeDataGet)
         .then(response => {
             if (response.data.disliked_true) {
                 setCommentDislikeData(response.data.disliked_true)
@@ -166,21 +166,21 @@ function Comments(props) {
                 setCommentDislikeData(response.data.disliked_false)
             }
         })
-        .catch(err => alert(err));
+        .catch(err => console.log(err));
 
     }, [])
 
 
     // COMMENT LIKE & DISLIKE COUNT FETCHING DATA (only this purpose) -----------
     function commentLikeManageFunc() {
-        axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/comment/`, commentDataGet)
         .then(response => {
             setCommentCountGettingData(response.data)
         }).catch(err => console.log("error from - user/comment.jsx line:172", err))
     }
     // COMMENT LIKE & DISLIKE COUNT FETCHING DATA (only this purpose) -----------
     useEffect(() => {
-        axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/comment/`, commentDataGet)
         .then(response => {
             setCommentCountGettingData(response.data)
         }).catch(err => console.log("error from - user/comment.jsx line:172", err))
@@ -301,28 +301,3 @@ function Comments(props) {
 }
 
 export default Comments
-
-// {
-//     "id": 1,
-//     "replied_channel": {
-//         "id": 3,
-//         "user": 3,
-//         "about": "about new channel",
-//         "created_at": "07 08 2021",
-//         "channel_name": "Debug media",
-//         "token": "1a1df72c4bca906ac794615c8d48f0159beececb",
-//         "logo": "/media/logo/Debug%20media/1.jpg",
-//         "subscribers": 0,
-//         "banner": "/media/logo/M4%20Tech/1432_sXQ2GEL.jpg",
-//         "is_active": true,
-//         "video_count": null
-//     },
-//     "reply": "hjk",
-//     "created_at": "11 08 2021",
-//     "token": "1a1df72c4bca906ac794615c8d48f0159beececb",
-//     "user": 3,
-//     "reply_received_channel": 1,
-//     "reply_received_video": 1,
-//     "received_parent_comment": 21
-// }
-// var x = 
