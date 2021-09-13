@@ -15,7 +15,7 @@ function WatchLater() {
     let user_channel = token['channelCookie']? token['channelCookie'] : 0
 
     useEffect(() => {
-        axios.get(`/api/v1/user/watch/later/${user_channel}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/user/watch/later/${user_channel}/`)
         .then((response) => {
             console.log(response.data);
             console.log(response.data.no_watch_later_videos);
@@ -26,7 +26,7 @@ function WatchLater() {
                 setApiWatchLaterVideos(response.data);
             }
         })
-        .catch((error) => {alert(error)})
+        .catch((error) => {console.log(error)})
     }, [])
 
     return (

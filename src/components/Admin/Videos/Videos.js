@@ -10,7 +10,7 @@ function UserList() {
     const [videoDiv, setVideoDiv] = useState(false)
     
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/display/video/', {
+        fetch('https://ytdj.athifsaheer.online/display/video/', {
             method: 'GET',
         })
         .then(responce => responce.json())

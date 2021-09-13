@@ -28,7 +28,7 @@ function UserList() {
     }, [token])
     
     useEffect(() => {
-        fetch('/api/v1/admin/channels/', {method: 'GET'})
+        fetch('https://ytdj.athifsaheer.online/api/v1/admin/channels/', {method: 'GET'})
         .then(responce => responce.json())
         .then(res => setChannelApi(res))
         .catch(res => setApiError(true))
@@ -36,7 +36,7 @@ function UserList() {
 
     function videoPopupFunc(channelID) {
         setVideoPopup(true);
-        fetch(`/api/v1/admin/popup/video/${channelID}/`, {method: 'GET'})
+        fetch(`https://ytdj.athifsaheer.online/api/v1/admin/popup/video/${channelID}/`, {method: 'GET'})
         .then(responce => responce.json())
         .then(res => {
             console.log(res);
@@ -50,9 +50,9 @@ function UserList() {
     }
 
     function blockChannelFunc(channelID) {
-        axios.get(`/api/v1/admin/block/channel/${channelID}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/admin/block/channel/${channelID}/`)
         .then(res => {
-            fetch('/api/v1/admin/channels/', {method: 'GET'})
+            fetch('https://ytdj.athifsaheer.online/api/v1/admin/channels/', {method: 'GET'})
             .then(responce => responce.json())
             .then(res => setChannelApi(res))
         })
@@ -64,9 +64,9 @@ function UserList() {
     }
 
     function unBlockChannelFunc(channelID) {
-        axios.get(`/api/v1/admin/unblock/channel/${channelID}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/admin/unblock/channel/${channelID}/`)
         .then(res => {
-            fetch('/api/v1/admin/channels/', {method: 'GET'})
+            fetch('https://ytdj.athifsaheer.online/api/v1/admin/channels/', {method: 'GET'})
             .then(responce => responce.json())
             .then(res => setChannelApi(res))
         })

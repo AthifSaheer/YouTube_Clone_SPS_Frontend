@@ -22,7 +22,7 @@ function VideoDetails(props) {
         if (user_channel == 0) {
             alert("Choose or create your channel.")
         } else {
-            axios.post(`/api/v1/user/subscribe/channel/`, postData)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/subscribe/channel/`, postData)
             .then(response => {
                 if (response.data.subscribed) {
                     setAPIData(response.data.subscribed)
@@ -41,12 +41,12 @@ function VideoDetails(props) {
                     alert(response.data.your_own_channel)
                 }
             })
-            .catch(err => alert(err));
+            .catch(err => console.log(err));
         }
     }
 
     useEffect(() => {
-        axios.post(`/api/v1/user/subscribe/channel/`, getData)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/subscribe/channel/`, getData)
         .then(response => {
             if (response.data.subscribed) {
                 setAPIData(response.data.subscribed)
@@ -54,7 +54,7 @@ function VideoDetails(props) {
                 setAPIData(response.data.unsubscribed)
             }
         })
-        .catch(err => alert(err));
+        .catch(err => console.log(err));
     }, [])
     
     const [comment, setComment] = useState("")
@@ -74,7 +74,7 @@ function VideoDetails(props) {
             alert("Please select or create channel.")
         } else if (comment != "") {
             // POST COMMENTS ----------------
-            axios.post(`/api/v1/user/add/comment/`, commentDataPost)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/comment/`, commentDataPost)
             .then(response => setComment(""))
             .catch(error => console.log(error))
 
@@ -82,7 +82,7 @@ function VideoDetails(props) {
             setLoading(true)
             setTimeout(function() {
                 setLoading(false)
-                axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+                axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/comment/`, commentDataGet)
                 .then(response => {
                     setCommentApiData(response.data)
                 }).catch(err => {setCommentApiError(true)})
@@ -93,7 +93,7 @@ function VideoDetails(props) {
     }
 
     useEffect(() => {
-        axios.post(`/api/v1/user/add/comment/`, commentDataGet)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/add/comment/`, commentDataGet)
         .then(response => {
             console.log(response.data);
             setCommentApiData(response.data)

@@ -14,7 +14,7 @@ function Explore() {
     const [apiExploreVideos, setApiExploreVideos] = useState([])
 
     useEffect(() => {
-        axios.get(`/api/v1/user/feed/explore/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/user/feed/explore/`)
         .then((response) => {
             console.log(response.data[0].no_videos);
             console.log(response.data);
@@ -25,7 +25,7 @@ function Explore() {
                 setApiExploreVideos(response.data);
             }
         })
-        .catch((error) => {alert(error)})
+        .catch((error) => {console.log(error)})
     }, [])
     return (
         <div className="app">

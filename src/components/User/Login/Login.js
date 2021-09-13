@@ -49,7 +49,7 @@ function Login() {
                     setToken('mytoken', resp.token)
                 }
             })
-            .catch(error => alert(error))
+            .catch(error => console.log(error))
         }
     }
 

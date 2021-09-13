@@ -3,7 +3,7 @@ import axios from 'axios';
 class APIService {
     static AdminLoginAPI(body) {
 
-        return fetch('/api/v1/admin/login/', {
+        return fetch('https://ytdj.athifsaheer.online/api/v1/admin/login/', {
         'method':'POST',
         headers: {
             'Content-Type':'application/json',

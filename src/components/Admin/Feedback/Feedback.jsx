@@ -27,7 +27,7 @@ function Feedback() {
     }, [token])
 
     useEffect(() => {
-        fetch('/api/v1/studio/send/feedback/')
+        fetch('https://ytdj.athifsaheer.online/api/v1/studio/send/feedback/')
         .then(responce => responce.json())
         .then(res => {
             setFeedbackData(res)

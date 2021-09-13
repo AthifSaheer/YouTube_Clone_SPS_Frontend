@@ -22,7 +22,7 @@ function Subscription(data) {
 
     useEffect(() => {
         if(loginedUser && loginedChannel)  {
-            axios.get(`/api/v1/user/feed/subscribers/video/${loginedChannel}/`)
+            axios.get(`https://ytdj.athifsaheer.online/api/v1/user/feed/subscribers/video/${loginedChannel}/`)
             .then((response) => {
                 console.log(response.data[0]);
 

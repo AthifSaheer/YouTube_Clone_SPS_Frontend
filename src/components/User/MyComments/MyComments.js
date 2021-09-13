@@ -20,7 +20,7 @@ function MyComments() {
 
     useEffect(() => {
         if(loginedUser && loginedChannel)  {
-            axios.get(`/api/v1/user/feed/my/comments/${loginedChannel}`)
+            axios.get(`https://ytdj.athifsaheer.online/api/v1/user/feed/my/comments/${loginedChannel}`)
             .then((response) => {
                 if (response.data[0].no_comments == "no_comments") {
                     setCommentsAPI(response.data[0].no_comments);

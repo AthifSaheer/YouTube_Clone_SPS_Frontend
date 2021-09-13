@@ -3,7 +3,7 @@ import axios from 'axios';
 class APIService {
     static LoginUser(body) {
 
-        return fetch('/api/v1/user/login/', {
+        return fetch('https://ytdj.athifsaheer.online/api/v1/user/login/', {
         'method':'POST',
         headers: {
             'Content-Type':'application/json',
@@ -18,7 +18,7 @@ class APIService {
     static RegisterUser(body) {
 
         console.log("body",body)
-        return fetch('/api/v1/user/register/account/', {
+        return fetch('https://ytdj.athifsaheer.online/api/v1/user/register/account/', {
         'method':'POST',
         headers: {
             'Content-Type':'application/json',
@@ -31,7 +31,7 @@ class APIService {
     }
 
     static CreateChannel(body) {
-        return axios.post('/api/v1/studio/create/channel/', body, {
+        return axios.post('https://ytdj.athifsaheer.online/api/v1/studio/create/channel/', body, {
           headers: {
               'Content-Type': 'multipart/form-data'
           }, 
@@ -41,7 +41,7 @@ class APIService {
     static UploadVideo(body) {
 
       console.log("body",body)
-      return axios.post('/api/v1/studio/upload/video/', body, {
+      return axios.post('https://ytdj.athifsaheer.online/api/v1/studio/upload/video/', body, {
       headers: {
           'Content-Type': 'multipart/form-data'
         }, 
@@ -51,7 +51,7 @@ class APIService {
 
     static DisplayVideo() {
 
-      return axios.get('/api/v1/user/display/video/')
+      return axios.get('https://ytdj.athifsaheer.online/api/v1/user/display/video/')
       .then(responce => responce.json())
       // .then(res => setData(res))
       // .catch(err => console.log(err))

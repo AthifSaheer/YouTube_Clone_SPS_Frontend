@@ -62,7 +62,7 @@ const Header = () => {
   function suggestionFunc() {}
 
   function notificationFunc() {
-    axios.get(`/api/v1/user/notifications/${channelToken}/`)
+    axios.get(`https://ytdj.athifsaheer.online/api/v1/user/notifications/${channelToken}/`)
     .then(response => {
       setNotificationAPI(response.data)
       var count = 0
@@ -81,7 +81,7 @@ const Header = () => {
   }, [])
   
   function ntfcSeenFalseFunc() {
-    axios.post(`/api/v1/user/notifications/${channelToken}/`, {'channel': channelToken})
+    axios.post(`https://ytdj.athifsaheer.online/api/v1/user/notifications/${channelToken}/`, {'channel': channelToken})
     notificationFunc()
   }
 

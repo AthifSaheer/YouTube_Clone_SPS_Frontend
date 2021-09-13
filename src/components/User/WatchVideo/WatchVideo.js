@@ -27,7 +27,7 @@ function WatchVideo() {
     const postData = {"token": user_token, "liked_channel": liked_channel, "liked_video": videoID, "method":"post"}
 
     function watchVideoFunc() {
-        fetch(`/api/v1/user/watch/video/${videoID}/`, {
+        fetch(`https://ytdj.athifsaheer.online/api/v1/user/watch/video/${videoID}/`, {
             method: 'GET',
         })
         .then(responce => responce.json())
@@ -44,7 +44,7 @@ function WatchVideo() {
         } else if (liked_channel == 0) {
             alert("Please select or create channel...?")
         } else {
-            axios.post(`/api/v1/user/like/video/`, postData)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/like/video/`, postData)
             .then(response => {
                 if (response.data.liked && response.data.disliked_false) {
                     setVideoLikeData(response.data.liked)
@@ -59,7 +59,7 @@ function WatchVideo() {
                     alert(response.data.invalid_request)
                 }
             })
-            .catch(err => alert(err));
+            .catch(err => console.log(err));
         }
     }
 
@@ -69,7 +69,7 @@ function WatchVideo() {
         } else if (liked_channel == 0) {
             alert("Please select or create channel...?")
         } else {
-            axios.post(`/api/v1/user/dislike/video/`, postData)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/dislike/video/`, postData)
             .then(response => {
                 if (response.data.disliked_true && response.data.disliked) {
                     setVideoLikeData(response.data.disliked)
@@ -84,13 +84,13 @@ function WatchVideo() {
                     alert(response.data.invalid_request)
                 }
             })
-            .catch(err => alert(err));
+            .catch(err => console.log(err));
         }
     }
 
     useEffect(() => {
         // LIKE -----------
-        axios.post(`/api/v1/user/like/video/`, getData)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/like/video/`, getData)
         .then(response => {
             if (response.data.liked) {
                 setVideoLikeData(response.data.liked)
@@ -98,10 +98,10 @@ function WatchVideo() {
                 setVideoLikeData(response.data.disliked)
             }
         })
-        .catch(err => alert(err));
+        .catch(err => console.log(err));
 
         // DISLIKE -----------
-        axios.post(`/api/v1/user/dislike/video/`, getData)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/dislike/video/`, getData)
         .then(response => {
             if (response.data.disliked_true) {
                 setVideoDislikeData(response.data.disliked_true)
@@ -109,7 +109,7 @@ function WatchVideo() {
                 setVideoDislikeData(response.data.disliked_false)
             }
         })
-        .catch(err => alert(err));
+        .catch(err => console.log(err));
     }, [])
 
     
@@ -117,7 +117,7 @@ function WatchVideo() {
         console.log(e.target.currentTime)
         var currentTime = e.target.currentTime;
         if (currentTime > 5 && currentTime < 5.5) {
-            axios.get(`/api/v1/user/update/video/count/${videoID}/`)
+            axios.get(`https://ytdj.athifsaheer.online/api/v1/user/update/video/count/${videoID}/`)
             watchVideoFunc()
         }
     }

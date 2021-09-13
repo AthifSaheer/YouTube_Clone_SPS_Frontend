@@ -54,7 +54,7 @@ function Login() {
                     setToken('mytoken', resp.token)
                 }
             }) // console.log(resp)
-            .catch(error => alert(error))
+            .catch(error => console.log(error))
         }
     }
 
@@ -95,7 +95,7 @@ function Login() {
         if (username && password && confirmPassword) {
             APIService.RegisterUser({username, password})
             .then(() => loginBtn() )
-            .catch(error => alert(error))
+            .catch(error => console.log(error))
         }
 
         

@@ -29,7 +29,7 @@ function Search() {
     }
     useEffect(() => {
         if (filterUploadDate == 'last_hour') {
-            let url = '/api/v1/user/search/filter/last_hour/'
+            let url = 'https://ytdj.athifsaheer.online/api/v1/user/search/filter/last_hour/'
             fetch(url, {method: 'GET'})
             .then(responce => responce.json())
             .then(res => {
@@ -47,7 +47,7 @@ function Search() {
                 }
             })
         } else if (filterUploadDate == 'this_week') {
-            let url = '/api/v1/user/search/filter/this_week/'
+            let url = 'https://ytdj.athifsaheer.online/api/v1/user/search/filter/this_week/'
             fetch(url, {method: 'GET'})
             .then(responce => responce.json())
             .then(res => {
@@ -65,7 +65,7 @@ function Search() {
                 }
             })
         } else if (filterSortBy == 'view_count') {
-            let url = '/api/v1/user/search/filter/view_count/'
+            let url = 'https://ytdj.athifsaheer.online/api/v1/user/search/filter/view_count/'
             fetch(url, {method: 'GET'})
             .then(responce => responce.json())
             .then(res => {
@@ -84,7 +84,7 @@ function Search() {
                 }
             })
         } else if (filterSortBy == 'upload_date') {
-            let url = '/api/v1/user/search/filter/upload_date'
+            let url = 'https://ytdj.athifsaheer.online/api/v1/user/search/filter/upload_date'
             fetch(url, {method: 'GET'})
             .then(responce => responce.json())
             .then(res => {
@@ -104,7 +104,7 @@ function Search() {
             })
         } else {
             // SEARCH VIDEO --------------------------------
-            fetch(`/api/v1/user/search/video/${searchKeyword}/`, {
+            fetch(`https://ytdj.athifsaheer.online/api/v1/user/search/video/${searchKeyword}/`, {
                 method: 'GET',
             })
             .then(responce => responce.json())
@@ -118,7 +118,7 @@ function Search() {
             })
 
             // SEARCH CHANNEL --------------------------------
-            fetch(`/api/v1/user/search/channel/${searchKeyword}/`, {
+            fetch(`https://ytdj.athifsaheer.online/api/v1/user/search/channel/${searchKeyword}/`, {
                 method: 'GET',
             })
             .then(responce => responce.json())

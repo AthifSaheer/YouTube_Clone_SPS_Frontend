@@ -22,7 +22,7 @@ function ChannelSearchResult(props) {
         if (user_channel == 0) {
             alert("Choose or create your channel.")
         } else {
-            axios.post(`/api/v1/user/subscribe/channel/`, postData)
+            axios.post(`https://ytdj.athifsaheer.online/api/v1/user/subscribe/channel/`, postData)
             .then(response => {
                 if (response.data.subscribed) {
                     setAPIData(response.data.subscribed)
@@ -41,12 +41,12 @@ function ChannelSearchResult(props) {
                     alert(response.data.your_own_channel)
                 }
             })
-            .catch(err => alert(err));
+            .catch(err => console.log(err));
         }
     }
 
     useEffect(() => {
-        axios.post(`/api/v1/user/subscribe/channel/`, getData)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/subscribe/channel/`, getData)
         .then(response => {
             if (response.data.subscribed) {
                 setAPIData(response.data.subscribed)
@@ -54,7 +54,7 @@ function ChannelSearchResult(props) {
                 setAPIData(response.data.unsubscribed)
             }
         })
-        .catch(err => alert(err));
+        .catch(err => console.log(err));
     }, [])
 
     return (

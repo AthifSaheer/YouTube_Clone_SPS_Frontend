@@ -16,7 +16,7 @@ function LikedVideos() {
     let loginedChannel = token['channelCookie']? token['channelCookie'] : 0
 
     useEffect(() => {
-        axios.get(`/api/v1/user/feed/liked/videos/${loginedChannel}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/user/feed/liked/videos/${loginedChannel}/`)
         .then((response) => {
             console.log(response.data[0].no_videos);
             console.log(response.data);

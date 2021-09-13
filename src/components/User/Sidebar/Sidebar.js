@@ -18,7 +18,7 @@ const Sidebar = () => {
 
     useEffect(() => {
         if(loginedUser && loginedChannel)  {
-            axios.get(`/api/v1/user/feed/subscribers/channel/${loginedChannel}/`)
+            axios.get(`https://ytdj.athifsaheer.online/api/v1/user/feed/subscribers/channel/${loginedChannel}/`)
             .then((response) => {
                 console.log(response.data[0]);
 

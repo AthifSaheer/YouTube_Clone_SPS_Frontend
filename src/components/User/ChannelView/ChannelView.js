@@ -38,7 +38,7 @@ function ChannelView() {
     
     useEffect(() => {
         // CHANNEL --------
-        axios.get(`/api/v1/user/channel/${channelID}/`) // 
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/user/channel/${channelID}/`) // 
         // .then(res => res.json())
         .then(res => {
             console.log(res.data.subscribers);
@@ -52,7 +52,7 @@ function ChannelView() {
         })
 
         // VIDEOS ------
-        axios.get(`/api/v1/user/channel/video/${channelID}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/user/channel/video/${channelID}/`)
         .then(res => {
             console.log(res.data.videos_not_found);
             if (res.data.videos_not_found != undefined) {
@@ -65,11 +65,11 @@ function ChannelView() {
         .catch(error => {
             setVideosNotFound(true);
             setVideoData([])
-            alert(error.message)
+            console.log(error.message)
         })
 
         // CHANNEL HOME VIDEOS ------
-        axios.get(`/api/v1/user/channel/home/${channelID}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/user/channel/home/${channelID}/`)
         .then(res => {
             console.log(res.data.videos_not_found);
             if (res.data.videos_not_found != undefined) {
@@ -82,11 +82,11 @@ function ChannelView() {
         .catch(error => {
             setChannelHomeVideoNotFount(true);
             setChannelHomeVideoData([])
-            alert(error.message)
+            console.log(error.message)
         })
 
         // CHANNEL SUBSCRIBE -------
-        axios.post(`/api/v1/user/subscribe/channel/`, getData)
+        axios.post(`https://ytdj.athifsaheer.online/api/v1/user/subscribe/channel/`, getData)
         .then(response => {
             if (response.data.subscribed) {
                 setAPIData(response.data.subscribed)
@@ -94,7 +94,7 @@ function ChannelView() {
                 setAPIData(response.data.unsubscribed)
             }
         })
-        .catch(err => alert(err));
+        .catch(err => console.log(err));
 
         
     }, [channelID])
@@ -122,7 +122,7 @@ function ChannelView() {
                     alert(response.data.your_own_channel)
                 }
             })
-            .catch(err => alert(err));
+            .catch(err => console.log(err));
         }
     }
     

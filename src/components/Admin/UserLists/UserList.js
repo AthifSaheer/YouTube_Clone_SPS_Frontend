@@ -28,16 +28,16 @@ function UserList() {
     }, [token])
 
     useEffect(() => {
-        fetch('/api/v1/admin/users/', { method: 'GET'})
+        fetch('https://ytdj.athifsaheer.online/api/v1/admin/users/', { method: 'GET'})
         .then(responce => responce.json())
         .then(res => setUserData(res))
         .catch(res => setApiError(true))
     }, [])
 
     function blockUserFunc(userID) {
-        axios.get(`/api/v1/admin/block/user/${userID}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/admin/block/user/${userID}/`)
         .then(res => {
-            fetch('/api/v1/admin/users/', { method: 'GET'})
+            fetch('https://ytdj.athifsaheer.online/api/v1/admin/users/', { method: 'GET'})
             .then(responce => responce.json())
             .then(res => setUserData(res))
         })
@@ -49,9 +49,9 @@ function UserList() {
     }
 
     function unBlockUserFunc(userID) {
-        axios.get(`/api/v1/admin/unblock/user/${userID}/`)
+        axios.get(`https://ytdj.athifsaheer.online/api/v1/admin/unblock/user/${userID}/`)
         .then(res => {
-            fetch('/api/v1/admin/users/', { method: 'GET'})
+            fetch('https://ytdj.athifsaheer.online/api/v1/admin/users/', { method: 'GET'})
             .then(responce => responce.json())
             .then(res => setUserData(res))
         })
