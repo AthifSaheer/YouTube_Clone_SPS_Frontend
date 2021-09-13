@@ -24,7 +24,7 @@ const VideoCard = (props) => {
     } else if (!user_channel) {
       alert('Please select or create your channel!')
     } else {
-      axios.post(`/api/v1/user/watch/later/${user_channel}/`, postData)
+      axios.post(`https://ytdj.athifsaheer.online/api/v1/user/watch/later/${user_channel}/`, postData)
       .then(response => {
           if (response.data.watch_later_applied) {
               setAPIWatchLater(response.data.watch_later_applied)
@@ -34,12 +34,12 @@ const VideoCard = (props) => {
               setAPIWatchLater(response.data.created_watch_later_applied)
           }
       })
-      .catch(err => alert(err));
+      .catch(err => console.log(err));
     }
   }
 
   useEffect(() => {
-    axios.post(`/api/v1/user/watch/later/${user_channel}/`, getData)
+    axios.post(`https://ytdj.athifsaheer.online/api/v1/user/watch/later/${user_channel}/`, getData)
     .then(response => {
         if (response.data.watch_later_applied) {
             setAPIWatchLater(response.data.watch_later_applied)
@@ -47,7 +47,7 @@ const VideoCard = (props) => {
             setAPIWatchLater(response.data.watch_later_disapplied)
         }
     })
-    .catch(err => alert(err));
+    .catch(err => console.log(err));
   }, [])
 let node = "2016-06-30 09:20:00"
   return (
